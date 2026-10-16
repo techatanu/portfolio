@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atanu Adhikari — Portfolio coming soon</title>
+<meta name="description" content="Atanu Adhikari — AI/ML portfolio coming soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b0d12; --fg:#e8eaf0; --muted:#8a90a2; --accent:#7c9cff; --accent2:#5eead4; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body {
+    background:var(--bg); color:var(--fg);
+    font-family:Inter,system-ui,sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px 16px; overflow:hidden; position:relative;
+  }
+  canvas { position:fixed; inset:0; z-index:0; opacity:.55; }
+  main { position:relative; z-index:1; max-width:640px; text-align:center; }
+  .tag {
+    display:inline-block; font-family:"JetBrains Mono",monospace; font-size:13px;
+    color:var(--accent2); border:1px solid rgba(94,234,212,.35);
+    padding:6px 12px; border-radius:999px; margin-bottom:28px;
+  }
+  .tag::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:var(--accent2); margin-right:8px; vertical-align:1px; animation:pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity:.25; } }
+  h1 { font-size:clamp(40px,9vw,72px); font-weight:800; letter-spacing:-.03em; line-height:1.05; }
+  h1 span { background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  p.sub { margin-top:18px; font-size:clamp(16px,2.6vw,19px); color:var(--muted); line-height:1.6; }
+  footer { margin-top:48px; font-family:"JetBrains Mono",monospace; font-size:12px; color:#5a6072; }
+</style>
+</head>
+<body>
+<canvas id="net"></canvas>
+<main>
+  <div class="tag">building something</div>
+  <h1>Atanu <span>Adhikari</span></h1>
+  <p class="sub">AI/ML &amp; full-stack developer.<br>My portfolio is on its way — check back soon.</p>
+  <footer>atanu.online</footer>
+</main>
+<script>
+  // Subtle neural-network style background
+  const c = document.getElementById('net'), x = c.getContext('2d');
+  let W, H, pts = [];
+  function size() {
+    W = c.width = innerWidth; H = c.height = innerHeight;
+    const n = Math.min(70, Math.floor(W * H / 18000));
+    pts = Array.from({length:n}, () => ({x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35}));
+  }
+  function draw() {
+    x.clearRect(0,0,W,H);
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x<0||p.x>W) p.vx*=-1; if (p.y<0||p.y>H) p.vy*=-1;
+    }
+    for (let i=0;i<pts.length;i++) for (let j=i+1;j<pts.length;j++) {
+      const a=pts[i], b=pts[j], d=Math.hypot(a.x-b.x,a.y-b.y);
+      if (d<140) { x.strokeStyle=`rgba(124,156,255,${(1-d/140)*.35})`; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.stroke(); }
+    }
+    x.fillStyle='rgba(94,234,212,.8)';
+    for (const p of pts) { x.beginPath(); x.arc(p.x,p.y,1.8,0,7); x.fill(); }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', size); size(); draw();
+</script>
+</body>
+</html>

@@ -42,8 +42,9 @@ html {
   background: var(--bg);
 }
 
+/* No background on body: with html painting the void, an opaque body would be drawn
+   over every negative z-index layer (the Backdrop and the WebGL canvas) and hide them. */
 body {
-  background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   overflow-x: clip;

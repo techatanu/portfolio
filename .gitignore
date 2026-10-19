@@ -48,3 +48,8 @@ next-env.d.ts
 /Profile*.pdf
 /Atanu_Adhikari.jpeg
 Icon?
+
+# playwright
+/test-results/
+/playwright-report/
+/tests/__screenshots__/

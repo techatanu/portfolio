@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* ── Design tokens (spec §2.3). Shaders read the same values in Phase 3+. */
+:root {
+  --bg: #050506;
+  --bg-elev: #0c0d10;
+  --fg: #e8eaf0;
+  --fg-muted: #8a8f9c;
+  --line: rgba(232, 234, 240, 0.12);
+  --line-strong: rgba(232, 234, 240, 0.24);
+  --glow: #cfe3ff;
+  --accent-blue: #5b8cff;
+  --accent-amber: #ffb36b;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-glow: var(--glow);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-amber: var(--accent-amber);
+
+  --font-display: var(--font-clash), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-satoshi), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-hero: clamp(3.5rem, 12vw, 11rem);
+  --text-display: clamp(2.5rem, 6vw, 5.5rem);
+
+  --radius-arch: 2px;
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-power3-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ── Base */
+html {
+  color-scheme: dark;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--glow);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 1px solid var(--glow);
+  outline-offset: 3px;
+}
+
+/* ── Components */
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase;
+  }
+
+  .chip {
+    @apply rounded-arch border border-line px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.04em] text-fg;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-2.5 rounded-arch border border-line bg-bg-elev/60 px-3 py-1.5 font-mono text-xs tracking-[0.06em] text-fg;
+  }
+
+  .badge-dot {
+    @apply relative size-2 rounded-full bg-accent-amber;
+    box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent-amber) 55%, transparent);
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-arch px-4 font-mono text-xs tracking-[0.1em] uppercase transition-colors duration-300 ease-expo-out;
+  }
+
+  .btn-primary {
+    @apply bg-accent-amber text-bg hover:bg-fg;
+  }
+
+  .btn-ghost {
+    @apply border border-line text-fg hover:border-fg-muted hover:bg-fg/5;
+  }
+
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
+    transition:
+      background-size 0.4s var(--ease-expo-out),
+      color 0.3s;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .exhibit {
+    @apply rounded-arch border border-line bg-bg-elev/70 backdrop-blur-[2px];
+  }
+
+  .timeline-node {
+    @apply absolute top-1 -left-[5px] size-[9px] rounded-full border border-fg-muted bg-bg;
+  }
+
+  .skip-link {
+    @apply fixed top-3 left-3 z-[100] -translate-y-20 rounded-arch bg-fg px-4 py-2 font-mono text-xs text-bg uppercase focus:translate-y-0;
+  }
+}
+
+/* Dev-only: unresolved TODO(atanu) copy (stripped from production builds). */
+[data-todo] {
+  outline: 1px dashed var(--accent-amber);
+  outline-offset: 4px;
+}
+
+/* ── Static backdrop: pre-Canvas view and reduced-motion / no-WebGL fallback. */
+.backdrop {
+  background: var(--bg);
+}
+.backdrop-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 45% at 50% -5%, color-mix(in srgb, var(--glow) 14%, transparent), transparent 70%),
+    radial-gradient(40% 30% at 85% 105%, color-mix(in srgb, var(--accent-blue) 8%, transparent), transparent 70%);
+}
+.backdrop-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(232, 234, 240, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(232, 234, 240, 0.035) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
+}
+.backdrop-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.7));
+}
+
+/* ── Motion */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 0.5;
+  }
+}
+.scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-power3-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

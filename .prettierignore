@@ -1,0 +1,12 @@
+.next/
+out/
+node_modules/
+.venv/
+.u2net/
+public/
+design/
+references/
+test-results/
+playwright-report/
+package-lock.json
+*.md

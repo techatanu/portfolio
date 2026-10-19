@@ -79,12 +79,35 @@ export const chapters = [
   { id: "contact", hud: "CH.06 / TRANSMISSION", title: "Open a channel" },
 ] as const;
 
+// ─────────────────────────────────────────────────────────────── nav + shared UI labels  [DRAFT]
+export const nav = {
+  skipLink: "Skip to content",
+  links: [
+    { label: "About", href: "#origin" },
+    { label: "Work", href: "#artifacts" },
+    { label: "Contact", href: "#contact" },
+  ],
+};
+
+export const labels = {
+  featured: "Featured case study",
+  problem: "Problem",
+  approach: "Approach",
+  results: "Results",
+  next: "What's next",
+  stack: "Stack",
+  role: "Role",
+  repo: "GitHub",
+  live: "Live demo",
+};
+
 // ─────────────────────────────────────────────────────────────── CH.00 hero  [DRAFT]
 export const hero = {
   kicker: "INITIALIZING SIGNAL",
   name: profile.name,
   role: profile.role,
   badge: "Open to remote AI/ML internships",
+  primaryCta: "Email me",
   scrollCue: "Scroll to follow the signal",
   portraitAlt: "Portrait of Atanu Adhikari",
 };
@@ -224,7 +247,8 @@ export const projects: Project[] = [
     title: "MediTrack",
     oneLiner: "A personal health-record manager: upload, organise and share medical reports securely.", // [GH]
     tags: "Full-stack · MERN · Solo",
-    problem: "Medical reports end up scattered across photos, chats and paper files — hard to find exactly when you need them.", // [GH]
+    problem:
+      "Medical reports end up scattered across photos, chats and paper files — hard to find exactly when you need them.", // [GH]
     approach: [
       "React + React Router front end on Vercel; Node/Express REST API on Render; MongoDB Atlas.", // [GH] [CV]
       "JWT auth with role-based access (admin / user) and full CRUD for reports.", // [GH] [CV]
@@ -284,7 +308,8 @@ export const projects: Project[] = [
     title: "Private Network Service Platform",
     oneLiner: "Own DNS → nginx HTTPS edge → two load-balanced backends, every hop verified.", // [GH]
     tags: "Computer Networks · Team of 3 · Oct 2026",
-    problem: "Build a private service on three laptops where the network — not the app — is the project, and prove each step works.", // [GH]
+    problem:
+      "Build a private service on three laptops where the network — not the app — is the project, and prove each step works.", // [GH]
     approach: [
       "Private DNS with dnsmasq resolving app.team1.test and api.team1.test.", // [GH]
       "I ran the edge: nginx reverse proxy with TLS termination and load balancing across two backends.", // [GH] team table (Mac 2)

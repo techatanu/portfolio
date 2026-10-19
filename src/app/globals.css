@@ -105,6 +105,11 @@ body {
     @apply rounded-arch border border-line bg-bg-elev/70 backdrop-blur-[2px];
   }
 
+  .contact-panel {
+    @apply bg-bg-elev/70 backdrop-blur-[2px];
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+
   .timeline-node {
     @apply absolute top-1 -left-[5px] size-[9px] rounded-full border border-fg-muted bg-bg;
   }
@@ -162,7 +167,26 @@ body {
   animation: scroll-cue 2.4s var(--ease-power3-in-out) infinite;
 }
 
+/* Hero photo reveal: CSS-only so it always appears (no JS / no WebGL / slow load).
+   PortraitParticles cancels it and assembles the photo from dust instead. */
+@keyframes portrait-reveal {
+  to {
+    opacity: 1;
+  }
+}
+.portrait-reveal {
+  opacity: 0;
+  animation: portrait-reveal 0.9s var(--ease-expo-out) 1.4s forwards;
+}
+.portrait-reveal[data-portrait="particles"] {
+  animation: none;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .portrait-reveal {
+    animation-delay: 0s !important;
+  }
   *,
   *::before,
   *::after {

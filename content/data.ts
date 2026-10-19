@@ -443,16 +443,30 @@ export const manifesto: string[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────── CH.06 contact  [DRAFT]
+// Layout: Figma "Transmission (Minimal Centred)" — chosen at checkpoint 1.
 export const contact = {
   heading: "Open a channel.",
   body: "Hiring an AI/ML or full-stack intern? My inbox is open.",
+  uplink: "Direct uplink",
+  emailLabel: "Direct line",
   copyLabel: "Copy email",
   copiedLabel: "Copied ✓",
   links: [
     { label: "GitHub", href: profile.github },
     { label: "LinkedIn", href: profile.linkedin },
-    { label: "Résumé", href: profile.resumeUrl },
+    { label: "Résumé (PDF)", href: profile.resumeUrl },
   ],
+  // The Figma cards had invented stats (availability dates, response times); these are sourced facts.
+  signals: [
+    { label: "01 // Availability", value: "Remote AI/ML internships", detail: "Also open to full-stack roles." }, // [SPEC] [LI] [CV]
+    {
+      label: "02 // Focus",
+      value: "ML models · LLM agents · Full-stack",
+      detail: "Python, scikit-learn, PyTorch, LangGraph, React.", // [LI] [CV]
+    },
+    { label: "03 // Base", value: "Sonipat, Haryana", detail: "Rishihood University · IST (UTC+5:30)" }, // [SPEC] [CV]
+  ],
+  footerLabel: "Station",
 };
 
 // ─────────────────────────────────────────────────────────────── boot loader

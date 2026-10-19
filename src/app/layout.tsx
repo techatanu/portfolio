@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { nav, profile } from "@content/data";
+import { Experience } from "@/components/canvas/Experience";
 import { PerfProvider } from "@/components/providers/PerfProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Backdrop } from "@/components/ui/Backdrop";
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Backdrop />
         <SmoothScroll />
         <PerfProvider />
+        <Experience />
         <Nav />
         <ProgressRail />
         <main id="main">{children}</main>

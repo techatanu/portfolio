@@ -1,22 +1,19 @@
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { contact, hero, profile } from "@content/data";
 import { chapterById } from "@/lib/chapters";
+import { HeroPortrait } from "@/components/ui/HeroPortrait";
 import { ChapterShell } from "./ChapterShell";
 
 export function Hero() {
   const [first, ...rest] = hero.name.split(" ");
   return (
-    <ChapterShell id="hero" heading={false} className="isolate flex flex-col justify-end overflow-hidden pt-28 pb-10 md:pb-14">
-      {/* Portrait: behind the name on mobile, to the right on desktop. Phase 5 swaps in the particle assembly. */}
-      {/* eslint-disable-next-line @next/next/no-img-element -- static export, image is pre-optimised */}
-      <img
-        src="/images/atanu-hero.webp"
-        alt={hero.portraitAlt}
-        width={651}
-        height={826}
-        fetchPriority="high"
-        className="pointer-events-none absolute right-0 bottom-0 -z-10 h-[78svh] w-auto max-w-none object-contain object-bottom opacity-45 select-none md:right-[6%] md:h-[88svh] md:opacity-90"
-      />
+    <ChapterShell
+      id="hero"
+      heading={false}
+      className="isolate flex flex-col justify-end overflow-hidden pt-28 pb-10 md:pb-14"
+    >
+      {/* Portrait: behind the name on mobile, to the right on desktop. Dissolves into particles on scroll. */}
+      <HeroPortrait />
 
       <p className="eyebrow">{chapterById("hero").hud}</p>
 

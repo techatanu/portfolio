@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { nav, profile } from "@content/data";
+import { hero, nav, profile } from "@content/data";
 import { Experience } from "@/components/canvas/Experience";
 import { PerfProvider } from "@/components/providers/PerfProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Backdrop } from "@/components/ui/Backdrop";
+import { Cursor } from "@/components/ui/Cursor";
 import { Nav } from "@/components/ui/Nav";
 import { ProgressRail } from "@/components/ui/ProgressRail";
 import "lenis/dist/lenis.css";
@@ -40,8 +41,8 @@ const jetbrains = localFont({
 // Full SEO (OG image, JSON-LD, sitemap) lands in Phase 6.
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
-  title: `${profile.shortName} — AI/ML Engineer in the making`,
-  description: `${profile.name} — ${profile.role}. ${profile.tagline} ${profile.openTo}.`,
+  title: `${profile.name} — AI/ML Engineer & Full-Stack Developer`,
+  description: `${profile.name} — ${profile.role}. ${hero.summary} Open to ${profile.openTo.toLowerCase()}.`,
   alternates: { canonical: "/" },
 };
 
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav />
         <ProgressRail />
         <main id="main">{children}</main>
+        <Cursor />
       </body>
     </html>
   );

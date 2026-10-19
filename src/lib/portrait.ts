@@ -8,6 +8,7 @@
  * clumped a little by value noise and a gentle bottom-to-top sweep, so the
  * photo breaks up in scattered pixels and the face goes last.
  */
+import { mulberry32 } from "./random";
 import type { PerfTier } from "./store";
 
 export const PORTRAIT_SRC = "/images/atanu-hero.webp";
@@ -28,17 +29,6 @@ export type PortraitData = {
   seed: Float32Array;
   delay: Float32Array;
 };
-
-/** Deterministic PRNG so the dissolve pattern is the same on every visit. */
-function mulberry32(seed: number) {
-  return () => {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 /** Hash of an integer lattice point → 0..1. */
 function hash2(x: number, y: number) {

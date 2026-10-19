@@ -71,6 +71,9 @@ export const portraitFragment = /* glsl */ `
 
     float alpha = vAlpha * fade * uOpacity;
     if (alpha < 0.01) discard;
-    gl_FragColor = vec4(col, alpha);
+    // Luminance was sampled from an sRGB image: convert to linear so post-processing and
+    // three's output encoding (colorspace_fragment) treat it like every other surface.
+    gl_FragColor = vec4(pow(clamp(col, 0.0, 1.0), vec3(2.2)), alpha);
+    #include <colorspace_fragment>
   }
 `;

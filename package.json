@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-gpu-benchmarks.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-gpu-benchmarks.mjs",
     "build": "next build",
     "preview": "python3 -m http.server 4173 --directory out",
     "lint": "eslint",

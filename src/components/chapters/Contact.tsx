@@ -22,10 +22,10 @@ export function Contact() {
             <span key={pos} aria-hidden="true" className={`absolute size-4 border-fg-muted ${pos}`} />
           ))}
 
-          <p className="eyebrow inline-flex items-center gap-3 rounded-arch border border-line px-3 py-1.5">
-            <span aria-hidden="true" className="size-1.5 bg-accent-amber" />
+          <p className="inline-flex items-center gap-3 rounded-arch border border-line px-3 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] text-accent-blue uppercase">
+            <span aria-hidden="true" className="size-1.5 bg-accent-blue" />
             {chapterById("contact").hud}
-            <span className="hidden text-fg-muted/60 sm:inline">{contact.uplink}</span>
+            <span className="hidden text-fg-muted sm:inline">{chapterById("contact").title}</span>
           </p>
 
           <h2
@@ -34,7 +34,7 @@ export function Contact() {
           >
             {contact.heading}
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-base text-fg-muted md:text-lg">{contact.body}</p>
+          <p className="mx-auto mt-5 max-w-md text-base text-fg-body md:text-lg">{contact.body}</p>
 
           <div className="mx-auto mt-10 flex max-w-xl flex-col items-stretch gap-4 rounded-arch border border-line bg-bg/60 p-4 text-left sm:flex-row sm:items-center sm:justify-between md:p-5">
             <div className="min-w-0">

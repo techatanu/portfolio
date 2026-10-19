@@ -5,14 +5,26 @@ import { ChapterShell } from "./ChapterShell";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function Bullets({ items, className = "" }: { items: string[]; className?: string }) {
+function Bullets({
+  items,
+  className = "",
+  highlight = false,
+}: {
+  items: string[];
+  className?: string;
+  /** Results: brighter text and an accent marker so outcomes stand out from method. */
+  highlight?: boolean;
+}) {
   const shown = copyList(items);
   if (!shown.length) return null;
   return (
     <ul className={`space-y-2 ${className}`}>
       {shown.map((item) => (
-        <li key={item} className="flex gap-3 text-fg-muted" {...todoAttr(item)}>
-          <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-fg-muted" />
+        <li key={item} className={`flex gap-3 ${highlight ? "text-fg" : "text-fg-body"}`} {...todoAttr(item)}>
+          <span
+            aria-hidden="true"
+            className={`mt-[0.7em] h-px w-3 shrink-0 ${highlight ? "bg-accent-blue" : "bg-fg-muted"}`}
+          />
           <span>{item}</span>
         </li>
       ))}
@@ -30,7 +42,7 @@ function Links({ project }: { project: Project }) {
         <span className="sr-only">— {project.title}</span>
       </a>
       {project.live ? (
-        <a href={project.live} className="btn-ghost" target="_blank" rel="noreferrer">
+        <a href={project.live} className="btn-accent" target="_blank" rel="noreferrer">
           {labels.live}
           <ArrowUpRight aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
           <span className="sr-only">— {project.title}</span>
@@ -58,21 +70,21 @@ function Stack({ items }: { items: string[] }) {
 
 function FeaturedExhibit({ project, index, total }: { project: Project; index: number; total: number }) {
   const sections = [
-    { label: labels.approach, items: project.approach },
-    { label: labels.results, items: project.results },
-    { label: labels.next, items: project.next },
+    { label: labels.approach, items: project.approach, highlight: false },
+    { label: labels.results, items: project.results, highlight: true },
+    { label: labels.next, items: project.next, highlight: false },
   ];
   const problem = copy(project.problem);
   const role = copy(project.role);
   return (
-    <article aria-labelledby={`${project.slug}-title`} className="exhibit p-6 md:p-10 lg:p-12">
+    <article aria-labelledby={`${project.slug}-title`} data-cursor="view" className="exhibit p-6 md:p-10 lg:p-12">
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
         <span className="text-accent-amber">{labels.featured}</span>
         <span>
           {pad(index + 1)} / {pad(total)}
         </span>
       </div>
-      <p className="mt-8 font-mono text-xs tracking-[0.08em] text-fg-muted uppercase">{project.tags}</p>
+      <p className="mt-8 font-mono text-xs tracking-[0.08em] text-accent-blue uppercase">{project.tags}</p>
       <h3
         id={`${project.slug}-title`}
         className="mt-3 font-display text-4xl font-semibold tracking-[-0.03em] md:text-6xl"
@@ -86,7 +98,7 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
           {problem && (
             <div>
               <h4 className="eyebrow">{labels.problem}</h4>
-              <p className="mt-3 text-fg-muted" {...todoAttr(problem)}>
+              <p className="mt-3 text-fg-body" {...todoAttr(problem)}>
                 {problem}
               </p>
             </div>
@@ -94,7 +106,7 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
           {role && (
             <div>
               <h4 className="eyebrow">{labels.role}</h4>
-              <p className="mt-3 text-fg-muted" {...todoAttr(role)}>
+              <p className="mt-3 text-fg-body" {...todoAttr(role)}>
                 {role}
               </p>
             </div>
@@ -111,7 +123,7 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
             copyList(s.items).length ? (
               <div key={s.label}>
                 <h4 className="eyebrow">{s.label}</h4>
-                <Bullets items={s.items} className="mt-3" />
+                <Bullets items={s.items} highlight={s.highlight} className="mt-3" />
               </div>
             ) : null,
           )}
@@ -127,9 +139,9 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
 
 function Exhibit({ project, index, total }: { project: Project; index: number; total: number }) {
   return (
-    <article aria-labelledby={`${project.slug}-title`} className="exhibit flex flex-col p-6 md:p-8">
+    <article aria-labelledby={`${project.slug}-title`} data-cursor="view" className="exhibit flex flex-col p-6 md:p-8">
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
-        <span>{project.tags}</span>
+        <span className="text-accent-blue">{project.tags}</span>
         <span aria-hidden="true">
           {pad(index + 1)} / {pad(total)}
         </span>

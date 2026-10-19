@@ -34,7 +34,7 @@ export function HeroPortrait() {
   return (
     <div
       id="hero-portrait-frame"
-      className="pointer-events-none absolute right-0 bottom-0 -z-10 h-[78svh] opacity-45 select-none md:right-[4%] md:h-[88svh] md:opacity-55 lg:right-[6%] lg:opacity-90"
+      className="pointer-events-none absolute right-0 bottom-0 -z-10 h-[78svh] opacity-45 select-none md:right-[4%] md:h-[88svh] md:opacity-55 lg:right-[6%] lg:opacity-100"
     >
       <div id="hero-portrait-reveal" ref={reveal} className="portrait-reveal h-full">
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, image is pre-optimised */}

@@ -10,7 +10,16 @@
  * Anything unknown is marked `TODO(atanu): …` and must be resolved before launch.
  */
 
-export type SkillGroup = "ML & Data" | "Languages" | "Web / Full-stack" | "Tools";
+export type SkillGroup =
+  | "Machine Learning & AI"
+  | "Data & Analytics"
+  | "Languages"
+  | "Full-Stack & APIs"
+  | "Tools & Deployment"
+  | "Spoken Languages";
+
+/** Colour family used to tell groups / kinds apart (maps to design tokens in globals.css). */
+export type Accent = "blue" | "glow" | "amber" | "muted";
 
 export type Project = {
   slug: string;
@@ -49,6 +58,8 @@ export const profile = {
   name: "Atanu Adhikari", // [LI] [CV]
   shortName: "Atanu", // [SPEC]
   role: "AI/ML Engineer · Full-Stack Developer", // [SPEC] checkpoint 0 answer (a)
+  /** LinkedIn headline, shortened for the hero. [LI] */
+  headline: "Machine learning, LLM agents and full-stack web apps — built end to end.",
   tagline: "I build end-to-end AI/ML projects — from data and models to deployed apps.", // [LI] [CV]
   education: "B.Tech, Computer Science & Artificial Intelligence · Newton School of Technology", // [CV] [LI]
   year: "3rd year", // [CV]
@@ -70,27 +81,34 @@ export const site = {
 
 // ─────────────────────────────────────────────────────────────── chapters (HUD labels + headings)
 export const chapters = [
+  // `hud` keeps the "Signal to Singularity" story; `title` is the plain heading recruiters scan for.
   { id: "hero", hud: "CH.00 / SIGNAL", title: "Hello, signal." },
-  { id: "origin", hud: "CH.01 / ORIGIN", title: "Where the signal started" },
-  { id: "skills", hud: "CH.02 / THE GRID", title: "Tools I think in" },
-  { id: "artifacts", hud: "CH.03 / ARTIFACTS", title: "Things I've built" },
-  { id: "timeline", hud: "CH.04 / CHECKPOINTS", title: "Checkpoints" },
-  { id: "singularity", hud: "CH.05 / SINGULARITY", title: "What's next" },
-  { id: "contact", hud: "CH.06 / TRANSMISSION", title: "Open a channel" },
+  { id: "origin", hud: "CH.01 / ORIGIN", title: "About" },
+  { id: "skills", hud: "CH.02 / THE GRID", title: "Skills & Tools" },
+  { id: "artifacts", hud: "CH.03 / ARTIFACTS", title: "Selected Projects" },
+  { id: "timeline", hud: "CH.04 / CHECKPOINTS", title: "Experience & Milestones" },
+  { id: "singularity", hud: "CH.05 / SINGULARITY", title: "What I'm Looking For" },
+  { id: "contact", hud: "CH.06 / TRANSMISSION", title: "Contact" },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────── nav + shared UI labels  [DRAFT]
 export const nav = {
   skipLink: "Skip to content",
+  // `mobile: false` links are hidden on phones so the bar fits on one line.
   links: [
-    { label: "About", href: "#origin" },
-    { label: "Work", href: "#artifacts" },
-    { label: "Contact", href: "#contact" },
+    { label: "About", href: "#origin", mobile: true },
+    { label: "Skills", href: "#skills", mobile: false },
+    { label: "Projects", href: "#artifacts", mobile: true },
+    { label: "Experience", href: "#timeline", mobile: false },
+    { label: "Contact", href: "#contact", mobile: true },
   ],
+  resume: { label: "Résumé", href: profile.resumeUrl },
 };
 
 export const labels = {
   featured: "Featured case study",
+  liveCount: "live demos",
+  projectCount: "projects",
   problem: "Problem",
   approach: "Approach",
   results: "Results",
@@ -99,6 +117,7 @@ export const labels = {
   role: "Role",
   repo: "GitHub",
   live: "Live demo",
+  view: "View", // cursor label over project exhibits
 };
 
 // ─────────────────────────────────────────────────────────────── CH.00 hero  [DRAFT]
@@ -106,6 +125,11 @@ export const hero = {
   kicker: "INITIALIZING SIGNAL",
   name: profile.name,
   role: profile.role,
+  /** Small line above the name: who / where, for a 10-second scan. [CV] [LI] */
+  credential: "B.Tech CS & AI · Newton School of Technology · 3rd year",
+  /** One-sentence pitch under the role. [LI] summary + [CV] summary. */
+  summary:
+    "I build end-to-end AI/ML projects — from data and models to deployed apps — with Python, scikit-learn, PyTorch, LangGraph and React.",
   badge: "Open to remote AI/ML internships",
   primaryCta: "Email me",
   scrollCue: "Scroll to follow the signal",
@@ -114,53 +138,84 @@ export const hero = {
 
 // ─────────────────────────────────────────────────────────────── CH.01 origin  [DRAFT]
 export const origin = {
-  locationTag: "Sonipat, Haryana — 28.98° N",
   paragraphs: [
-    // [CV] [LI] education + 3rd year; [SPEC] location.
-    "I'm a third-year B.Tech student in Computer Science & AI at Newton School of Technology, on the Rishihood University campus in Sonipat.",
+    // [CV] [LI] education, year, summary.
+    "I'm a third-year B.Tech student in Computer Science & Artificial Intelligence at Newton School of Technology, Rishihood University. I build end-to-end AI/ML projects — from raw data and models to deployed applications.",
+    // [CV] summary: classical ML, DL, LLM agents, full-stack; "Reports honest, reproducible metrics."
+    "My work spans classical machine learning (scikit-learn), deep learning (PyTorch), LLM agents and RAG (LangGraph, ChromaDB) and full-stack web apps (FastAPI, React, Node.js). I care about honest, reproducible evaluation — I report the realistic number, not the flattering one.",
     // TODO(atanu): the "why AI" moment is yours to tell — what first pulled you in? One or two sentences.
     "TODO(atanu): what drew you to AI/ML — a moment, a problem, a person.",
-    // [LI] [CV] summary: end-to-end projects; "reports honest, reproducible metrics".
-    "I like owning the whole path: cleaning messy data, choosing a model, measuring it honestly, and shipping something people can actually use.",
     // [LI] [CV] DevClub role.
-    "On campus I'm Acting Executive of DevClub at Newton School of Technology × Rishihood University.",
+    "Outside coursework, I'm Acting Executive of DevClub at Newton School of Technology × Rishihood University.",
+  ],
+  /** "At a glance" facts for a quick recruiter scan. */
+  facts: [
+    { label: "Education", value: "B.Tech, Computer Science & AI · Newton School of Technology · 2024 – 2028" }, // [LI] [CV]
+    { label: "Location", value: "Rishihood University, Sonipat, Haryana · IST (UTC+5:30)" }, // [SPEC] [CV]
+    { label: "Focus", value: "Machine learning · LLM agents & RAG · Full-stack web apps" }, // [LI] headline
+    { label: "Open to", value: profile.openTo }, // [SPEC] [LI]
   ],
 };
 
 // ─────────────────────────────────────────────────────────────── CH.02 skills
 // Sources: [CV] skills table; [LI] skills; [GH] profile README badges + repo READMEs.
-export const skills: { group: SkillGroup; items: string[] }[] = [
+export const skills: { group: SkillGroup; accent: Accent; items: string[] }[] = [
   {
-    group: "ML & Data",
+    group: "Machine Learning & AI",
+    accent: "blue",
+    // [LI] skills list (Machine Learning, Deep Learning, NLP, LLMs, RAG, LangGraph, ChromaDB, AI Agents) + [CV]
     items: [
+      "Machine Learning",
+      "Deep Learning",
+      "NLP",
+      "LLMs",
+      "RAG",
+      "AI Agents",
+      "LangGraph",
+      "LangChain",
       "scikit-learn",
       "PyTorch",
       "XGBoost",
-      "NumPy",
-      "Pandas",
-      "SMOTE",
-      "librosa",
-      "NLP",
-      "LangGraph",
-      "LangChain",
-      "RAG",
       "ChromaDB",
       "sentence-transformers",
       "Llama 3.x (Groq)",
-      "Tableau",
-    ], // [CV] ML/DL + LLMs & agents rows; Tableau [CV] tools
+    ],
+  },
+  {
+    group: "Data & Analytics",
+    accent: "glow",
+    items: ["NumPy", "Pandas", "SMOTE", "librosa", "Matplotlib", "Jupyter", "Tableau"], // [CV] [GH]
   },
   {
     group: "Languages",
+    accent: "muted",
     items: ["Python", "JavaScript", "TypeScript", "SQL (MySQL)", "HTML", "CSS"], // [CV] [GH] profile README
   },
   {
-    group: "Web / Full-stack",
-    items: ["React", "Node.js", "Express", "MongoDB", "FastAPI", "REST", "JWT auth", "Streamlit", "Gradio", "Prisma"], // [CV] [GH]
+    group: "Full-Stack & APIs",
+    accent: "amber",
+    items: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "FastAPI",
+      "REST APIs",
+      "JWT auth",
+      "Streamlit",
+      "Gradio",
+      "Prisma",
+    ], // [LI] [CV] [GH]
   },
   {
-    group: "Tools",
-    items: ["Git", "GitHub Actions", "pytest", "Jupyter", "Vercel", "Render", "nginx", "Wireshark"], // [CV] [GH]
+    group: "Tools & Deployment",
+    accent: "muted",
+    items: ["Git", "GitHub Actions", "pytest", "Vercel", "Render", "nginx", "Wireshark"], // [CV] [GH]
+  },
+  {
+    group: "Spoken Languages",
+    accent: "muted",
+    items: ["English", "Hindi", "Bengali"], // [CV] [LI]
   },
 ];
 
@@ -434,20 +489,35 @@ export const timeline: TimelineItem[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────── CH.05 singularity  [DRAFT — Atanu approves]
-export const manifesto: string[] = [
-  "Structure taught me patterns. Patterns taught me to ask better questions.",
-  "Next, I want to go deeper: models that learn from little data, agents that know when they're wrong, and evaluation that tells the truth.",
-  "I'd rather report the honest number than the flattering one.",
-  "I'm looking for a remote AI/ML internship where I can learn from people who ship.",
+// ─────────────────────────────────────────────────────────────── CH.05 what I'm looking for  [DRAFT — Atanu approves]
+export const manifesto: { label: string; text: string }[] = [
+  {
+    label: "Looking for",
+    // [SPEC] [LI] "looking for a remote AI/ML or full-stack internship"
+    text: "A remote AI/ML internship where I can contribute to real models, data pipelines and LLM applications from day one. Also open to full-stack roles.",
+  },
+  {
+    label: "What I bring",
+    // [CV] end-to-end projects: data cleaning, features, evaluation, deployment (Streamlit, Render, Vercel)
+    text: "End-to-end ownership: data cleaning, feature engineering, model training and evaluation, then shipping it as a working app or API.",
+  },
+  {
+    label: "How I work",
+    // [GH] Infant classifier leakage check + [CV] "Reports honest, reproducible metrics"
+    text: "Honest, reproducible results. I check for data leakage, compare against baselines and document what didn't work.",
+  },
+  {
+    label: "Next I want to learn",
+    // [GH] Infant README next steps (pretrained audio models) — framed as a goal, not a claim
+    text: "Pretrained models and transfer learning for small datasets, and building reliable LLM agents for production.",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────── CH.06 contact  [DRAFT]
 // Layout: Figma "Transmission (Minimal Centred)" — chosen at checkpoint 1.
 export const contact = {
-  heading: "Open a channel.",
-  body: "Hiring an AI/ML or full-stack intern? My inbox is open.",
-  uplink: "Direct uplink",
+  heading: "Let's work together.",
+  body: "Hiring for an AI/ML or full-stack internship? I'd love to hear from you.",
   emailLabel: "Direct line",
   copyLabel: "Copy email",
   copiedLabel: "Copied ✓",

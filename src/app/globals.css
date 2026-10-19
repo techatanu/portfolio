@@ -6,6 +6,7 @@
   --bg-elev: #0c0d10;
   --fg: #e8eaf0;
   --fg-muted: #8a8f9c;
+  --fg-body: #b9bec9; /* long-form copy: softer than headings, brighter than labels */
   --line: rgba(232, 234, 240, 0.12);
   --line-strong: rgba(232, 234, 240, 0.24);
   --glow: #cfe3ff;
@@ -18,6 +19,7 @@
   --color-bg-elev: var(--bg-elev);
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
+  --color-fg-body: var(--fg-body);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
   --color-glow: var(--glow);
@@ -50,6 +52,12 @@ body {
   overflow-x: clip;
 }
 
+/* Text sits over the moving Grid Hall: a soft dark halo keeps it readable where it
+   crosses a light strip or a glowing seam, without a visible box. */
+main {
+  text-shadow: 0 1px 14px rgba(5, 5, 6, 0.85);
+}
+
 ::selection {
   background: var(--glow);
   color: var(--bg);
@@ -62,12 +70,49 @@ body {
 
 /* ── Components */
 @layer components {
+  /* One layout grid for the nav and every chapter, so all left edges line up while scrolling. */
+  .shell {
+    @apply relative mx-auto w-full max-w-[1320px] px-5 md:px-10 lg:px-16;
+  }
+
+  /* Chapter label above each heading: the story's HUD text, in the accent blue. */
+  .kicker {
+    @apply flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.14em] text-accent-blue uppercase;
+  }
+  .kicker::before {
+    content: "";
+    @apply size-1.5 bg-accent-blue;
+  }
+
+  /* Colour families (data.ts "Accent"): set --accent, children use it. */
+  .accent-blue {
+    --accent: var(--accent-blue);
+  }
+  .accent-glow {
+    --accent: var(--glow);
+  }
+  .accent-amber {
+    --accent: var(--accent-amber);
+  }
+  .accent-muted {
+    --accent: var(--fg-muted);
+  }
+  .accent-dot {
+    @apply inline-block size-1.5 shrink-0 rounded-full;
+    background: var(--accent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
   .eyebrow {
     @apply font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase;
   }
 
   .chip {
-    @apply rounded-arch border border-line px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.04em] text-fg;
+    @apply rounded-arch border border-line bg-bg/40 px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.04em] text-fg;
+  }
+  /* Inside an accent family the chip border picks up the group colour. */
+  [class*="accent-"] .chip {
+    border-color: color-mix(in srgb, var(--accent) 32%, transparent);
   }
 
   .badge {
@@ -80,7 +125,8 @@ body {
   }
 
   .btn-primary,
-  .btn-ghost {
+  .btn-ghost,
+  .btn-accent {
     @apply inline-flex min-h-11 items-center gap-2 rounded-arch px-4 font-mono text-xs tracking-[0.1em] uppercase transition-colors duration-300 ease-expo-out;
   }
 
@@ -90,6 +136,11 @@ body {
 
   .btn-ghost {
     @apply border border-line text-fg hover:border-fg-muted hover:bg-fg/5;
+  }
+
+  /* Secondary action that should stand out from plain links (e.g. "Live demo"). */
+  .btn-accent {
+    @apply border border-accent-blue/60 bg-accent-blue/10 text-fg hover:border-accent-blue hover:bg-accent-blue/20;
   }
 
   .link-underline {
@@ -112,11 +163,74 @@ body {
   }
 
   .timeline-node {
-    @apply absolute top-1 -left-[5px] size-[9px] rounded-full border border-fg-muted bg-bg;
+    @apply absolute top-1 -left-[5px] size-[9px] rounded-full border bg-bg;
+    border-color: var(--accent, var(--fg-muted));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent, transparent) 55%, transparent);
   }
 
   .skip-link {
     @apply fixed top-3 left-3 z-[100] -translate-y-20 rounded-arch bg-fg px-4 py-2 font-mono text-xs text-bg uppercase focus:translate-y-0;
+  }
+}
+
+/* ── Custom cursor (spec §2.4). Fixed above everything; difference blending keeps it
+   visible over the bright light strips and the dark void alike. */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid var(--fg);
+  border-radius: 9999px;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  opacity: 0;
+  display: grid;
+  place-items: center;
+  transition:
+    opacity 0.3s,
+    width 0.35s var(--ease-expo-out),
+    height 0.35s var(--ease-expo-out),
+    margin 0.35s var(--ease-expo-out),
+    background-color 0.35s var(--ease-expo-out);
+}
+.cursor-ring[data-visible] {
+  opacity: 1;
+}
+.cursor-ring[data-state="link"] {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+}
+.cursor-ring[data-state="view"] {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  background: var(--fg);
+}
+.cursor-ring[data-pressed] {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+}
+.cursor-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.cursor-ring[data-state="view"] .cursor-label {
+  opacity: 1;
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-ring {
+    display: none;
   }
 }
 

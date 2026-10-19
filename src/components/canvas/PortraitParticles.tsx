@@ -132,14 +132,16 @@ function PortraitPoints({ data }: { data: PortraitData }) {
     const progress = THREE.MathUtils.clamp(-heroBox.top / (heroBox.height * DISSOLVE_RANGE), 0, 1);
     const assembling = phase.current === "assembling";
 
-    // Fully dissolved and off-screen: skip the draw call entirely.
-    pts.visible = assembling || progress < 0.999;
-    if (!pts.visible) return;
+    // Draw only while the photo is moving: at rest the crisp <img> covers it (drawing both
+    // shows the pixel seams through the face), and once fully dissolved there's nothing left.
+    pts.visible = assembling || (progress > 0.0005 && progress < 0.999);
 
-    const r = els.img.getBoundingClientRect();
-    u.uRect.value.set(r.left, r.top, r.width, r.height);
-    u.uPointSize.value = (data.step * r.width) / data.width;
-    u.uProgress.value = progress;
+    if (pts.visible) {
+      const r = els.img.getBoundingClientRect();
+      u.uRect.value.set(r.left, r.top, r.width, r.height);
+      u.uPointSize.value = (data.step * r.width) / data.width;
+      u.uProgress.value = progress;
+    }
 
     // Viewport / DPR / the frame's responsive opacity only change on resize.
     const sizeKey = `${state.size.width}x${state.size.height}@${state.viewport.dpr}`;

@@ -24,7 +24,9 @@ export function Hud() {
 
   return (
     <p aria-hidden="true" className="font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
-      <span ref={labelRef}>{CHAPTERS[0].hud}</span>
+      <span ref={labelRef} className="text-accent-blue">
+        {CHAPTERS[0].hud}
+      </span>
       {/* Percentage hidden on phones so the HUD and nav fit on one line at 375px. */}
       <span className="mx-2 hidden text-line-strong sm:inline">/</span>
       <span ref={pctRef} className="hidden w-[6ch] tabular-nums text-fg sm:inline-block">

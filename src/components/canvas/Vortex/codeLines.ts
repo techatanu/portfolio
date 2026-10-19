@@ -1,0 +1,35 @@
+/**
+ * Decorative code that streams into the singularity. Written in the style of
+ * Atanu's own projects (infant cry classifier, exam analyser, GitHub reviewer,
+ * MediTrack, network platform) — it's texture, not a claim about any repo.
+ */
+export const CODE_LINES = [
+  "from sklearn.ensemble import RandomForestClassifier",
+  'clf = RandomForestClassifier(n_estimators=300, class_weight="balanced")',
+  "feats = np.hstack([mfcc.mean(1), mfcc.std(1), chroma.mean(1)])",
+  "scores = cross_val_score(clf, X, y, cv=StratifiedKFold(5))",
+  "signal, sr = librosa.load(path, sr=22050)",
+  "mel = librosa.feature.melspectrogram(y=signal, n_mels=64)",
+  "graph = StateGraph(AgentState)",
+  'graph.add_node("retrieve", retrieve_docs)',
+  'graph.add_edge("retrieve", "analyse")',
+  "docs = vectorstore.similarity_search(query, k=4)",
+  'llm = ChatGroq(model="llama-3.3-70b-versatile")',
+  "tfidf = TfidfVectorizer(ngram_range=(1, 2), min_df=2)",
+  "X_res, y_res = SMOTE().fit_resample(X_train, y_train)",
+  "print(classification_report(y_test, clf.predict(X_test)))",
+  "model = nn.Sequential(nn.Conv2d(1, 16, 3), nn.ReLU(), nn.MaxPool2d(2))",
+  "loss = F.cross_entropy(logits, y, weight=class_weights)",
+  "optimizer.zero_grad(); loss.backward(); optimizer.step()",
+  '@app.post("/review")',
+  "async def review(req: RepoRequest) -> Report:",
+  "const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);",
+  'router.get("/api/reports", auth, listReports);',
+  "const [cart, setCart] = useState<Item[]>([]);",
+  'df = pd.read_csv("questions.csv").drop_duplicates()',
+  "upstream backend { server 10.7.7.111:3001; server 10.7.7.111:3002; }",
+  "for epoch in range(epochs): train_one_epoch(model, loader)",
+  "assert macro_f1 > baseline, 'beat the baseline first'",
+  "embeddings = SentenceTransformer('all-MiniLM-L6-v2').encode(chunks)",
+  "return {'difficulty': label, 'report': state['analysis']}",
+];

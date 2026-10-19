@@ -53,3 +53,10 @@ Icon?
 /test-results/
 /playwright-report/
 /tests/__screenshots__/
+
+# copied from node_modules/detect-gpu by scripts/copy-gpu-benchmarks.mjs
+/public/gpu-benchmarks/
+
+# mood references (third-party art) — never committed, never imported by code
+/references/*
+!/references/.gitkeep

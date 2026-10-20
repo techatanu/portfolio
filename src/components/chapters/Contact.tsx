@@ -10,7 +10,10 @@ export function Contact() {
   return (
     <ChapterShell id="contact" heading={false} className="flex flex-col justify-between">
       <div className="flex flex-1 items-center justify-center">
-        <div className="contact-panel relative w-full max-w-3xl px-5 py-12 text-center md:px-14 md:py-16">
+        <div
+          data-reveal="card"
+          className="contact-panel relative w-full max-w-3xl px-5 py-12 text-center md:px-14 md:py-16"
+        >
           {(
             [
               "top-0 left-0 border-t border-l",

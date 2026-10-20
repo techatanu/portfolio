@@ -12,7 +12,7 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
   },
   webServer: {
-    command: `python3 -m http.server ${PORT} --bind 127.0.0.1 --directory out`,
+    command: `python3 scripts/serve-out.py ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
   },

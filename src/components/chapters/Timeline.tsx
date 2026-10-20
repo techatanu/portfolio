@@ -35,6 +35,7 @@ export function Timeline() {
             return (
               <li
                 key={`${item.title}-${item.date}`}
+                data-reveal="card"
                 className={`accent-${KIND_ACCENT[item.kind]} relative pb-12 pl-8 last:pb-0 md:pl-12`}
               >
                 <span aria-hidden="true" className="timeline-node" />

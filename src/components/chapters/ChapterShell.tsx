@@ -30,7 +30,7 @@ export function ChapterShell({ id, children, className = "", innerClassName = ""
     >
       <div className={`shell ${innerClassName}`}>
         {heading && (
-          <header className="mb-12 md:mb-16">
+          <header data-reveal="title" className="mb-12 md:mb-16">
             <p className="kicker">{chapter.hud}</p>
             <h2
               id={headingId}

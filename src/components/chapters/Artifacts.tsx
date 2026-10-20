@@ -77,7 +77,12 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
   const problem = copy(project.problem);
   const role = copy(project.role);
   return (
-    <article aria-labelledby={`${project.slug}-title`} data-cursor="view" className="exhibit p-6 md:p-10 lg:p-12">
+    <article
+      aria-labelledby={`${project.slug}-title`}
+      data-cursor="view"
+      data-reveal="card"
+      className="exhibit p-6 md:p-10 lg:p-12"
+    >
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
         <span className="text-accent-amber">{labels.featured}</span>
         <span>
@@ -139,7 +144,12 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
 
 function Exhibit({ project, index, total }: { project: Project; index: number; total: number }) {
   return (
-    <article aria-labelledby={`${project.slug}-title`} data-cursor="view" className="exhibit flex flex-col p-6 md:p-8">
+    <article
+      aria-labelledby={`${project.slug}-title`}
+      data-cursor="view"
+      data-reveal="card"
+      className="exhibit flex flex-col p-6 md:p-8"
+    >
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
         <span className="text-accent-blue">{project.tags}</span>
         <span aria-hidden="true">

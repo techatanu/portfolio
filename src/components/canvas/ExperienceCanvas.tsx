@@ -7,7 +7,6 @@ import gsap from "gsap";
 import type { PerfTier } from "@/lib/store";
 import { useExperience } from "@/lib/store";
 import { Effects } from "./Effects";
-import { GridHall } from "./GridHall/GridHall";
 import { PortraitParticles } from "./PortraitParticles";
 import { SceneDirector } from "./SceneDirector";
 import { Vortex } from "./Vortex/Vortex";
@@ -33,13 +32,12 @@ const DOWNGRADE: Record<PerfTier, PerfTier> = { high: "medium", medium: "low", l
 
 /**
  * The one fixed, full-viewport WebGL layer behind all DOM content (spec §4.1).
- * Lazy-loaded by <Experience>. World A (Grid Hall), World B (code singularity)
- * and the hero portrait. Re-renders only when the perf tier changes.
+ * Lazy-loaded by <Experience>. The code singularity (whole-page background) and the
+ * hero portrait. Re-renders only when the perf tier changes.
  */
 export default function ExperienceCanvas() {
   const tier = useExperience((s) => s.perfTier);
   const [minDpr, maxDpr] = DPR[tier];
-  const dpr = Math.min(maxDpr, typeof window === "undefined" ? 1 : window.devicePixelRatio || 1);
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-[5]">
@@ -47,7 +45,7 @@ export default function ExperienceCanvas() {
         frameloop="never"
         flat
         dpr={[minDpr, maxDpr]}
-        camera={{ fov: 55, near: 0.1, far: 220, position: [0, 1.75, 6] }}
+        camera={{ fov: 55, near: 0.1, far: 300, position: [0, 0, 6] }}
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ pointerEvents: "none" }}
       >
@@ -61,7 +59,6 @@ export default function ExperienceCanvas() {
           }}
         />
         <SceneDirector />
-        <GridHall tier={tier} dpr={dpr} />
         <Vortex tier={tier} />
         <PortraitParticles />
         <Effects tier={tier} />

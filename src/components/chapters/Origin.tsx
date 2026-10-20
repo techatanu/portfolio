@@ -7,7 +7,7 @@ export function Origin() {
   return (
     <ChapterShell id="origin">
       <div className="grid gap-12 md:grid-cols-12">
-        <dl className="space-y-5 border-t border-line pt-5 md:col-span-4">
+        <dl data-reveal="card" className="space-y-5 border-t border-line pt-5 md:col-span-4">
           {origin.facts.map((f) => (
             <div key={f.label}>
               <dt className="eyebrow">{f.label}</dt>
@@ -20,6 +20,7 @@ export function Origin() {
             copy(p) ? (
               <p
                 key={p}
+                data-reveal="card"
                 className={`leading-relaxed ${i === 0 ? "text-xl text-fg md:text-2xl" : "text-lg text-fg-body md:text-xl"}`}
                 {...todoAttr(p)}
               >

@@ -173,6 +173,29 @@ main {
   }
 }
 
+/* ── Game HUD: XP bar fill and the "LEVEL 02 — SKILLS UNLOCKED" banner. */
+.xp-fill {
+  background: linear-gradient(90deg, var(--accent-blue), var(--glow));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-blue) 70%, transparent);
+  transition: transform 0.15s linear;
+}
+.level-banner {
+  white-space: nowrap;
+  border: 1px solid color-mix(in srgb, var(--accent-blue) 55%, transparent);
+  background:
+    repeating-linear-gradient(0deg, rgba(207, 227, 255, 0.05) 0 1px, transparent 1px 3px),
+    color-mix(in srgb, var(--bg-elev) 88%, transparent);
+  padding: 0.7rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 0 32px color-mix(in srgb, var(--accent-blue) 35%, transparent);
+  backdrop-filter: blur(4px);
+}
+
 /* ── Custom cursor (spec §2.4). Fixed above everything; difference blending keeps it
    visible over the bright light strips and the dark void alike. */
 .cursor-ring {
@@ -180,9 +203,9 @@ main {
   top: 0;
   left: 0;
   z-index: 200;
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
   border: 1px solid var(--fg);
   border-radius: 9999px;
   pointer-events: none;
@@ -201,24 +224,24 @@ main {
   opacity: 1;
 }
 .cursor-ring[data-state="link"] {
-  width: 56px;
-  height: 56px;
-  margin: -28px 0 0 -28px;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
 }
 .cursor-ring[data-state="view"] {
-  width: 76px;
-  height: 76px;
-  margin: -38px 0 0 -38px;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
   background: var(--fg);
 }
 .cursor-ring[data-pressed] {
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
 }
 .cursor-label {
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 0.5rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bg);

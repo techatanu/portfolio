@@ -39,6 +39,13 @@ U2NET_HOME=.u2net .venv/bin/python scripts/make-portraits.py   # atanu.jpg → a
 Repo: `techatanu/portfolio`. Its `main` branch serves the current live atanu.online (old static HTML site), so all redesign work lives on the **`redesign`** branch until Phase 7. The Claude sandbox cannot write `.git/`, so Atanu runs `git add`/`commit`/`push` himself.
 Note: inside the Claude sandbox, pip needs `--use-deprecated=legacy-certs`.
 
+## Design decisions that override the spec (Atanu, Oct 2026)
+- **One 3D world only:** the code singularity (code streams spiralling into a black hole) is the background for the whole page. The Grid Hall, walking figure, light path and block tunnel were built and then **removed at Atanu's request** — don't bring them back.
+- **Hero:** the portrait "pixel dissolve" stays.
+- **Game feel:** level HUD (`LV 02 · SKILLS` + XP bar), "LEVEL 0N — X UNLOCKED" banner per chapter, warp flight (scroll speed → speed lines, stream speed, FOV punch), game-UI fly-ins via `data-reveal="title" | "card"`.
+- Skills section is a sticky stacking deck. Front end stays in this Next.js codebase (no Lovable/Bolt/Laravel).
+- Local preview: `npm run preview` (no-cache server, `scripts/serve-out.py`); add `?v=N` after rebuilding.
+
 ## Budgets (spec §4.5)
 LCP < 2.5 s on 4G mobile · CLS ≈ 0 · initial JS < 350 KB gz (Canvas lazy-loaded) · 60 fps desktop / 45+ mobile · Lighthouse mobile Perf ≥ 85, A11y ≥ 95, SEO 100.
 Only report fps/Lighthouse numbers actually measured.

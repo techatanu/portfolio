@@ -81,14 +81,15 @@ export const site = {
 
 // ─────────────────────────────────────────────────────────────── chapters (HUD labels + headings)
 export const chapters = [
-  // `hud` keeps the "Signal to Singularity" story; `title` is the plain heading recruiters scan for.
-  { id: "hero", hud: "CH.00 / SIGNAL", title: "Hello, signal." },
-  { id: "origin", hud: "CH.01 / ORIGIN", title: "About" },
-  { id: "skills", hud: "CH.02 / THE GRID", title: "Skills & Tools" },
-  { id: "artifacts", hud: "CH.03 / ARTIFACTS", title: "Selected Projects" },
-  { id: "timeline", hud: "CH.04 / CHECKPOINTS", title: "Experience & Milestones" },
-  { id: "singularity", hud: "CH.05 / SINGULARITY", title: "What I'm Looking For" },
-  { id: "contact", hud: "CH.06 / TRANSMISSION", title: "Contact" },
+  // `hud` keeps the "Signal to Singularity" story; `title` is the plain heading recruiters scan for;
+  // `level` is the short name in the game-style level HUD ("LV 02 · SKILLS").
+  { id: "hero", hud: "CH.00 / SIGNAL", title: "Hello, signal.", level: "Start" },
+  { id: "origin", hud: "CH.01 / ORIGIN", title: "About", level: "About" },
+  { id: "skills", hud: "CH.02 / THE GRID", title: "Skills & Tools", level: "Skills" },
+  { id: "artifacts", hud: "CH.03 / ARTIFACTS", title: "Selected Projects", level: "Projects" },
+  { id: "timeline", hud: "CH.04 / CHECKPOINTS", title: "Experience & Milestones", level: "Experience" },
+  { id: "singularity", hud: "CH.05 / SINGULARITY", title: "What I'm Looking For", level: "Goals" },
+  { id: "contact", hud: "CH.06 / TRANSMISSION", title: "Contact", level: "Contact" },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────── nav + shared UI labels  [DRAFT]
@@ -118,6 +119,11 @@ export const labels = {
   repo: "GitHub",
   live: "Live demo",
   view: "View", // cursor label over project exhibits
+  // Level HUD / unlock banner
+  levelShort: "LV",
+  level: "Level",
+  unlocked: "unlocked",
+  xp: "XP",
 };
 
 // ─────────────────────────────────────────────────────────────── CH.00 hero  [DRAFT]

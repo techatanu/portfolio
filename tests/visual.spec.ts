@@ -59,3 +59,35 @@ test("portrait dissolves into particles on scroll", async ({ page }) => {
   await expect(page.locator("#hero-portrait")).toHaveCSS("opacity", "1");
   expect(errors).toEqual([]);
 });
+
+test("journey: level HUD, skills deck, warp and code singularity", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await expect(page.locator('#hero-portrait-reveal[data-portrait="particles"]')).toBeAttached({ timeout: 15_000 });
+  await page.waitForTimeout(3000); // singularity fade-in + portrait assembly
+
+  // [element id, extra px scrolled past its top, screenshot name]
+  const stops: [string, number, string][] = [
+    ["origin", 200, "journey-1-about"],
+    ["skills", 700, "journey-2-skills-deck"],
+    ["skills", 1600, "journey-3-skills-deck-deeper"],
+    ["artifacts", 300, "journey-4-projects"],
+    ["timeline", 300, "journey-5-experience"],
+    ["singularity", -300, "journey-6-goals"],
+    ["contact", -200, "journey-7-contact"],
+  ];
+  for (const [id, offset, name] of stops) {
+    await page.evaluate(
+      ([target, dy]) =>
+        window.scrollTo(0, (document.getElementById(target as string)?.offsetTop ?? 0) + (dy as number)),
+      [id, offset],
+    );
+    await page.waitForTimeout(600); // catch the "LEVEL UNLOCKED" banner and the warp streaks
+    await page.screenshot({ path: `test-results/screens/${name}-warp.png` });
+    await page.waitForTimeout(2200); // settled
+    await page.screenshot({ path: `test-results/screens/${name}.png` });
+  }
+  expect(errors).toEqual([]);
+});

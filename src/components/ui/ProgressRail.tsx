@@ -43,7 +43,7 @@ export function ProgressRail() {
 
   return (
     <div aria-hidden="true" className="fixed top-24 right-4 bottom-24 z-40 hidden w-px bg-line md:block lg:right-6">
-      <div ref={fillRef} className="absolute inset-0 origin-top scale-y-0 bg-glow" />
+      <div ref={fillRef} className="absolute inset-0 origin-top bg-glow" style={{ transform: "scaleY(0)" }} />
       {ticks.map((t, i) => (
         <span
           key={CHAPTERS[i].id}

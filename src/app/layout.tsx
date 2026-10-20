@@ -6,6 +6,8 @@ import { PerfProvider } from "@/components/providers/PerfProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Backdrop } from "@/components/ui/Backdrop";
 import { Cursor } from "@/components/ui/Cursor";
+import { GameReveal } from "@/components/ui/GameReveal";
+import { LevelBanner } from "@/components/ui/LevelBanner";
 import { Nav } from "@/components/ui/Nav";
 import { ProgressRail } from "@/components/ui/ProgressRail";
 import "lenis/dist/lenis.css";
@@ -65,6 +67,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav />
         <ProgressRail />
         <main id="main">{children}</main>
+        <LevelBanner />
+        <GameReveal />
         <Cursor />
       </body>
     </html>

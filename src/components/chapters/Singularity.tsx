@@ -10,6 +10,7 @@ export function Singularity() {
         {manifesto.map((item, i) => (
           <div
             key={item.label}
+            data-reveal="card"
             className={`bg-bg/70 p-6 backdrop-blur-[3px] md:p-10 ${i === 0 ? "accent-blue" : "accent-muted"}`}
           >
             <p className="flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">

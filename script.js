@@ -3,7 +3,6 @@
   'use strict';
 
   var root = document.documentElement;
-  var lightQuery = window.matchMedia('(prefers-color-scheme: light)');
   var reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
@@ -19,6 +18,46 @@
     var lenisRaf = function (t) { lenis.raf(t); requestAnimationFrame(lenisRaf); };
     requestAnimationFrame(lenisRaf);
   }
+
+  /* ---------- Boot screen (once per visit) ---------- */
+  (function () {
+    var boot = document.querySelector('.boot');
+    if (!boot || !root.classList.contains('booting')) return;
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      try { sessionStorage.setItem('booted', '1'); } catch (e) { /* storage unavailable */ }
+      boot.classList.add('is-leaving');
+      root.classList.remove('booting');
+      setTimeout(function () { boot.classList.remove('is-leaving'); }, 520);
+      document.removeEventListener('keydown', finish);
+      document.removeEventListener('pointerdown', finish);
+    }
+    setTimeout(finish, 1300);
+    document.addEventListener('keydown', finish);
+    document.addEventListener('pointerdown', finish);
+  })();
+
+  /* ---------- Player card stats (counted from the page and from real dates) ---------- */
+  (function () {
+    var quests = document.querySelector('[data-stat="quests"]');
+    if (quests) quests.textContent = document.querySelectorAll('#projects .card').length;
+    var live = document.querySelector('[data-stat="live"]');
+    if (live) {
+      live.textContent = Array.prototype.filter.call(document.querySelectorAll('#projects .card'), function (card) {
+        return Array.prototype.some.call(card.querySelectorAll('.card-links a'), function (a) { return /^\s*Live/.test(a.textContent); });
+      }).length;
+    }
+    var xp = document.querySelector('.xp');
+    if (xp) {
+      var start = new Date(xp.dataset.start + '-01').getTime();
+      var end = new Date(xp.dataset.end + '-01').getTime();
+      var frac = Math.max(0, Math.min(1, (Date.now() - start) / (end - start)));
+      xp.querySelector('.xp-bar span').style.setProperty('--xp', frac.toFixed(3));
+      xp.querySelector('.xp-val').textContent = xp.querySelector('.xp-val').textContent + ' · ' + Math.round(frac * 100) + '%';
+    }
+  })();
 
   // In-page links: route through Lenis when it is active, and move focus to the target.
   document.addEventListener('click', function (e) {
@@ -44,7 +83,7 @@
   var themeBtn = document.querySelector('.theme-toggle');
 
   function currentTheme() {
-    return root.dataset.theme || (lightQuery.matches ? 'light' : 'dark');
+    return root.dataset.theme || 'dark';
   }
 
   function syncThemeButton() {
@@ -77,16 +116,13 @@
     toggleTheme(r.left + r.width / 2, r.top + r.height / 2);
   });
 
-  onChange(lightQuery, function () {
-    if (!root.dataset.theme) { syncThemeButton(); net.refreshColors(); }
-  });
 
   /* ---------- Header: floating pill, hides on scroll down ---------- */
   var header = document.querySelector('.site-header');
   var navToggle = document.querySelector('.nav-toggle');
   var navLinks = document.getElementById('nav-links');
   var toTop = document.querySelector('.to-top');
-  var timeline = document.querySelector('.timeline');
+  var journey = document.querySelector('.journey');
   var lastY = window.scrollY;
   var scrollQueued = false;
 
@@ -105,10 +141,10 @@
     toTop.classList.toggle('is-visible', y > 600);
     toTop.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
 
-    if (timeline) {
-      var r = timeline.getBoundingClientRect();
-      var p = (window.innerHeight * 0.65 - r.top) / r.height;
-      timeline.style.setProperty('--tl', Math.max(0, Math.min(1, p)).toFixed(4));
+    if (journey) {
+      var r = journey.getBoundingClientRect();
+      var p = (window.innerHeight * 0.6 - r.top) / r.height;
+      journey.style.setProperty('--tl', Math.max(0, Math.min(1, p)).toFixed(4));
     }
   }
   window.addEventListener('scroll', function () {
@@ -391,14 +427,22 @@
   /* ---------- Copy email ---------- */
   var toast = document.querySelector('.toast');
   var toastTimer = 0;
-  function showToast(msg) {
+  function showToast(msg, label) {
     clearTimeout(toastTimer);
-    toast.textContent = msg;
+    toast.textContent = '';
+    toast.classList.toggle('is-achievement', !!label);
+    if (label) {
+      var tag = document.createElement('span');
+      tag.className = 'toast-label';
+      tag.textContent = label;
+      toast.appendChild(tag);
+    }
+    toast.appendChild(document.createTextNode(msg));
     requestAnimationFrame(function () { toast.classList.add('is-on'); });
     toastTimer = setTimeout(function () {
       toast.classList.remove('is-on');
       toastTimer = setTimeout(function () { toast.textContent = ''; }, 400);
-    }, 2000);
+    }, label ? 3200 : 2000);
   }
 
   function copyText(text, done, fail) {
@@ -419,6 +463,22 @@
         function () { copyStatus.textContent = 'Copied!'; setTimeout(function () { copyStatus.textContent = ''; }, 2000); },
         function () { copyStatus.textContent = 'Copy failed, select the address instead.'; });
     });
+  }
+
+  // Small reward for scrolling all the way: once per visit.
+  var contactEl = document.getElementById('contact');
+  if (contactEl && 'IntersectionObserver' in window) {
+    var seen = false;
+    try { seen = !!sessionStorage.getItem('explorer'); } catch (e) { /* storage unavailable */ }
+    if (!seen) {
+      var explorer = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        explorer.disconnect();
+        try { sessionStorage.setItem('explorer', '1'); } catch (e) { /* storage unavailable */ }
+        setTimeout(function () { showToast('Explorer: you reached the end of the map', 'Achievement unlocked'); }, 600);
+      }, { threshold: 0.4 });
+      explorer.observe(contactEl);
+    }
   }
 
   /* ---------- Command menu (⌘K / Ctrl+K) ---------- */

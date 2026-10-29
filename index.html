@@ -7,8 +7,7 @@
 <meta name="description" content="Atanu Adhikari is an AI/ML and full-stack developer and B.Tech CS &amp; AI student at Newton School of Technology. He builds AI agents (LangGraph, RAG, LLMs), ML models in Python and MERN web apps.">
 <meta name="author" content="Atanu Adhikari">
 <link rel="canonical" href="https://atanu.online/">
-<meta name="theme-color" content="#07080b" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f7f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#05060a">
 <meta name="color-scheme" content="dark light">
 
 <!-- Open Graph -->
@@ -35,13 +34,17 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 
 <script>
-  // Apply a saved theme before first paint to avoid a flash.
+  // Apply a saved theme before first paint to avoid a flash (dark is the default).
   document.documentElement.classList.add('js');
   try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  // Boot screen: once per visit, skipped for reduced motion.
+  try {
+    if (!sessionStorage.getItem('booted') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('booting');
+  } catch (e) {}
 </script>
 
 <script type="application/ld+json">
@@ -91,6 +94,11 @@
   <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
   <symbol id="i-hash" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 9h15M4 15h15M10 3 8 21M16 3l-2 18"/></symbol>
   <symbol id="i-contrast" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path fill="currentColor" stroke="none" d="M12 3a9 9 0 0 1 0 18z"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8M9 20l1-3h4l1 3"/></g></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c3-1 5-1 6 0 1 1 1 3 0 6l-6 6-6-6 6-6z"/><path d="m8 10-3 1-2 3 4 1M14 16l-1 3-3 2-1-4"/><circle cx="15.5" cy="8.5" r="1.5"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
   <symbol id="i-brain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="M10.6 6.4 6.4 10.6M13.4 6.4l4.2 4.2M6.4 13.4l4.2 4.2M17.6 13.4l-4.2 4.2M7 12h10"/></g></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></g></symbol>
   <symbol id="i-layout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></g></symbol>
@@ -100,6 +108,16 @@
 </svg>
 
 <a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Boot screen (decorative; once per visit, any key or click skips it) -->
+<div class="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <p class="boot-logo">ATANU<span>.OS</span></p>
+    <p class="boot-line">&gt; loading player_01 …</p>
+    <div class="boot-bar"><span></span></div>
+    <p class="boot-hint">press any key to skip</p>
+  </div>
+</div>
 
 <!-- Cursor spotlight (desktop pointers only, purely decorative) -->
 <div class="spotlight" aria-hidden="true"></div>
@@ -118,7 +136,8 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#badges">Badges</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -136,28 +155,30 @@
 
 <main id="main">
 
-  <!-- 1. Hero -->
+  <!-- 1. Hero: player select -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
       <span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span>
       <span class="hero-grid"></span>
+      <span class="horizon"></span>
+      <span class="floor"><span class="floor-lines"></span></span>
     </div>
     <canvas class="hero-net" aria-hidden="true"></canvas>
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="badge intro" style="--i:0"><span class="badge-dot" aria-hidden="true"></span>Open to remote AI/ML &amp; full-stack internships</p>
         <h1 id="hero-title" class="hero-title">
-          <span class="line"><span class="intro" style="--i:1">Atanu</span></span>
-          <span class="line"><span class="intro serif grad" style="--i:2">Adhikari</span></span>
+          <span class="line"><span class="intro glitch" data-text="Atanu" style="--i:1">Atanu</span></span>
+          <span class="line"><span class="intro glitch grad" data-text="Adhikari" style="--i:2">Adhikari</span></span>
         </h1>
         <p class="hero-role intro" style="--i:3">
           <span class="sr-only">I build AI agents, RAG pipelines, ML models and MERN web apps.</span>
-          <span aria-hidden="true">I build <span class="scramble" data-words="AI agents|RAG pipelines|ML models|MERN web apps">AI agents</span><span class="caret"></span></span>
+          <span aria-hidden="true"><span class="prompt">&gt;</span> I build <span class="scramble" data-words="AI agents|RAG pipelines|ML models|MERN web apps">AI agents</span><span class="caret"></span></span>
         </p>
         <p class="hero-lead intro" style="--i:4">AI/ML &amp; Full-Stack Developer. I build AI agents (LangGraph, RAG, LLMs), ML models in Python, and MERN web apps.</p>
         <p class="hero-meta intro" style="--i:5">B.Tech CS &amp; AI @ Newton School of Technology · Greater Kolkata Area, India</p>
         <div class="hero-actions intro" style="--i:6">
-          <a class="btn btn-primary magnetic" href="#projects">View projects <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-primary magnetic" href="#projects"><svg aria-hidden="true"><use href="#i-play"/></svg>Start: view quests</a>
           <!-- TODO: add resume.pdf to the repo root, then swap this placeholder for:
                <a class="btn btn-ghost magnetic" href="/resume.pdf" download="Atanu-Adhikari-Resume.pdf">Download resume …</a> -->
           <button type="button" class="btn btn-ghost magnetic" data-toast="Resume coming soon. Email me and I'll send a copy.">Resume <span class="soon-tag">soon</span></button>
@@ -169,22 +190,28 @@
         </ul>
       </div>
 
-      <div class="hero-visual intro" style="--i:3">
-        <div class="avatar">
-          <span class="avatar-ring" aria-hidden="true"></span>
-          <span class="avatar-initials" aria-hidden="true">AA</span>
+      <!-- Player card: every stat is real (counted from this page or from my B.Tech dates) -->
+      <aside class="player-card hud glow intro" style="--i:3" aria-label="Player card">
+        <div class="pc-top" aria-hidden="true"><span>PLAYER_01</span><span class="pc-online"><span class="status-dot"></span>ONLINE</span></div>
+        <div class="pc-portrait">
+          <span class="pc-initials" aria-hidden="true">AA</span>
           <img src="assets/atanu.png" alt="Portrait of Atanu Adhikari" width="460" height="460" decoding="async" onerror="this.remove()">
+          <span class="pc-scan" aria-hidden="true"></span>
         </div>
-        <div class="code-card" aria-hidden="true">
-          <div class="code-bar"><i></i><i></i><i></i><span>atanu.ts</span></div>
-<pre><code><span class="k">const</span> atanu = {
-  role: <span class="s">"AI/ML &amp; Full-Stack"</span>,
-  stack: [<span class="s">"LangGraph"</span>, <span class="s">"FastAPI"</span>, <span class="s">"React"</span>],
-  based: <span class="s">"Kolkata, IN"</span>,
-  status: <span class="s">"open to internships"</span>,
-};</code></pre>
+        <div class="pc-name">
+          <p><strong>Atanu Adhikari</strong><span>Class · AI/ML &amp; Full-Stack Dev</span></p>
+          <span class="pc-lvl" title="3rd year of B.Tech">LVL 3</span>
         </div>
-      </div>
+        <div class="xp" data-start="2024-08" data-end="2028-08">
+          <div class="xp-head"><span>B.Tech progress</span><span class="xp-val">Year 3 of 4</span></div>
+          <div class="xp-bar" aria-hidden="true"><span></span></div>
+        </div>
+        <dl class="pc-stats">
+          <div><dt>Quests</dt><dd data-stat="quests">10</dd></div>
+          <div><dt>Live demos</dt><dd data-stat="live">3</dd></div>
+          <div><dt>Hackathons</dt><dd>1</dd></div>
+        </dl>
+      </aside>
     </div>
     <a class="scroll-cue" href="#about" aria-label="Scroll to About">
       <span class="mouse" aria-hidden="true"><span></span></span>
@@ -199,22 +226,23 @@
     </div>
   </div>
 
-  <!-- 2. About -->
+  <!-- 2. About: player bio -->
   <section class="section" id="about" aria-labelledby="about-title">
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow"><span>01</span>about</p>
-        <h2 id="about-title">About <em class="serif">me</em></h2>
+        <h2 id="about-title">Player <span class="grad">bio</span></h2>
       </div>
       <div class="about-grid">
         <div class="reveal">
           <p class="prose">I'm a third-year B.Tech student in Computer Science &amp; AI at Newton School of Technology, based in the Greater Kolkata Area. I learn by shipping real projects: AI agents built with LangGraph and LLMs, machine-learning models in Python, and MERN web apps deployed on Vercel and Render.</p>
           <p class="prose">I'm most interested in AI agents and applied ML, and I'm comfortable across the stack, from a FastAPI or Express backend to a React front end. Right now I'm looking for remote AI/ML or full-stack internships.</p>
         </div>
-        <dl class="facts glow reveal">
-          <div><dt>Based in</dt><dd>Greater Kolkata Area, India</dd></div>
-          <div><dt>Studying</dt><dd>B.Tech CS &amp; AI, Newton School of Technology</dd></div>
-          <div><dt>Focus</dt><dd>AI agents &amp; applied ML</dd></div>
+        <dl class="facts hud glow reveal">
+          <div><dt>Class</dt><dd>AI/ML &amp; Full-Stack Developer</dd></div>
+          <div><dt>Guild</dt><dd>B.Tech CS &amp; AI, Newton School of Technology</dd></div>
+          <div><dt>Region</dt><dd>Greater Kolkata Area, India</dd></div>
+          <div><dt>Main quest</dt><dd>AI agents &amp; applied ML</dd></div>
           <div><dt>Status</dt><dd><span class="status-dot" aria-hidden="true"></span>Open to remote internships</dd></div>
           <div><dt>Local time</dt><dd><time class="local-time" data-tz="Asia/Kolkata">IST</time></dd></div>
         </dl>
@@ -227,7 +255,7 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow"><span>02</span>skills</p>
-        <h2 id="skills-title">Skills &amp; <em class="serif">tools</em></h2>
+        <h2 id="skills-title">Skill <span class="grad">loadout</span></h2>
       </div>
       <div class="bento" data-stagger>
         <div class="skill-group skill-ai glow reveal span-8">
@@ -275,7 +303,7 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow"><span>03</span>projects</p>
-        <h2 id="projects-title">Selected <em class="serif">work</em></h2>
+        <h2 id="projects-title">Quest <span class="grad">log</span></h2>
       </div>
 
       <div class="filters reveal" role="group" aria-label="Filter projects">
@@ -293,7 +321,7 @@
         <div class="cards" data-stagger>
 
           <article class="card glow reveal">
-            <p class="card-kicker">AI agent</p>
+            <div class="card-top"><p class="card-kicker">AI agent</p><span class="quest-status is-done">Shipped</span></div>
             <h4>Student GitHub Reviewer</h4>
             <p>An AI agent that reviews a student's GitHub portfolio. A LangGraph pipeline drives Llama 3.1 (via Groq), served by a FastAPI backend on Render with a Streamlit UI.</p>
             <ul class="tags" aria-label="Tech used">
@@ -306,7 +334,7 @@
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">Audio ML · classification</p>
+            <div class="card-top"><p class="card-kicker">Audio ML · classification</p><span class="quest-status is-done">Shipped</span></div>
             <h4>Infant State Recognition from Cry Audio</h4>
             <p>Classifies infant cry audio into 8 need states: hungry, tired, belly pain, burping, scared, lonely, discomfort and cold/hot. 511 cleaned clips become a 218-dim librosa feature vector (MFCC, delta-MFCC, log-mel, chroma, spectral contrast, tonnetz, ZCR, RMS) fed to a cost-sensitive Random Forest (300 trees, balanced class weights, 5-fold stratified CV).</p>
             <dl class="metrics">
@@ -323,7 +351,7 @@
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">ML · course project</p>
+            <div class="card-top"><p class="card-kicker">ML · course project</p><span class="quest-status is-done">Shipped</span></div>
             <h4>Flight Delay Risk Prediction</h4>
             <p>Predicts, the night before departure, whether a New York flight will arrive 15+ minutes late, using 336,776 departures from 2013 (nycflights13). Past-only features with a leakage test, a chronological train/validation/test split, logistic regression vs XGBoost, Platt calibration with rolling recalibration, and a what-if rescheduling analysis.</p>
             <dl class="metrics">
@@ -340,7 +368,7 @@
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">Hackathon · Dec 2025</p>
+            <div class="card-top"><p class="card-kicker">Hackathon · Dec 2025</p><span class="quest-status is-done">Shipped</span></div>
             <h4>Cognify: AI Career Guidance Platform</h4>
             <p>Co-built at Construct Hackathon and launched on Product Hunt. An AI agent asks students cognitive questions to uncover their real interests, then generates personalised career suggestions, roadmaps and college options.</p>
             <!-- TODO: my specific role on Cognify (not stated on GitHub) -->
@@ -363,7 +391,7 @@
         <div class="cards" data-stagger>
 
           <article class="card glow reveal">
-            <p class="card-kicker">MERN · health records</p>
+            <div class="card-top"><p class="card-kicker">MERN · health records</p><span class="quest-status is-done">Shipped</span></div>
             <h4>MediTrack</h4>
             <p>A personal health record manager to upload, organise and share medical reports securely. JWT auth, role-based access, protected routes and CRUD REST APIs. Frontend on Vercel, backend on Render.</p>
             <ul class="tags" aria-label="Tech used">
@@ -376,7 +404,7 @@
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">React · e-commerce</p>
+            <div class="card-top"><p class="card-kicker">React · e-commerce</p><span class="quest-status is-done">Shipped</span></div>
             <h4>QuickCart</h4>
             <p>A React e-commerce cart: products fetched from MockAPI, add-to-cart from product cards, quantity controls (1–10), real-time totals and a simulated checkout flow. Multi-page navigation with React Router, responsive on mobile, tablet and desktop. Deployed on Vercel.</p>
             <ul class="tags" aria-label="Tech used">
@@ -389,7 +417,7 @@
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">Personal finance · in progress</p>
+            <div class="card-top"><p class="card-kicker">Personal finance · in progress</p><span class="quest-status is-wip">In progress</span></div>
             <h4>Spendly</h4>
             <p>An expense tracker built step by step with Claude Code. The Flask app has its landing, register and login pages in place; authentication, profile and add/edit/delete expenses are the next steps.</p>
             <ul class="tags" aria-label="Tech used">
@@ -409,7 +437,7 @@
         <div class="cards cards-compact" data-stagger>
 
           <article class="card card-compact glow reveal">
-            <p class="card-kicker">Networking · team project</p>
+            <div class="card-top"><p class="card-kicker">Networking · team project</p><span class="quest-status is-side">Side quest</span></div>
             <h4>Computer Networks project</h4>
             <p>Private DNS → nginx HTTPS edge → two load-balanced backends, with each step verified using dig, curl and Wireshark.</p>
             <ul class="tags" aria-label="Tech used"><li>DNS</li><li>nginx</li><li>HTTPS</li><li>Wireshark</li></ul>
@@ -419,7 +447,7 @@
           </article>
 
           <article class="card card-compact glow reveal">
-            <p class="card-kicker">Data viz</p>
+            <div class="card-top"><p class="card-kicker">Data viz</p><span class="quest-status is-side">Side quest</span></div>
             <h4>Tableau dashboards</h4>
             <p>Blinkit grocery sales KPIs and outlet performance; Uber trip demand and revenue analysis.</p>
             <ul class="tags" aria-label="Tech used"><li>Tableau</li></ul>
@@ -430,7 +458,7 @@
           </article>
 
           <article class="card card-compact glow reveal">
-            <p class="card-kicker">Algorithms</p>
+            <div class="card-top"><p class="card-kicker">Algorithms</p><span class="quest-status is-side">Side quest</span></div>
             <h4>DSA practice</h4>
             <p>My NeetCode / LeetCode solutions, written in Python.</p>
             <ul class="tags" aria-label="Tech used"><li>Python</li><li>DSA</li></ul>
@@ -444,41 +472,124 @@
     </div>
   </section>
 
-  <!-- 5. Experience + Education -->
-  <section class="section" id="experience" aria-labelledby="experience-title">
-    <div class="container narrow">
+  <!-- 5. Journey: experience + education as levels -->
+  <section class="section" id="journey" aria-labelledby="journey-title">
+    <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow"><span>04</span>experience</p>
-        <h2 id="experience-title">Experience &amp; <em class="serif">education</em></h2>
+        <p class="eyebrow"><span>04</span>experience &amp; education</p>
+        <h2 id="journey-title">The <span class="grad">journey</span> so far</h2>
+        <p class="prose section-sub">Every level is a real milestone. Scroll to play through it.</p>
       </div>
-      <ol class="timeline">
-        <li class="tl-item glow reveal">
-          <p class="tl-date"><time datetime="2025-11">Nov 2025</time> – Present</p>
-          <h3>Full-Stack Developer (Project-Based)</h3>
-          <p class="tl-org">Self-Directed Projects · Remote</p>
-          <ul class="tl-points">
-            <li>Built MediTrack, a MERN health-record manager with JWT auth and role-based access.</li>
-            <li>Co-built Cognify at Construct Hackathon and launched it on Product Hunt.</li>
-            <li>Built QuickCart, a React e-commerce cart deployed on Vercel.</li>
-          </ul>
+
+      <ol class="journey">
+        <li class="level is-cleared reveal">
+          <div class="level-node" aria-hidden="true"><span>01</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">LVL 01</span><time datetime="2024-08">Aug 2024</time><span class="level-status">Cleared</span></p>
+            <h3>Spawn point: B.Tech, Computer Science &amp; AI</h3>
+            <p class="level-org">Newton School of Technology · <time datetime="2024-08">Aug 2024</time> – <time datetime="2028-08">Aug 2028</time> · currently in 3rd year</p>
+            <p>Started the degree and began practising DSA in Python with NeetCode and LeetCode.</p>
+            <ul class="loot" aria-label="Unlocked"><li>Python</li><li>DSA</li><li>Git / GitHub</li></ul>
+          </div>
         </li>
-        <li class="tl-item glow reveal">
-          <p class="tl-date"><time datetime="2024-08">Aug 2024</time> – <time datetime="2028-08">Aug 2028</time></p>
-          <h3>B.Tech, Computer Science &amp; AI</h3>
-          <p class="tl-org">Newton School of Technology · currently in 3rd year</p>
+
+        <li class="level is-cleared reveal">
+          <div class="level-node" aria-hidden="true"><span>02</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">LVL 02</span><span class="level-status">Cleared</span></p>
+            <h3>Frontend unlocked: QuickCart</h3>
+            <p>Built a React e-commerce cart with live pricing, quantity controls and a simulated checkout, and deployed it on Vercel.</p>
+            <ul class="loot" aria-label="Unlocked"><li>React</li><li>React Router</li><li>Vercel</li></ul>
+          </div>
+        </li>
+
+        <li class="level is-cleared reveal">
+          <div class="level-node" aria-hidden="true"><span>03</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">LVL 03</span><time datetime="2025-11">Nov 2025</time> – Present<span class="level-status">Cleared</span></p>
+            <h3>Full-Stack Developer (Project-Based)</h3>
+            <p class="level-org">Self-Directed Projects · Remote</p>
+            <ul class="tl-points">
+              <li>Built MediTrack, a MERN health-record manager with JWT auth and role-based access.</li>
+              <li>Co-built Cognify at Construct Hackathon and launched it on Product Hunt.</li>
+              <li>Built QuickCart, a React e-commerce cart deployed on Vercel.</li>
+            </ul>
+            <ul class="loot" aria-label="Unlocked"><li>Node.js</li><li>Express</li><li>MongoDB</li><li>JWT</li></ul>
+          </div>
+        </li>
+
+        <li class="level is-cleared is-boss reveal">
+          <div class="level-node" aria-hidden="true"><span>04</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">Boss fight</span><time datetime="2025-12">Dec 2025</time><span class="level-status">Cleared</span></p>
+            <h3>Construct Hackathon: Cognify</h3>
+            <p>Co-built an AI career-guidance platform during the hackathon, then launched it on Product Hunt.</p>
+            <ul class="loot" aria-label="Unlocked"><li>AI agent</li><li>React</li><li>Product Hunt launch</li></ul>
+          </div>
+        </li>
+
+        <li class="level is-cleared reveal">
+          <div class="level-node" aria-hidden="true"><span>05</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">LVL 05</span><span class="level-status">Cleared</span></p>
+            <h3>AI agents: Student GitHub Reviewer</h3>
+            <p>A LangGraph pipeline drives Llama 3.1 (via Groq) to review a student's GitHub portfolio, served by FastAPI on Render with a Streamlit UI.</p>
+            <ul class="loot" aria-label="Unlocked"><li>LangGraph</li><li>Groq</li><li>FastAPI</li><li>Streamlit</li></ul>
+          </div>
+        </li>
+
+        <li class="level is-cleared reveal">
+          <div class="level-node" aria-hidden="true"><span>06</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">LVL 06</span><span class="level-status">Cleared</span></p>
+            <h3>Applied ML &amp; data</h3>
+            <p>Classified infant cry audio with librosa features and a cost-sensitive Random Forest, predicted flight-delay risk with calibrated XGBoost, and built Tableau dashboards for Blinkit and Uber data.</p>
+            <ul class="loot" aria-label="Unlocked"><li>scikit-learn</li><li>XGBoost</li><li>librosa</li><li>Tableau</li></ul>
+          </div>
+        </li>
+
+        <li class="level is-current reveal">
+          <div class="level-node" aria-hidden="true"><span>07</span></div>
+          <div class="level-card hud glow">
+            <p class="level-meta"><span class="level-tag">Current level</span><span class="level-status">In progress</span></p>
+            <h3>Next quest: join a team</h3>
+            <p>Looking for a remote AI/ML or full-stack internship where I can ship real features and learn from experienced engineers.</p>
+            <a class="btn btn-primary btn-sm magnetic" href="#contact"><svg aria-hidden="true"><use href="#i-play"/></svg>Send an invite</a>
+          </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- 6. Contact -->
+  <!-- 6. Achievements -->
+  <section class="section" id="badges" aria-labelledby="badges-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span>05</span>badges</p>
+        <h2 id="badges-title">Achievements <span class="grad">unlocked</span></h2>
+      </div>
+      <ul class="badges" data-stagger>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-trophy"/></svg></span><div><h3>Hackathon hero</h3><p>Co-built Cognify at Construct Hackathon.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-rocket"/></svg></span><div><h3>Launch day</h3><p>Launched Cognify on Product Hunt.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><div><h3>Ship it ×3</h3><p>Three live deployments: MediTrack, QuickCart and Cognify.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-brain"/></svg></span><div><h3>Agent builder</h3><p>A LangGraph agent driving Llama 3.1 via Groq.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-server"/></svg></span><div><h3>Full stack</h3><p>MERN app with JWT auth and role-based access.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><div><h3>Honest metrics</h3><p>Reports macro F1 and calibration, not just accuracy.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><div><h3>Network engineer</h3><p>Private DNS → nginx HTTPS → load-balanced backends.</p></div></li>
+        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-code"/></svg></span><div><h3>Grinder</h3><p>NeetCode / LeetCode solutions in Python.</p></div></li>
+        <li class="ach ach-locked hud reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-lock"/></svg></span><div><h3>First internship</h3><p>Locked. <a href="#contact">Your team could unlock it.</a></p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Contact -->
   <section class="section contact-section" id="contact" aria-labelledby="contact-title">
     <div class="container narrow contact">
       <div class="section-head reveal">
-        <p class="eyebrow"><span>05</span>contact</p>
-        <h2 id="contact-title" class="contact-title">Let's <em class="serif grad">talk</em>.</h2>
+        <p class="eyebrow"><span>06</span>contact</p>
+        <h2 id="contact-title" class="contact-title">Player 2, <span class="grad">press start</span></h2>
       </div>
-      <p class="prose reveal">I'm open to remote AI/ML and full-stack internships. Email is the fastest way to reach me.</p>
+      <p class="prose reveal">Let's talk. I'm open to remote AI/ML and full-stack internships. Email is the fastest way to reach me.</p>
       <div class="contact-email reveal">
         <a class="email-link" href="mailto:atanuadhikari5@gmail.com">atanuadhikari5@gmail.com</a>
         <button type="button" class="icon-btn copy-email" data-email="atanuadhikari5@gmail.com" aria-label="Copy email address">
@@ -487,7 +598,7 @@
         <span class="copy-status" role="status" aria-live="polite"></span>
       </div>
       <ul class="contact-links reveal">
-        <li><a class="btn btn-primary magnetic" href="mailto:atanuadhikari5@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Say hello</a></li>
+        <li><a class="btn btn-primary magnetic" href="mailto:atanuadhikari5@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send an invite</a></li>
         <li><a class="btn btn-ghost magnetic" href="https://github.com/techatanu" target="_blank" rel="noopener me"><svg aria-hidden="true"><use href="#i-github"/></svg>github.com/techatanu</a></li>
         <li><a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" target="_blank" rel="noopener me"><svg aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
       </ul>
@@ -516,7 +627,8 @@
       <li role="option" id="cmd-about" data-group="nav" data-go="about" data-keys="bio intro"><svg aria-hidden="true"><use href="#i-hash"/></svg>About</li>
       <li role="option" id="cmd-skills" data-group="nav" data-go="skills" data-keys="stack tech"><svg aria-hidden="true"><use href="#i-hash"/></svg>Skills</li>
       <li role="option" id="cmd-projects" data-group="nav" data-go="projects" data-keys="work portfolio"><svg aria-hidden="true"><use href="#i-hash"/></svg>Projects</li>
-      <li role="option" id="cmd-experience" data-group="nav" data-go="experience" data-keys="education timeline"><svg aria-hidden="true"><use href="#i-hash"/></svg>Experience</li>
+      <li role="option" id="cmd-journey" data-group="nav" data-go="journey" data-keys="experience education timeline levels"><svg aria-hidden="true"><use href="#i-hash"/></svg>Journey</li>
+      <li role="option" id="cmd-badges" data-group="nav" data-go="badges" data-keys="achievements"><svg aria-hidden="true"><use href="#i-hash"/></svg>Badges</li>
       <li role="option" id="cmd-contact" data-group="nav" data-go="contact" data-keys="hire talk"><svg aria-hidden="true"><use href="#i-hash"/></svg>Contact</li>
 
       <li class="cmdk-group" role="presentation" data-group="actions">Actions</li>

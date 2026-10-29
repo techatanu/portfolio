@@ -88,6 +88,9 @@
   <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8h16M4 16h16"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 9h15M4 15h15M10 3 8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path fill="currentColor" stroke="none" d="M12 3a9 9 0 0 1 0 18z"/></g></symbol>
   <symbol id="i-brain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="M10.6 6.4 6.4 10.6M13.4 6.4l4.2 4.2M6.4 13.4l4.2 4.2M17.6 13.4l-4.2 4.2M7 12h10"/></g></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></g></symbol>
   <symbol id="i-layout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></g></symbol>
@@ -120,6 +123,10 @@
       </ul>
       <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
+    <button class="cmdk-btn" type="button" aria-haspopup="dialog" aria-controls="cmdk" aria-keyshortcuts="Meta+K Control+K" aria-label="Open command menu">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <kbd class="cmdk-kbd" aria-hidden="true"><span class="cmdk-mod">⌘</span>K</kbd>
+    </button>
     <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme">
       <svg class="icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
       <svg class="icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
@@ -477,6 +484,47 @@
     <p class="footer-time">Kolkata · <time class="local-time" data-tz="Asia/Kolkata">IST</time></p>
   </div>
 </footer>
+
+<!-- Command menu (⌘K / Ctrl+K) -->
+<dialog class="cmdk" id="cmdk" aria-label="Command menu">
+  <div class="cmdk-panel">
+    <div class="cmdk-search">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="cmdk-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search…" autocomplete="off" spellcheck="false" autofocus>
+      <kbd>esc</kbd>
+    </div>
+    <ul class="cmdk-list" id="cmdk-list" role="listbox" aria-label="Commands">
+      <li class="cmdk-group" role="presentation" data-group="nav">Navigate</li>
+      <li role="option" id="cmd-about" data-group="nav" data-go="about" data-keys="bio intro"><svg aria-hidden="true"><use href="#i-hash"/></svg>About</li>
+      <li role="option" id="cmd-skills" data-group="nav" data-go="skills" data-keys="stack tech"><svg aria-hidden="true"><use href="#i-hash"/></svg>Skills</li>
+      <li role="option" id="cmd-projects" data-group="nav" data-go="projects" data-keys="work portfolio"><svg aria-hidden="true"><use href="#i-hash"/></svg>Projects</li>
+      <li role="option" id="cmd-experience" data-group="nav" data-go="experience" data-keys="education timeline"><svg aria-hidden="true"><use href="#i-hash"/></svg>Experience</li>
+      <li role="option" id="cmd-contact" data-group="nav" data-go="contact" data-keys="hire talk"><svg aria-hidden="true"><use href="#i-hash"/></svg>Contact</li>
+
+      <li class="cmdk-group" role="presentation" data-group="actions">Actions</li>
+      <li role="option" id="cmd-copy" data-group="actions" data-action="copy" data-keys="email clipboard"><svg aria-hidden="true"><use href="#i-copy"/></svg>Copy email address</li>
+      <li role="option" id="cmd-mail" data-group="actions" data-href="mailto:atanuadhikari5@gmail.com" data-keys="email contact hire"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send an email</li>
+      <li role="option" id="cmd-theme" data-group="actions" data-action="theme" data-keys="dark light mode"><svg aria-hidden="true"><use href="#i-contrast"/></svg>Switch theme</li>
+
+      <li class="cmdk-group" role="presentation" data-group="work">Projects</li>
+      <li role="option" id="cmd-p1" data-group="work" data-href="https://github.com/techatanu/student-github-reviewer" data-keys="ai agent langgraph code"><svg aria-hidden="true"><use href="#i-github"/></svg>Student GitHub Reviewer<span class="cmdk-hint">code</span></li>
+      <li role="option" id="cmd-p2" data-group="work" data-href="https://github.com/techatanu/Infant-State-Recognition-System" data-keys="audio ml cry code"><svg aria-hidden="true"><use href="#i-github"/></svg>Infant State Recognition<span class="cmdk-hint">code</span></li>
+      <li role="option" id="cmd-p3" data-group="work" data-href="https://www.producthunt.com/products/cognify-3" data-keys="hackathon career ai"><svg aria-hidden="true"><use href="#i-external"/></svg>Cognify<span class="cmdk-hint">Product Hunt</span></li>
+      <li role="option" id="cmd-p4" data-group="work" data-href="https://medi-track-lemon.vercel.app" data-keys="mern health demo live"><svg aria-hidden="true"><use href="#i-external"/></svg>MediTrack<span class="cmdk-hint">live</span></li>
+      <li role="option" id="cmd-p5" data-group="work" data-href="https://github.com/techatanu/Spendly" data-keys="expense finance code"><svg aria-hidden="true"><use href="#i-github"/></svg>Spendly<span class="cmdk-hint">code</span></li>
+
+      <li class="cmdk-group" role="presentation" data-group="links">Profiles</li>
+      <li role="option" id="cmd-gh" data-group="links" data-href="https://github.com/techatanu" data-keys="code repos"><svg aria-hidden="true"><use href="#i-github"/></svg>GitHub<span class="cmdk-hint">techatanu</span></li>
+      <li role="option" id="cmd-li" data-group="links" data-href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" data-keys="profile network"><svg aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</li>
+    </ul>
+    <p class="cmdk-empty" hidden>No results.</p>
+    <div class="cmdk-foot" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> select</span><span><kbd>esc</kbd> close</span>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" role="status" aria-live="polite"></div>
 
 <!-- Back to top, ring shows scroll progress -->
 <a class="to-top" href="#top" aria-label="Back to top">

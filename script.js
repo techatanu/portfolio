@@ -52,12 +52,29 @@
     themeBtn.setAttribute('aria-label', 'Switch to ' + next + ' theme');
   }
 
-  themeBtn.addEventListener('click', function () {
+  // Switch theme; where View Transitions exist, reveal the new theme as a circle growing from (x, y).
+  function toggleTheme(x, y) {
     var next = currentTheme() === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
-    syncThemeButton();
-    net.refreshColors();
+    var apply = function () {
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
+      syncThemeButton();
+      net.refreshColors();
+    };
+    if (!document.startViewTransition || reducedQuery.matches) { apply(); return; }
+    if (x == null) { x = window.innerWidth / 2; y = window.innerHeight / 2; }
+    var r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    document.startViewTransition(apply).ready.then(function () {
+      root.animate(
+        { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + r + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 650, easing: 'cubic-bezier(.2, .8, .2, 1)', pseudoElement: '::view-transition-new(root)' }
+      );
+    });
+  }
+
+  themeBtn.addEventListener('click', function () {
+    var r = themeBtn.getBoundingClientRect();
+    toggleTheme(r.left + r.width / 2, r.top + r.height / 2);
   });
 
   onChange(lightQuery, function () {
@@ -372,20 +389,152 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { movePill(); moveIndicator(activeLink); });
 
   /* ---------- Copy email ---------- */
+  var toast = document.querySelector('.toast');
+  var toastTimer = 0;
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    requestAnimationFrame(function () { toast.classList.add('is-on'); });
+    toastTimer = setTimeout(function () {
+      toast.classList.remove('is-on');
+      toastTimer = setTimeout(function () { toast.textContent = ''; }, 400);
+    }, 2000);
+  }
+
+  function copyText(text, done, fail) {
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fail);
+    else fail();
+  }
+
   var copyBtn = document.querySelector('.copy-email');
   var copyStatus = document.querySelector('.copy-status');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {
-      var email = copyBtn.dataset.email;
-      var done = function () { copyStatus.textContent = 'Copied!'; setTimeout(function () { copyStatus.textContent = ''; }, 2000); };
-      var fail = function () { copyStatus.textContent = 'Copy failed, select the address instead.'; };
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(email).then(done, fail);
-      } else {
-        fail();
-      }
+      copyText(copyBtn.dataset.email,
+        function () { copyStatus.textContent = 'Copied!'; setTimeout(function () { copyStatus.textContent = ''; }, 2000); },
+        function () { copyStatus.textContent = 'Copy failed, select the address instead.'; });
     });
   }
+
+  /* ---------- Command menu (⌘K / Ctrl+K) ---------- */
+  (function () {
+    var dialog = document.getElementById('cmdk');
+    var openBtn = document.querySelector('.cmdk-btn');
+    if (!dialog || !dialog.showModal) { if (openBtn) openBtn.hidden = true; return; }
+
+    var input = document.getElementById('cmdk-input');
+    var list = document.getElementById('cmdk-list');
+    var empty = dialog.querySelector('.cmdk-empty');
+    var options = Array.prototype.slice.call(list.querySelectorAll('[role="option"]'));
+    var headers = Array.prototype.slice.call(list.querySelectorAll('.cmdk-group'));
+    var visible = options, active = 0;
+
+    var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    if (!isMac) document.querySelectorAll('.cmdk-mod').forEach(function (el) { el.textContent = 'Ctrl '; });
+
+    function select(i) {
+      if (!visible.length) { input.removeAttribute('aria-activedescendant'); return; }
+      active = (i + visible.length) % visible.length;
+      options.forEach(function (o) { o.setAttribute('aria-selected', 'false'); });
+      var opt = visible[active];
+      opt.setAttribute('aria-selected', 'true');
+      input.setAttribute('aria-activedescendant', opt.id);
+      opt.scrollIntoView({ block: 'nearest' });
+    }
+
+    function filter() {
+      var q = input.value.trim().toLowerCase();
+      visible = options.filter(function (o) {
+        var hay = (o.textContent + ' ' + (o.dataset.keys || '')).toLowerCase();
+        var match = !q || q.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
+        o.hidden = !match;
+        return match;
+      });
+      headers.forEach(function (h) {
+        h.hidden = !visible.some(function (o) { return o.dataset.group === h.dataset.group; });
+      });
+      empty.hidden = visible.length > 0;
+      select(0);
+    }
+
+    function open() {
+      if (dialog.open) return;
+      input.value = '';
+      filter();
+      dialog.showModal();
+      input.focus();
+      if (lenis) lenis.stop();
+    }
+
+    function close(after) {
+      if (!dialog.open) { if (after) after(); return; }
+      var finish = function () {
+        dialog.classList.remove('is-closing');
+        dialog.close();
+        if (lenis) lenis.start(); // resume before `after` scrolls; the close event fires too late
+        if (after) after();
+      };
+      if (reducedQuery.matches) { finish(); return; }
+      dialog.classList.add('is-closing');
+      setTimeout(finish, 180);
+    }
+
+    function run(opt) {
+      if (!opt) return;
+      var d = opt.dataset;
+      if (d.go) {
+        close(function () {
+          var link = document.querySelector('a[href="#' + d.go + '"]');
+          if (link) link.click();
+        });
+      } else if (d.action === 'theme') {
+        close(function () { toggleTheme(); });
+      } else if (d.action === 'copy') {
+        close(function () {
+          copyText('atanuadhikari5@gmail.com',
+            function () { showToast('Email copied to clipboard'); },
+            function () { showToast('Copy failed. Email: atanuadhikari5@gmail.com'); });
+        });
+      } else if (d.href) {
+        close(function () {
+          if (d.href.indexOf('mailto:') === 0) window.location.href = d.href;
+          else window.open(d.href, '_blank', 'noopener');
+        });
+      }
+    }
+
+    dialog.addEventListener('close', function () { if (lenis) lenis.start(); });
+    dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) { close(); return; } // backdrop
+      var opt = e.target.closest('[role="option"]');
+      if (opt) run(opt);
+    });
+    list.addEventListener('mousemove', function (e) {
+      var opt = e.target.closest('[role="option"]');
+      var i = visible.indexOf(opt);
+      if (opt && i !== active) select(i);
+    });
+    input.addEventListener('input', filter);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); select(active + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); select(active - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); select(0); }
+      else if (e.key === 'End') { e.preventDefault(); select(visible.length - 1); }
+      else if (e.key === 'Enter') { e.preventDefault(); run(visible[active]); }
+    });
+
+    openBtn.addEventListener('click', open);
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (dialog.open) close(); else open();
+      } else if (e.key === '/' && !dialog.open && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+        e.preventDefault();
+        open();
+      }
+    });
+  })();
 
   /* ---------- Hero neural-network canvas (reacts to the cursor) ---------- */
   var net = (function () {

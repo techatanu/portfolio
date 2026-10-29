@@ -9,40 +9,61 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <script>
   try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
 <style>
-  :root { --bg:#0b0d12; --fg:#e8eaf0; --muted:#9ba1b3; --accent-2:#5eead4; --border:rgba(255,255,255,.18);
-          --grad:linear-gradient(90deg,#7c9cff,#5eead4); --focus:#5eead4; }
+  :root { --bg:#07080b; --fg:#ecedf2; --muted:#9ba1b3; --accent-2:#5eead4; --border:rgba(255,255,255,.08);
+          --border-strong:rgba(255,255,255,.16); --accent-rgb:124,156,255; --accent-2-rgb:94,234,212;
+          --grad:linear-gradient(100deg,#7c9cff 10%,#5eead4 90%); --focus:#5eead4; --blob:.55; }
   @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) { --bg:#f6f7fb; --fg:#11131a; --muted:#464d5f; --accent-2:#0f766e;
-          --border:rgba(17,19,26,.22); --grad:linear-gradient(90deg,#3451d1,#0f766e); --focus:#3451d1; }
+    :root:not([data-theme="dark"]) { --bg:#f7f7f9; --fg:#0f1117; --muted:#4a5163; --accent-2:#0f766e;
+          --border:rgba(15,17,23,.09); --border-strong:rgba(15,17,23,.2); --accent-rgb:52,81,209; --accent-2-rgb:15,118,110;
+          --grad:linear-gradient(100deg,#3451d1 10%,#0f766e 90%); --focus:#3451d1; --blob:.35; }
   }
-  :root[data-theme="light"] { --bg:#f6f7fb; --fg:#11131a; --muted:#464d5f; --accent-2:#0f766e;
-          --border:rgba(17,19,26,.22); --grad:linear-gradient(90deg,#3451d1,#0f766e); --focus:#3451d1; }
+  :root[data-theme="light"] { --bg:#f7f7f9; --fg:#0f1117; --muted:#4a5163; --accent-2:#0f766e;
+          --border:rgba(15,17,23,.09); --border-strong:rgba(15,17,23,.2); --accent-rgb:52,81,209; --accent-2-rgb:15,118,110;
+          --grad:linear-gradient(100deg,#3451d1 10%,#0f766e 90%); --focus:#3451d1; --blob:.35; }
   * { box-sizing:border-box; margin:0; padding:0; }
   html, body { min-height:100%; }
-  body { background:var(--bg); color:var(--fg); font-family:Inter,system-ui,sans-serif;
-         min-height:100vh; display:grid; place-items:center; padding:24px 16px; text-align:center; }
-  main { max-width:560px; }
-  .code { font-family:"JetBrains Mono",monospace; font-size:14px; color:var(--accent-2); margin-bottom:16px; }
-  h1 { font-size:clamp(56px,16vw,120px); font-weight:800; letter-spacing:-.04em; line-height:1;
-       background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  p.sub { margin-top:16px; font-size:18px; line-height:1.6; color:var(--muted); }
-  a.btn { display:inline-flex; align-items:center; min-height:46px; margin-top:32px; padding:10px 20px;
-          border-radius:12px; background:linear-gradient(90deg,#7c9cff,#5eead4); color:#0b0d12;
-          font-weight:600; text-decoration:none; }
+  body { background:var(--bg); color:var(--fg); font-family:Geist,Inter,system-ui,sans-serif;
+         min-height:100vh; display:grid; place-items:center; padding:24px 16px; text-align:center;
+         position:relative; overflow:hidden; -webkit-font-smoothing:antialiased; }
+  .bg { position:fixed; inset:0; z-index:-1; pointer-events:none; }
+  .bg span { position:absolute; width:50vmax; height:50vmax; border-radius:50%; opacity:var(--blob); }
+  .bg .a { top:-25vmax; left:-15vmax; background:radial-gradient(circle,rgba(var(--accent-rgb),.45),transparent 65%); animation:d1 22s ease-in-out infinite alternate; }
+  .bg .b { bottom:-25vmax; right:-15vmax; background:radial-gradient(circle,rgba(var(--accent-2-rgb),.3),transparent 65%); animation:d2 26s ease-in-out infinite alternate; }
+  .bg .grid { inset:0; width:auto; height:auto; border-radius:0; opacity:1;
+              background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+              background-size:56px 56px;
+              -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 25%,transparent 75%);
+              mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 25%,transparent 75%); }
+  @keyframes d1 { to { transform:translate(10vmax,8vmax) scale(1.1); } }
+  @keyframes d2 { to { transform:translate(-8vmax,-10vmax) scale(.9); } }
+  main { max-width:600px; animation:rise .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes rise { from { opacity:0; transform:translateY(24px); filter:blur(6px); } }
+  .code { display:inline-block; font-family:"Geist Mono",monospace; font-size:13px; color:var(--accent-2);
+          border:1px solid var(--border-strong); border-radius:999px; padding:6px 14px; margin-bottom:24px; }
+  h1 { font-size:clamp(64px,18vw,148px); font-weight:700; letter-spacing:-.05em; line-height:.95; }
+  h1 em { font-family:"Instrument Serif",Georgia,serif; font-weight:400; font-size:1.08em; letter-spacing:-.01em;
+          background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; padding-right:.06em; }
+  p.sub { margin-top:20px; font-size:18px; line-height:1.6; color:var(--muted); }
+  a.btn { display:inline-flex; align-items:center; gap:8px; min-height:48px; margin-top:36px; padding:10px 22px;
+          border-radius:999px; background:linear-gradient(100deg,#7c9cff,#5eead4); color:#07080b; font-weight:600; text-decoration:none;
+          box-shadow:0 10px 30px -12px rgba(var(--accent-rgb),.7); transition:transform .3s, box-shadow .3s; }
+  a.btn:hover { transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(var(--accent-rgb),.85); }
   a:focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
-  footer { margin-top:48px; font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--muted); }
+  footer { margin-top:56px; font-family:"Geist Mono",monospace; font-size:13px; color:var(--muted); }
   footer a { color:inherit; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
 </style>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><span class="a"></span><span class="b"></span><span class="grid"></span></div>
 <main>
   <p class="code">error 404</p>
-  <h1>Not found</h1>
+  <h1>Not <em>found</em></h1>
   <p class="sub">This page doesn't exist, or it moved. The portfolio is one click away.</p>
   <a class="btn" href="/">Back to atanu.online</a>
   <footer>© 2026 Atanu Adhikari · <a href="https://atanu.online/">atanu.online</a></footer>

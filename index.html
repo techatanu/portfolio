@@ -158,8 +158,9 @@
         <p class="hero-meta intro" style="--i:5">B.Tech CS &amp; AI @ Newton School of Technology · Greater Kolkata Area, India</p>
         <div class="hero-actions intro" style="--i:6">
           <a class="btn btn-primary magnetic" href="#projects">View projects <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          <!-- TODO: add resume.pdf to the repo root so this link works -->
-          <a class="btn btn-ghost magnetic" href="/resume.pdf" download="Atanu-Adhikari-Resume.pdf">Download resume <svg aria-hidden="true"><use href="#i-download"/></svg></a>
+          <!-- TODO: add resume.pdf to the repo root, then swap this placeholder for:
+               <a class="btn btn-ghost magnetic" href="/resume.pdf" download="Atanu-Adhikari-Resume.pdf">Download resume …</a> -->
+          <button type="button" class="btn btn-ghost magnetic" data-toast="Resume coming soon. Email me and I'll send a copy.">Resume <span class="soon-tag">soon</span></button>
           <a class="btn btn-ghost magnetic" href="mailto:atanuadhikari5@gmail.com">Email me <svg aria-hidden="true"><use href="#i-mail"/></svg></a>
         </div>
         <ul class="social intro" style="--i:7" aria-label="Profiles">
@@ -172,8 +173,7 @@
         <div class="avatar">
           <span class="avatar-ring" aria-hidden="true"></span>
           <span class="avatar-initials" aria-hidden="true">AA</span>
-          <!-- TODO: add assets/atanu.jpg (square, ~600×600). Until then the "AA" initials show. -->
-          <img src="assets/atanu.jpg" alt="Portrait of Atanu Adhikari" width="600" height="600" decoding="async" onerror="this.remove()">
+          <img src="assets/atanu.png" alt="Portrait of Atanu Adhikari" width="460" height="460" decoding="async" onerror="this.remove()">
         </div>
         <div class="code-card" aria-hidden="true">
           <div class="code-bar"><i></i><i></i><i></i><span>atanu.ts</span></div>
@@ -233,13 +233,13 @@
         <div class="skill-group skill-ai glow reveal span-8">
           <h3><svg aria-hidden="true"><use href="#i-brain"/></svg>AI / ML</h3>
           <ul class="chips">
-            <li>Python</li><li>NumPy</li><li>Pandas</li><li>scikit-learn</li><li>LangChain</li><li>LangGraph</li><li>LLMs (Llama 3.1 via Groq)</li><li>RAG</li><li>librosa (audio features)</li><li>Jupyter / Colab</li>
+            <li>Python</li><li>NumPy</li><li>Pandas</li><li>scikit-learn</li><li>XGBoost</li><li>LangChain</li><li>LangGraph</li><li>LLMs (Llama 3.1 via Groq)</li><li>RAG</li><li>librosa (audio features)</li><li>Jupyter / Colab</li>
           </ul>
         </div>
         <div class="skill-group glow reveal span-4">
           <h3><svg aria-hidden="true"><use href="#i-server"/></svg>Backend</h3>
           <ul class="chips">
-            <li>FastAPI</li><li>Node.js</li><li>Express.js</li><li>REST APIs</li><li>JWT auth</li><li>MongoDB</li>
+            <li>FastAPI</li><li>Flask</li><li>Node.js</li><li>Express.js</li><li>REST APIs</li><li>JWT auth</li><li>MongoDB</li>
           </ul>
         </div>
         <div class="skill-group glow reveal span-3">
@@ -310,8 +310,8 @@
             <h4>Infant State Recognition from Cry Audio</h4>
             <p>Classifies infant cry audio into 8 need states: hungry, tired, belly pain, burping, scared, lonely, discomfort and cold/hot. 511 cleaned clips become a 218-dim librosa feature vector (MFCC, delta-MFCC, log-mel, chroma, spectral contrast, tonnetz, ZCR, RMS) fed to a cost-sensitive Random Forest (300 trees, balanced class weights, 5-fold stratified CV).</p>
             <dl class="metrics">
-              <div><dt>Test accuracy</dt><dd data-count="81.6">81.6%</dd></div>
-              <div><dt>Macro F1</dt><dd data-count="32.0">32.0%</dd></div>
+              <div><dt>Test accuracy</dt><dd data-count="81.6" data-suffix="%">81.6%</dd></div>
+              <div><dt>Macro F1</dt><dd data-count="32.0" data-suffix="%">32.0%</dd></div>
             </dl>
             <p class="note"><strong>Honest read:</strong> the dataset is heavily imbalanced (~75% "hungry"), so accuracy flatters the model. Macro F1 is the metric I'm working to improve. Next: data augmentation and a CNN on log-mel spectrograms.</p>
             <ul class="tags" aria-label="Tech used">
@@ -323,17 +323,34 @@
           </article>
 
           <article class="card glow reveal">
+            <p class="card-kicker">ML · course project</p>
+            <h4>Flight Delay Risk Prediction</h4>
+            <p>Predicts, the night before departure, whether a New York flight will arrive 15+ minutes late, using 336,776 departures from 2013 (nycflights13). Past-only features with a leakage test, a chronological train/validation/test split, logistic regression vs XGBoost, Platt calibration with rolling recalibration, and a what-if rescheduling analysis.</p>
+            <dl class="metrics">
+              <div><dt>PR-AUC (XGBoost)</dt><dd data-count="0.468">0.468</dd></div>
+              <div><dt>Prior baseline</dt><dd data-count="0.335">0.335</dd></div>
+            </dl>
+            <p class="note"><strong>Honest read:</strong> December test set. Rolling recalibration cut calibration error (ECE) from 0.102 to 0.047, but at precision ≥ 0.5 recall is only 0.035. There's no weather data, which limits day-ahead accuracy.</p>
+            <ul class="tags" aria-label="Tech used">
+              <li>Python</li><li>XGBoost</li><li>scikit-learn</li><li>Pandas</li><li>Jupyter</li>
+            </ul>
+            <div class="card-links">
+              <a href="https://github.com/techatanu/Flight_Delay_Risk" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Flight Delay Risk Prediction (opens in a new tab)</span></a>
+            </div>
+          </article>
+
+          <article class="card glow reveal">
             <p class="card-kicker">Hackathon · Dec 2025</p>
             <h4>Cognify: AI Career Guidance Platform</h4>
             <p>Co-built at Construct Hackathon and launched on Product Hunt. An AI agent asks students cognitive questions to uncover their real interests, then generates personalised career suggestions, roadmaps and college options.</p>
-            <!-- TODO: my specific role on Cognify -->
-            <!-- TODO: Cognify tech stack (add as tags below) -->
-            <ul class="tags" aria-label="Highlights">
-              <li>AI agent</li><li>Construct Hackathon</li><li>Product Hunt</li>
+            <!-- TODO: my specific role on Cognify (not stated on GitHub) -->
+            <ul class="tags" aria-label="Tech and highlights">
+              <li>React</li><li>Vite</li><li>AI agent</li><li>Construct Hackathon</li><li>Product Hunt</li>
             </ul>
             <div class="card-links">
+              <a href="https://cognify-eight.vercel.app" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Live<span class="sr-only"> demo of Cognify (opens in a new tab)</span></a>
               <a href="https://www.producthunt.com/products/cognify-3" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Product Hunt<span class="sr-only"> page for Cognify (opens in a new tab)</span></a>
-              <!-- TODO: Cognify repo link -->
+              <a href="https://github.com/techatanu/Cognify" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Cognify (opens in a new tab)</span></a>
             </div>
           </article>
 
@@ -361,22 +378,23 @@
           <article class="card glow reveal">
             <p class="card-kicker">React · e-commerce</p>
             <h4>QuickCart</h4>
-            <p>A React e-commerce cart: products rendered dynamically from an API, add/remove and quantity controls, real-time price calculation, and multi-page navigation with React Router. Deployed on Vercel.</p>
+            <p>A React e-commerce cart: products fetched from MockAPI, add-to-cart from product cards, quantity controls (1–10), real-time totals and a simulated checkout flow. Multi-page navigation with React Router, responsive on mobile, tablet and desktop. Deployed on Vercel.</p>
             <ul class="tags" aria-label="Tech used">
-              <li>React</li><li>React Router</li><li>JavaScript</li><li>Vercel</li>
+              <li>React</li><li>React Router</li><li>JavaScript</li><li>MockAPI</li><li>Vercel</li>
             </ul>
             <div class="card-links">
-              <!-- TODO: QuickCart live link -->
-              <!-- TODO: QuickCart repo link -->
+              <a href="https://ecommerce-three-delta-47.vercel.app/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Live<span class="sr-only"> demo of QuickCart (opens in a new tab)</span></a>
+              <a href="https://github.com/techatanu/E-Commerce_Capstone_Project_Atanu" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for QuickCart (opens in a new tab)</span></a>
             </div>
           </article>
 
           <article class="card glow reveal">
-            <p class="card-kicker">Personal finance</p>
+            <p class="card-kicker">Personal finance · in progress</p>
             <h4>Spendly</h4>
-            <p>An expense tracking app.</p>
-            <!-- TODO: Spendly one-line description of features -->
-            <!-- TODO: Spendly tech stack (add a <ul class="tags"> here) -->
+            <p>An expense tracker built step by step with Claude Code. The Flask app has its landing, register and login pages in place; authentication, profile and add/edit/delete expenses are the next steps.</p>
+            <ul class="tags" aria-label="Tech used">
+              <li>Python</li><li>Flask</li><li>pytest</li><li>Claude Code</li>
+            </ul>
             <div class="card-links">
               <a href="https://github.com/techatanu/Spendly" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Spendly (opens in a new tab)</span></a>
             </div>
@@ -509,8 +527,10 @@
       <li class="cmdk-group" role="presentation" data-group="work">Projects</li>
       <li role="option" id="cmd-p1" data-group="work" data-href="https://github.com/techatanu/student-github-reviewer" data-keys="ai agent langgraph code"><svg aria-hidden="true"><use href="#i-github"/></svg>Student GitHub Reviewer<span class="cmdk-hint">code</span></li>
       <li role="option" id="cmd-p2" data-group="work" data-href="https://github.com/techatanu/Infant-State-Recognition-System" data-keys="audio ml cry code"><svg aria-hidden="true"><use href="#i-github"/></svg>Infant State Recognition<span class="cmdk-hint">code</span></li>
-      <li role="option" id="cmd-p3" data-group="work" data-href="https://www.producthunt.com/products/cognify-3" data-keys="hackathon career ai"><svg aria-hidden="true"><use href="#i-external"/></svg>Cognify<span class="cmdk-hint">Product Hunt</span></li>
+      <li role="option" id="cmd-p6" data-group="work" data-href="https://github.com/techatanu/Flight_Delay_Risk" data-keys="ml xgboost flights code"><svg aria-hidden="true"><use href="#i-github"/></svg>Flight Delay Risk<span class="cmdk-hint">code</span></li>
+      <li role="option" id="cmd-p3" data-group="work" data-href="https://cognify-eight.vercel.app" data-keys="hackathon career ai live demo"><svg aria-hidden="true"><use href="#i-external"/></svg>Cognify<span class="cmdk-hint">live</span></li>
       <li role="option" id="cmd-p4" data-group="work" data-href="https://medi-track-lemon.vercel.app" data-keys="mern health demo live"><svg aria-hidden="true"><use href="#i-external"/></svg>MediTrack<span class="cmdk-hint">live</span></li>
+      <li role="option" id="cmd-p7" data-group="work" data-href="https://ecommerce-three-delta-47.vercel.app/" data-keys="react ecommerce cart demo live"><svg aria-hidden="true"><use href="#i-external"/></svg>QuickCart<span class="cmdk-hint">live</span></li>
       <li role="option" id="cmd-p5" data-group="work" data-href="https://github.com/techatanu/Spendly" data-keys="expense finance code"><svg aria-hidden="true"><use href="#i-github"/></svg>Spendly<span class="cmdk-hint">code</span></li>
 
       <li class="cmdk-group" role="presentation" data-group="links">Profiles</li>

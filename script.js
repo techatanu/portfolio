@@ -222,7 +222,7 @@
       if (start === null) start = t;
       var k = Math.min(1, (t - start) / dur);
       var eased = 1 - Math.pow(1 - k, 3);
-      el.textContent = (end * eased).toFixed(decimals) + '%';
+      el.textContent = (end * eased).toFixed(decimals) + (el.dataset.suffix || '');
       if (k < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -405,6 +405,11 @@
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fail);
     else fail();
   }
+
+  // Placeholder buttons (e.g. the resume) show a short message instead of a broken link.
+  document.querySelectorAll('[data-toast]').forEach(function (btn) {
+    btn.addEventListener('click', function () { showToast(btn.dataset.toast); });
+  });
 
   var copyBtn = document.querySelector('.copy-email');
   var copyStatus = document.querySelector('.copy-status');

@@ -517,6 +517,49 @@ footer { padding: 29px 0; background: var(--ink); }
   .pipeline { font-size: 7px; }
   .terminal-result { font-size: 6px; }
 }
+/* Short, deliberate motion. Content stays readable without JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  .project-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .project-card:hover, .project-card:focus-within { transform: translateY(-4px); }
+  .button svg, .portrait-arrow { transition: transform .25s ease; }
+  .button[href="#projects"]:hover svg { transform: translate(3px, -3px); }
+  .button[download]:hover svg { transform: translateY(2px); }
+  .portrait-card { transition: border-color .3s ease, box-shadow .3s ease; }
+  .portrait-card:hover { border-color: #d6ed8b65; box-shadow: 0 8px 30px #00000015; }
+  .portrait-card:hover .portrait-arrow { transform: translate(3px, -3px); }
+  .portrait-bg:before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: linear-gradient(110deg, transparent 30%, #d6ed8b0e 48%, transparent 66%);
+    opacity: 0; transform: translateX(-100%);
+  }
+  .portrait-card:hover .portrait-bg:before { animation: portrait-sweep 1.4s ease; }
+  .project-card:hover .audio-wave i, .project-card:focus-within .audio-wave i {
+    transform-origin: center; animation: signal-wave 1.1s var(--wave-delay, 0ms) ease-in-out 2;
+  }
+  .audio-wave i:nth-child(3n) { --wave-delay: 80ms; }
+  .audio-wave i:nth-child(3n + 1) { --wave-delay: 160ms; }
+  .chart-row i { transform-origin: left; }
+  .project-card:hover .chart-row i, .project-card:focus-within .chart-row i { animation: chart-grow .7s cubic-bezier(.22, 1, .36, 1); }
+  .project-card:hover .chart-row.baseline i { animation-delay: 80ms; }
+  .contact-asterisk { transition: transform .3s ease, background .2s ease; }
+  .contact-asterisk:hover { transform: translate(3px, -3px); }
+  .skill-tags li { transition: border-color .2s, background .2s, transform .2s; }
+  .skill-tags li:hover { border-color: #d6ed8b55; background: #d6ed8b0a; transform: translateY(-2px); }
+}
+@keyframes portrait-sweep {
+  0% { opacity: 0; transform: translateX(-100%); }
+  20%, 70% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+@keyframes signal-wave {
+  0%, 100% { transform: scaleY(1); }
+  35% { transform: scaleY(.55); }
+  70% { transform: scaleY(.85); }
+}
+@keyframes chart-grow {
+  from { transform: scaleX(.15); }
+  to { transform: scaleX(1); }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *:before, *:after { animation: none !important; transition: none !important; }

@@ -7,8 +7,8 @@
 <meta name="description" content="Atanu Adhikari is an AI/ML and full-stack developer and B.Tech CS &amp; AI student at Newton School of Technology. He builds AI agents (LangGraph, RAG, LLMs), ML models in Python and MERN web apps.">
 <meta name="author" content="Atanu Adhikari">
 <link rel="canonical" href="https://atanu.online/">
-<meta name="theme-color" content="#05060a">
-<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#141513">
+<meta name="color-scheme" content="dark">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -34,18 +34,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 
-<script>
-  // Apply a saved theme before first paint to avoid a flash (dark is the default).
-  document.documentElement.classList.add('js');
-  try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
-  // Boot screen: once per visit, skipped for reduced motion.
-  try {
-    if (!sessionStorage.getItem('booted') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('booting');
-  } catch (e) {}
-</script>
+
 
 <script type="application/ld+json">
 {
@@ -71,13 +63,9 @@
   ]
 }
 </script>
-<!-- Smooth scrolling (optional: if this fails to load, native scrolling is used) -->
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="script.js" defer></script>
 </head>
-<body>
-
-<!-- Icon sprite (inline SVG, no icon library) -->
+<body id="top">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
   <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
@@ -108,234 +96,38 @@
 </svg>
 
 <a class="skip-link" href="#main">Skip to content</a>
-
-<!-- Boot screen (decorative; once per visit, any key or click skips it) -->
-<div class="boot" aria-hidden="true">
-  <div class="boot-inner">
-    <p class="boot-logo">ATANU<span>.OS</span></p>
-    <p class="boot-line">&gt; loading player_01 …</p>
-    <div class="boot-bar"><span></span></div>
-    <p class="boot-hint">press any key to skip</p>
-  </div>
-</div>
-
-<!-- Cursor spotlight (desktop pointers only, purely decorative) -->
-<div class="spotlight" aria-hidden="true"></div>
-
-<header class="site-header" id="top">
-  <div class="header-inner">
-    <a class="brand" href="#top" aria-label="Atanu Adhikari, back to top">
-      <img src="assets/favicon.svg" alt="" width="28" height="28">
-      <span>atanu<span class="brand-dot">.</span>online</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary">
-      <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
-        <svg aria-hidden="true"><use href="#i-menu"/></svg>
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#journey">Journey</a></li>
-        <li><a href="#badges">Badges</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <span class="nav-indicator" aria-hidden="true"></span>
-    </nav>
-    <button class="cmdk-btn" type="button" aria-haspopup="dialog" aria-controls="cmdk" aria-keyshortcuts="Meta+K Control+K" aria-label="Open command menu">
-      <svg aria-hidden="true"><use href="#i-search"/></svg>
-      <kbd class="cmdk-kbd" aria-hidden="true"><span class="cmdk-mod">⌘</span>K</kbd>
-    </button>
-    <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme">
-      <svg class="icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-      <svg class="icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
-    </button>
-  </div>
-</header>
-
+<header class="site-header"><div class="header-inner">
+<a class="brand marker" href="#top" aria-label="Atanu, back to top">Atanu<span>®</span></a>
+<nav aria-label="Primary"><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">MENU <span>+</span></button><ul id="nav-links" class="nav-links"><li><a href="#about">The intro</a></li><li><a href="#projects">The work</a></li><li><a href="#skills">The toolkit</a></li><li><a href="#journey">The journey</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<a class="header-contact" href="mailto:atanuadhikari5@gmail.com">LET’S TALK <span>↗</span></a>
+</div></header>
 <main id="main">
-
-  <!-- 1. Hero: player select -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-bg" aria-hidden="true">
-      <span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span>
-      <span class="hero-grid"></span>
-      <span class="horizon"></span>
-      <span class="floor"><span class="floor-lines"></span></span>
-    </div>
-    <canvas class="hero-net" aria-hidden="true"></canvas>
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <p class="badge intro" style="--i:0"><span class="badge-dot" aria-hidden="true"></span>Open to remote AI/ML &amp; full-stack internships</p>
-        <h1 id="hero-title" class="hero-title">
-          <span class="line"><span class="intro glitch" data-text="Atanu" style="--i:1">Atanu</span></span>
-          <span class="line"><span class="intro glitch grad" data-text="Adhikari" style="--i:2">Adhikari</span></span>
-        </h1>
-        <p class="hero-role intro" style="--i:3">
-          <span class="sr-only">I build AI agents, RAG pipelines, ML models and MERN web apps.</span>
-          <span aria-hidden="true"><span class="prompt">&gt;</span> I build <span class="scramble" data-words="AI agents|RAG pipelines|ML models|MERN web apps">AI agents</span><span class="caret"></span></span>
-        </p>
-        <p class="hero-lead intro" style="--i:4">AI/ML &amp; Full-Stack Developer. I build AI agents (LangGraph, RAG, LLMs), ML models in Python, and MERN web apps.</p>
-        <p class="hero-meta intro" style="--i:5">B.Tech CS &amp; AI @ Newton School of Technology · Greater Kolkata Area, India</p>
-        <div class="hero-actions intro" style="--i:6">
-          <a class="btn btn-primary magnetic" href="#projects"><svg aria-hidden="true"><use href="#i-play"/></svg>Start: view quests</a>
-          <!-- TODO: add resume.pdf to the repo root, then swap this placeholder for:
-               <a class="btn btn-ghost magnetic" href="/resume.pdf" download="Atanu-Adhikari-Resume.pdf">Download resume …</a> -->
-          <button type="button" class="btn btn-ghost magnetic" data-toast="Resume coming soon. Email me and I'll send a copy.">Resume <span class="soon-tag">soon</span></button>
-          <a class="btn btn-ghost magnetic" href="mailto:atanuadhikari5@gmail.com">Email me <svg aria-hidden="true"><use href="#i-mail"/></svg></a>
-        </div>
-        <ul class="social intro" style="--i:7" aria-label="Profiles">
-          <li><a class="icon-btn" href="https://github.com/techatanu" target="_blank" rel="noopener me" aria-label="GitHub (opens in a new tab)"><svg aria-hidden="true"><use href="#i-github"/></svg></a></li>
-          <li><a class="icon-btn" href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" target="_blank" rel="noopener me" aria-label="LinkedIn (opens in a new tab)"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
-        </ul>
-      </div>
-
-      <!-- Player card: every stat is real (counted from this page or from my B.Tech dates) -->
-      <aside class="player-card hud glow intro" style="--i:3" aria-label="Player card">
-        <div class="pc-top" aria-hidden="true"><span>PLAYER_01</span><span class="pc-online"><span class="status-dot"></span>ONLINE</span></div>
-        <div class="pc-portrait">
-          <span class="pc-initials" aria-hidden="true">AA</span>
-          <img src="assets/atanu.png" alt="Portrait of Atanu Adhikari" width="460" height="460" decoding="async" onerror="this.remove()">
-          <span class="pc-scan" aria-hidden="true"></span>
-        </div>
-        <div class="pc-name">
-          <p><strong>Atanu Adhikari</strong><span>Class · AI/ML &amp; Full-Stack Dev</span></p>
-          <span class="pc-lvl" title="3rd year of B.Tech">LVL 3</span>
-        </div>
-        <div class="xp" data-start="2024-08" data-end="2028-08">
-          <div class="xp-head"><span>B.Tech progress</span><span class="xp-val">Year 3 of 4</span></div>
-          <div class="xp-bar" aria-hidden="true"><span></span></div>
-        </div>
-        <dl class="pc-stats">
-          <div><dt>Quests</dt><dd data-stat="quests">10</dd></div>
-          <div><dt>Live demos</dt><dd data-stat="live">3</dd></div>
-          <div><dt>Hackathons</dt><dd>1</dd></div>
-        </dl>
-      </aside>
-    </div>
-    <a class="scroll-cue" href="#about" aria-label="Scroll to About">
-      <span class="mouse" aria-hidden="true"><span></span></span>
-    </a>
-  </section>
-
-  <!-- Tech marquee (decorative: the full skill list is below) -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Python</span><span>LangGraph</span><span>LangChain</span><span>RAG</span><span>Llama 3.1</span><span>scikit-learn</span><span>FastAPI</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>React</span><span>Streamlit</span><span>Tableau</span><span>nginx</span><span>Vercel</span><span>Render</span>
-      <span>Python</span><span>LangGraph</span><span>LangChain</span><span>RAG</span><span>Llama 3.1</span><span>scikit-learn</span><span>FastAPI</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>React</span><span>Streamlit</span><span>Tableau</span><span>nginx</span><span>Vercel</span><span>Render</span>
-    </div>
-  </div>
-
-  <!-- 2. About: player bio -->
-  <section class="section" id="about" aria-labelledby="about-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>01</span>about</p>
-        <h2 id="about-title">Player <span class="grad">bio</span></h2>
-      </div>
-      <div class="about-grid">
-        <div class="reveal">
-          <p class="prose">I'm a third-year B.Tech student in Computer Science &amp; AI at Newton School of Technology, based in the Greater Kolkata Area. I learn by shipping real projects: AI agents built with LangGraph and LLMs, machine-learning models in Python, and MERN web apps deployed on Vercel and Render.</p>
-          <p class="prose">I'm most interested in AI agents and applied ML, and I'm comfortable across the stack, from a FastAPI or Express backend to a React front end. Right now I'm looking for remote AI/ML or full-stack internships.</p>
-        </div>
-        <dl class="facts hud glow reveal">
-          <div><dt>Class</dt><dd>AI/ML &amp; Full-Stack Developer</dd></div>
-          <div><dt>Guild</dt><dd>B.Tech CS &amp; AI, Newton School of Technology</dd></div>
-          <div><dt>Region</dt><dd>Greater Kolkata Area, India</dd></div>
-          <div><dt>Main quest</dt><dd>AI agents &amp; applied ML</dd></div>
-          <div><dt>Status</dt><dd><span class="status-dot" aria-hidden="true"></span>Open to remote internships</dd></div>
-          <div><dt>Local time</dt><dd><time class="local-time" data-tz="Asia/Kolkata">IST</time></dd></div>
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Skills -->
-  <section class="section" id="skills" aria-labelledby="skills-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>02</span>skills</p>
-        <h2 id="skills-title">Skill <span class="grad">loadout</span></h2>
-      </div>
-      <div class="bento" data-stagger>
-        <div class="skill-group skill-ai glow reveal span-8">
-          <h3><svg aria-hidden="true"><use href="#i-brain"/></svg>AI / ML</h3>
-          <ul class="chips">
-            <li>Python</li><li>NumPy</li><li>Pandas</li><li>scikit-learn</li><li>XGBoost</li><li>LangChain</li><li>LangGraph</li><li>LLMs (Llama 3.1 via Groq)</li><li>RAG</li><li>librosa (audio features)</li><li>Jupyter / Colab</li>
-          </ul>
-        </div>
-        <div class="skill-group glow reveal span-4">
-          <h3><svg aria-hidden="true"><use href="#i-server"/></svg>Backend</h3>
-          <ul class="chips">
-            <li>FastAPI</li><li>Flask</li><li>Node.js</li><li>Express.js</li><li>REST APIs</li><li>JWT auth</li><li>MongoDB</li>
-          </ul>
-        </div>
-        <div class="skill-group glow reveal span-3">
-          <h3><svg aria-hidden="true"><use href="#i-layout"/></svg>Frontend</h3>
-          <ul class="chips">
-            <li>React</li><li>React Router</li><li>JavaScript</li><li>HTML / CSS</li><li>Streamlit</li>
-          </ul>
-        </div>
-        <div class="skill-group glow reveal span-3">
-          <h3><svg aria-hidden="true"><use href="#i-cloud"/></svg>Deploy / Tools</h3>
-          <ul class="chips">
-            <li>Git / GitHub</li><li>Vercel</li><li>Render</li><li>nginx</li><li>DNS / HTTPS</li>
-          </ul>
-        </div>
-        <div class="skill-group glow reveal span-2">
-          <h3><svg aria-hidden="true"><use href="#i-chart"/></svg>Data &amp; BI</h3>
-          <ul class="chips">
-            <li>Tableau</li>
-          </ul>
-        </div>
-        <div class="skill-group glow reveal span-4">
-          <h3><svg aria-hidden="true"><use href="#i-code"/></svg>DSA</h3>
-          <ul class="chips">
-            <li>NeetCode / LeetCode in Python</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Projects -->
-  <section class="section" id="projects" aria-labelledby="projects-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>03</span>projects</p>
-        <h2 id="projects-title">Quest <span class="grad">log</span></h2>
-      </div>
-
-      <div class="filters reveal" role="group" aria-label="Filter projects">
-        <span class="filter-indicator" aria-hidden="true"></span>
-        <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" class="filter" data-filter="ai" aria-pressed="false">AI-ML</button>
-        <button type="button" class="filter" data-filter="fullstack" aria-pressed="false">Full-stack</button>
-        <button type="button" class="filter" data-filter="other" aria-pressed="false">Other</button>
-      </div>
-      <p class="sr-only" id="filter-status" aria-live="polite"></p>
-
-      <!-- AI / ML -->
-      <div class="project-group" data-category="ai">
-        <h3 class="group-title">AI / ML</h3>
-        <div class="cards" data-stagger>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">AI agent</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>Student GitHub Reviewer</h4>
+<section class="hero" aria-labelledby="hero-title"><div class="container hero-grid">
+<div class="hero-copy"><p class="mini-label"><span class="status-dot"></span> OPEN TO AI/ML &amp; FULL-STACK INTERNSHIPS</p>
+<div class="name-label"><p>HELLO WORLD</p><span>I’m the one who builds things.</span><h1 id="hero-title" class="marker" aria-label="Atanu Adhikari">Atanu</h1><div class="name-surname">ADHIKARI / DEVELOPER &amp; CURIOUS HUMAN</div></div>
+<h2>Artificial intelligence.<br>Real-world <span class="highlight">impact.</span></h2>
+<p class="hero-stack">AI AGENTS · APPLIED ML · FULL-STACK DEVELOPMENT</p>
+<p class="hero-description">Turning “what if?” into working software. I build AI agents, train ML models, and ship web apps — from the first idea to the last deploy.</p>
+<div class="hero-actions"><a class="button button-lime" href="#projects">Explore my work <svg aria-hidden="true"><use href="#i-arrow-ur"/></svg></a><a class="button button-paper" href="Atanu_Resume2.pdf" download="Atanu-Adhikari-AI-ML-Resume.pdf"><svg aria-hidden="true"><use href="#i-download"/></svg>AI/ML Resume</a></div>
+</div>
+<div class="hero-art"><span class="sticker sticker-blue hero-sticker-one">LESS HYPE.<br>MORE BUILDING.</span><span class="hand-note">a little code,<br>a lot of curiosity <span>↘</span></span>
+<figure class="polaroid"><div class="portrait-bg"><span class="portrait-star" aria-hidden="true">✳</span><img src="assets/y.png" width="460" height="460" alt="Atanu Adhikari" fetchpriority="high"></div><figcaption class="marker">Atanu Adhikari <span>’26</span></figcaption></figure>
+<span class="sticker sticker-pink hero-sticker-two">BUILT TO<br>FIGURE IT OUT. ↗</span><div class="round-stamp" aria-hidden="true">ALWAYS<br><span>✳</span><br>LEARNING</div>
+<p class="art-caption">BASED IN INDIA. BUILDING FOR EVERYWHERE.</p>
+</div>
+<div class="hero-stats"><div><strong>10</strong><span>PROJECTS &amp;<br>EXPERIMENTS</span></div><div><strong>03</strong><span>LIVE WEB<br>APPLICATIONS</span></div><div><strong>01</strong><span>HACKATHON<br>PRODUCT LAUNCH</span></div><a href="#about"><span>SCROLL TO GET<br>THE FULL PICTURE</span>↓</a></div>
+</div></section>
+<div class="ticker" aria-hidden="true"><div>PYTHON <span>✳</span> AI AGENTS <span>✳</span> LANGGRAPH <span>✳</span> REACT <span>✳</span> APPLIED ML <span>✳</span> BUILD. LEARN. REPEAT. <span>✳</span> PYTHON <span>✳</span> AI AGENTS <span>✳</span> LANGGRAPH <span>✳</span> REACT <span>✳</span> APPLIED ML <span>✳</span> BUILD. LEARN. REPEAT. <span>✳</span></div></div>
+<section class="section about" id="about" aria-labelledby="about-title"><div class="container about-grid"><div><p class="eyebrow">A SIDE / 01 — THE INTRO</p><h2 id="about-title">Curiosity in.<br><span class="marker lime-text">Possibility out.</span></h2><p class="section-lead">I like my ideas ambitious.<br>And my code actually running.</p><p>I’m a third-year B.Tech student in Computer Science &amp; AI at Newton School of Technology. My sweet spot is where machine learning meets useful software.</p><p>From LangGraph agents and audio classification to a complete MERN app, I learn by making things, testing assumptions, and being honest about what works.</p><a class="text-link" href="https://github.com/techatanu" target="_blank" rel="noopener">See what I’m building on GitHub ↗</a></div><aside class="paper-note"><span class="tape" aria-hidden="true"></span><p class="eyebrow">THE SHORT VERSION</p><h3>Developer.<br>Experimenter.<br>Work in progress.</h3><dl><div><dt>Currently</dt><dd>B.Tech CS &amp; AI · Year 3</dd></div><div><dt>Learning at</dt><dd>Newton School of Technology</dd></div><div><dt>Home base</dt><dd>Greater Kolkata Area, India</dd></div><div><dt>Looking for</dt><dd>Remote AI/ML &amp; full-stack internships</dd></div></dl><p class="marker note-signoff">Let’s make something useful. ↗</p></aside></div></section>
+<section class="section projects" id="projects" aria-labelledby="projects-title"><div class="container"><div class="section-heading"><div><p class="eyebrow">A SIDE / 02 — SELECTED WORK</p><h2 id="projects-title">Less talk.<br><span class="marker">More shipped.</span></h2></div><p>Agents, models, and apps.<br>A collection of things I’ve built,<br>broken, learned from, and shipped.</p></div><div class="filter-row"><div class="filters" role="group" aria-label="Filter projects"><button class="filter active" data-filter="all" aria-pressed="true">All work <span>10</span></button><button class="filter" data-filter="ai" aria-pressed="false">AI / ML <span>04</span></button><button class="filter" data-filter="fullstack" aria-pressed="false">Full-stack <span>03</span></button><button class="filter" data-filter="other" aria-pressed="false">Experiments <span>03</span></button></div><span class="filter-count" id="filter-status" role="status">10 projects on the wall</span></div><div class="project-grid"><article class="project-card" data-category="ai"><div class="project-cover cover-0" aria-hidden="true"><div class="cover-code"><span>INPUT: YOUR GITHUB</span><b>git<span>→</span>good.</b><div class="code-flow"><span>REPO</span>→<span>LLM</span>→<span>REVIEW</span></div><small>AN AI AGENT WITH AN OPINION.</small></div></div><div class="project-body"><p class="project-kicker">01 / AI agent</p><h3>Student GitHub Reviewer</h3><p>A LangGraph agent that turns a GitHub profile into actionable feedback, powered by Llama 3.1.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>An AI agent that reviews a student's GitHub portfolio. A LangGraph pipeline drives Llama 3.1 (via Groq), served by a FastAPI backend on Render with a Streamlit UI.</p>
             <ul class="tags" aria-label="Tech used">
               <li>LangGraph</li><li>Llama 3.1</li><li>Groq</li><li>FastAPI</li><li>Streamlit</li><li>Render</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/student-github-reviewer" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Student GitHub Reviewer (opens in a new tab)</span></a>
-              <!-- TODO: live demo link for Student GitHub Reviewer -->
-            </div>
-          </article>
 
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">Audio ML · classification</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>Infant State Recognition from Cry Audio</h4>
+            </div></div></article><article class="project-card" data-category="ai"><div class="project-cover cover-1" aria-hidden="true"><div class="cover-audio"><span>SMALL SIGNALS. BIG MEANING.</span><div class="wave"><i style="--h:12%"></i><i style="--h:24%"></i><i style="--h:45%"></i><i style="--h:22%"></i><i style="--h:67%"></i><i style="--h:89%"></i><i style="--h:40%"></i><i style="--h:100%"></i><i style="--h:64%"></i><i style="--h:28%"></i><i style="--h:84%"></i><i style="--h:50%"></i><i style="--h:34%"></i><i style="--h:76%"></i><i style="--h:95%"></i><i style="--h:44%"></i><i style="--h:16%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:31%"></i><i style="--h:55%"></i><i style="--h:20%"></i><i style="--h:10%"></i></div><b>Listen<br>closer<span>®</span></b><small>AUDIO → FEATURES → UNDERSTANDING</small></div></div><div class="project-body"><p class="project-kicker">02 / Audio ML · classification</p><h3>Infant State Recognition from Cry Audio</h3><p>Learning what a baby needs from cry audio. Eight classes, 218 audio features, and honest model evaluation.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>Classifies infant cry audio into 8 need states: hungry, tired, belly pain, burping, scared, lonely, discomfort and cold/hot. 511 cleaned clips become a 218-dim librosa feature vector (MFCC, delta-MFCC, log-mel, chroma, spectral contrast, tonnetz, ZCR, RMS) fed to a cost-sensitive Random Forest (300 trees, balanced class weights, 5-fold stratified CV).</p>
             <dl class="metrics">
               <div><dt>Test accuracy</dt><dd data-count="81.6" data-suffix="%">81.6%</dd></div>
@@ -345,14 +137,9 @@
             <ul class="tags" aria-label="Tech used">
               <li>Python</li><li>librosa</li><li>scikit-learn</li><li>Random Forest</li><li>NumPy</li><li>Pandas</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/Infant-State-Recognition-System" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Infant State Recognition (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">ML · course project</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>Flight Delay Risk Prediction</h4>
+            </div></div></article><article class="project-card" data-category="ai"><div class="project-cover cover-2" aria-hidden="true"><div class="cover-flight"><span>NYC / 336,776 DEPARTURES</span><b>Will it<br>be late?</b><div class="flight-route">JFK <span>✈</span> LGA</div><small>FLIGHT DELAY RISK / MACHINE LEARNING</small></div></div><div class="project-body"><p class="project-kicker">03 / ML · course project</p><h3>Flight Delay Risk Prediction</h3><p>Predicting next-day flight delays with calibrated XGBoost and a chronological evaluation.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>Predicts, the night before departure, whether a New York flight will arrive 15+ minutes late, using 336,776 departures from 2013 (nycflights13). Past-only features with a leakage test, a chronological train/validation/test split, logistic regression vs XGBoost, Platt calibration with rolling recalibration, and a what-if rescheduling analysis.</p>
             <dl class="metrics">
               <div><dt>PR-AUC (XGBoost)</dt><dd data-count="0.468">0.468</dd></div>
@@ -362,307 +149,62 @@
             <ul class="tags" aria-label="Tech used">
               <li>Python</li><li>XGBoost</li><li>scikit-learn</li><li>Pandas</li><li>Jupyter</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/Flight_Delay_Risk" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Flight Delay Risk Prediction (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">Hackathon · Dec 2025</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>Cognify: AI Career Guidance Platform</h4>
+            </div></div></article><article class="project-card" data-category="ai"><div class="project-cover cover-3" aria-hidden="true"><div class="cover-type"><span>FIND YOUR NEXT CHAPTER</span><b>cognify<span>↗</span></b><small>AI CAREER GUIDANCE / HACKATHON BUILD</small></div></div><div class="project-body"><p class="project-kicker">04 / Hackathon · Dec 2025</p><h3>Cognify: AI Career Guidance Platform</h3><p>An AI career guide that connects a student’s interests to their next step. Built at Construct Hackathon.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>Co-built at Construct Hackathon and launched on Product Hunt. An AI agent asks students cognitive questions to uncover their real interests, then generates personalised career suggestions, roadmaps and college options.</p>
-            <!-- TODO: my specific role on Cognify (not stated on GitHub) -->
+
             <ul class="tags" aria-label="Tech and highlights">
               <li>React</li><li>Vite</li><li>AI agent</li><li>Construct Hackathon</li><li>Product Hunt</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://cognify-eight.vercel.app" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Live<span class="sr-only"> demo of Cognify (opens in a new tab)</span></a>
               <a href="https://www.producthunt.com/products/cognify-3" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Product Hunt<span class="sr-only"> page for Cognify (opens in a new tab)</span></a>
               <a href="https://github.com/techatanu/Cognify" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Cognify (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- Full-stack -->
-      <div class="project-group" data-category="fullstack">
-        <h3 class="group-title">Full-stack</h3>
-        <div class="cards" data-stagger>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">MERN · health records</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>MediTrack</h4>
+            </div></div></article><article class="project-card" data-category="fullstack"><div class="project-cover cover-4" aria-hidden="true"><div class="cover-type"><span>YOUR HEALTH, IN ONE PLACE</span><b>medi<span>+</span><br>track.</b><small>HEALTH RECORDS / MERN STACK</small></div></div><div class="project-body"><p class="project-kicker">05 / MERN · health records</p><h3>MediTrack</h3><p>A full-stack home for health records, with secure access and report sharing.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>A personal health record manager to upload, organise and share medical reports securely. JWT auth, role-based access, protected routes and CRUD REST APIs. Frontend on Vercel, backend on Render.</p>
             <ul class="tags" aria-label="Tech used">
               <li>React</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>JWT</li><li>Vercel</li><li>Render</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://medi-track-lemon.vercel.app" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Live<span class="sr-only"> demo of MediTrack (opens in a new tab)</span></a>
               <a href="https://github.com/techatanu/MediTrack" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for MediTrack (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">React · e-commerce</p><span class="quest-status is-done">Shipped</span></div>
-            <h4>QuickCart</h4>
+            </div></div></article><article class="project-card" data-category="fullstack"><div class="project-cover cover-5" aria-hidden="true"><div class="cover-type"><span>ADD A LITTLE SOMETHING</span><b>Quick<br>Cart<span>↗</span></b><small>REACT / E-COMMERCE</small></div></div><div class="project-body"><p class="project-kicker">06 / React · e-commerce</p><h3>QuickCart</h3><p>A responsive React storefront with cart management, live totals, and a simulated checkout.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>A React e-commerce cart: products fetched from MockAPI, add-to-cart from product cards, quantity controls (1–10), real-time totals and a simulated checkout flow. Multi-page navigation with React Router, responsive on mobile, tablet and desktop. Deployed on Vercel.</p>
             <ul class="tags" aria-label="Tech used">
               <li>React</li><li>React Router</li><li>JavaScript</li><li>MockAPI</li><li>Vercel</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://ecommerce-three-delta-47.vercel.app/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-external"/></svg>Live<span class="sr-only"> demo of QuickCart (opens in a new tab)</span></a>
               <a href="https://github.com/techatanu/E-Commerce_Capstone_Project_Atanu" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for QuickCart (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card glow reveal">
-            <div class="card-top"><p class="card-kicker">Personal finance · in progress</p><span class="quest-status is-wip">In progress</span></div>
-            <h4>Spendly</h4>
+            </div></div></article><article class="project-card" data-category="fullstack"><div class="project-mini" aria-hidden="true"><svg aria-hidden="true"><use href="#i-code"/></svg><span>EXPERIMENT / 07</span></div><div class="project-body"><p class="project-kicker">07 / Personal finance · in progress</p><h3>Spendly</h3><p>An expense tracker built step by step with Claude Code. The Flask app has its landing, register and login pages in place; authentication, profile and add/edit/delete expenses are the next steps.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>An expense tracker built step by step with Claude Code. The Flask app has its landing, register and login pages in place; authentication, profile and add/edit/delete expenses are the next steps.</p>
             <ul class="tags" aria-label="Tech used">
               <li>Python</li><li>Flask</li><li>pytest</li><li>Claude Code</li>
             </ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/Spendly" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for Spendly (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- Other work -->
-      <div class="project-group" data-category="other">
-        <h3 class="group-title">Other work</h3>
-        <div class="cards cards-compact" data-stagger>
-
-          <article class="card card-compact glow reveal">
-            <div class="card-top"><p class="card-kicker">Networking · team project</p><span class="quest-status is-side">Side quest</span></div>
-            <h4>Computer Networks project</h4>
+            </div></div></article><article class="project-card" data-category="other"><div class="project-mini" aria-hidden="true"><svg aria-hidden="true"><use href="#i-code"/></svg><span>EXPERIMENT / 08</span></div><div class="project-body"><p class="project-kicker">08 / Networking · team project</p><h3>Computer Networks project</h3><p>Private DNS → nginx HTTPS edge → two load-balanced backends, with each step verified using dig, curl and Wireshark.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>Private DNS → nginx HTTPS edge → two load-balanced backends, with each step verified using dig, curl and Wireshark.</p>
             <ul class="tags" aria-label="Tech used"><li>DNS</li><li>nginx</li><li>HTTPS</li><li>Wireshark</li></ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/cn-project-team1" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for the Computer Networks project (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card card-compact glow reveal">
-            <div class="card-top"><p class="card-kicker">Data viz</p><span class="quest-status is-side">Side quest</span></div>
-            <h4>Tableau dashboards</h4>
+            </div></div></article><article class="project-card" data-category="other"><div class="project-mini" aria-hidden="true"><svg aria-hidden="true"><use href="#i-chart"/></svg><span>EXPERIMENT / 09</span></div><div class="project-body"><p class="project-kicker">09 / Data viz</p><h3>Tableau dashboards</h3><p>Blinkit grocery sales KPIs and outlet performance; Uber trip demand and revenue analysis.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>Blinkit grocery sales KPIs and outlet performance; Uber trip demand and revenue analysis.</p>
             <ul class="tags" aria-label="Tech used"><li>Tableau</li></ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/Blinkit_Tableau_Dashboard" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Blinkit<span class="sr-only"> dashboard repo (opens in a new tab)</span></a>
               <a href="https://github.com/techatanu/Uber_dashboard" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Uber<span class="sr-only"> dashboard repo (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-          <article class="card card-compact glow reveal">
-            <div class="card-top"><p class="card-kicker">Algorithms</p><span class="quest-status is-side">Side quest</span></div>
-            <h4>DSA practice</h4>
+            </div></div></article><article class="project-card" data-category="other"><div class="project-mini" aria-hidden="true"><svg aria-hidden="true"><use href="#i-code"/></svg><span>EXPERIMENT / 10</span></div><div class="project-body"><p class="project-kicker">10 / Algorithms</p><h3>DSA practice</h3><p>My NeetCode / LeetCode solutions, written in Python.</p><details><summary>Inside the project <span>+</span></summary><div class="project-details">
             <p>My NeetCode / LeetCode solutions, written in Python.</p>
             <ul class="tags" aria-label="Tech used"><li>Python</li><li>DSA</li></ul>
-            <div class="card-links">
+            </div></details><div class="card-links">
               <a href="https://github.com/techatanu/neetcode-submissions" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg>Code<span class="sr-only"> for DSA practice (opens in a new tab)</span></a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Journey: experience + education as levels -->
-  <section class="section" id="journey" aria-labelledby="journey-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>04</span>experience &amp; education</p>
-        <h2 id="journey-title">The <span class="grad">journey</span> so far</h2>
-        <p class="prose section-sub">Every level is a real milestone. Scroll to play through it.</p>
-      </div>
-
-      <ol class="journey">
-        <li class="level is-cleared reveal">
-          <div class="level-node" aria-hidden="true"><span>01</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">LVL 01</span><time datetime="2024-08">Aug 2024</time><span class="level-status">Cleared</span></p>
-            <h3>Spawn point: B.Tech, Computer Science &amp; AI</h3>
-            <p class="level-org">Newton School of Technology · <time datetime="2024-08">Aug 2024</time> – <time datetime="2028-08">Aug 2028</time> · currently in 3rd year</p>
-            <p>Started the degree and began practising DSA in Python with NeetCode and LeetCode.</p>
-            <ul class="loot" aria-label="Unlocked"><li>Python</li><li>DSA</li><li>Git / GitHub</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-cleared reveal">
-          <div class="level-node" aria-hidden="true"><span>02</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">LVL 02</span><span class="level-status">Cleared</span></p>
-            <h3>Frontend unlocked: QuickCart</h3>
-            <p>Built a React e-commerce cart with live pricing, quantity controls and a simulated checkout, and deployed it on Vercel.</p>
-            <ul class="loot" aria-label="Unlocked"><li>React</li><li>React Router</li><li>Vercel</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-cleared reveal">
-          <div class="level-node" aria-hidden="true"><span>03</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">LVL 03</span><time datetime="2025-11">Nov 2025</time> – Present<span class="level-status">Cleared</span></p>
-            <h3>Full-Stack Developer (Project-Based)</h3>
-            <p class="level-org">Self-Directed Projects · Remote</p>
-            <ul class="tl-points">
-              <li>Built MediTrack, a MERN health-record manager with JWT auth and role-based access.</li>
-              <li>Co-built Cognify at Construct Hackathon and launched it on Product Hunt.</li>
-              <li>Built QuickCart, a React e-commerce cart deployed on Vercel.</li>
-            </ul>
-            <ul class="loot" aria-label="Unlocked"><li>Node.js</li><li>Express</li><li>MongoDB</li><li>JWT</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-cleared is-boss reveal">
-          <div class="level-node" aria-hidden="true"><span>04</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">Boss fight</span><time datetime="2025-12">Dec 2025</time><span class="level-status">Cleared</span></p>
-            <h3>Construct Hackathon: Cognify</h3>
-            <p>Co-built an AI career-guidance platform during the hackathon, then launched it on Product Hunt.</p>
-            <ul class="loot" aria-label="Unlocked"><li>AI agent</li><li>React</li><li>Product Hunt launch</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-cleared reveal">
-          <div class="level-node" aria-hidden="true"><span>05</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">LVL 05</span><span class="level-status">Cleared</span></p>
-            <h3>AI agents: Student GitHub Reviewer</h3>
-            <p>A LangGraph pipeline drives Llama 3.1 (via Groq) to review a student's GitHub portfolio, served by FastAPI on Render with a Streamlit UI.</p>
-            <ul class="loot" aria-label="Unlocked"><li>LangGraph</li><li>Groq</li><li>FastAPI</li><li>Streamlit</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-cleared reveal">
-          <div class="level-node" aria-hidden="true"><span>06</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">LVL 06</span><span class="level-status">Cleared</span></p>
-            <h3>Applied ML &amp; data</h3>
-            <p>Classified infant cry audio with librosa features and a cost-sensitive Random Forest, predicted flight-delay risk with calibrated XGBoost, and built Tableau dashboards for Blinkit and Uber data.</p>
-            <ul class="loot" aria-label="Unlocked"><li>scikit-learn</li><li>XGBoost</li><li>librosa</li><li>Tableau</li></ul>
-          </div>
-        </li>
-
-        <li class="level is-current reveal">
-          <div class="level-node" aria-hidden="true"><span>07</span></div>
-          <div class="level-card hud glow">
-            <p class="level-meta"><span class="level-tag">Current level</span><span class="level-status">In progress</span></p>
-            <h3>Next quest: join a team</h3>
-            <p>Looking for a remote AI/ML or full-stack internship where I can ship real features and learn from experienced engineers.</p>
-            <a class="btn btn-primary btn-sm magnetic" href="#contact"><svg aria-hidden="true"><use href="#i-play"/></svg>Send an invite</a>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- 6. Achievements -->
-  <section class="section" id="badges" aria-labelledby="badges-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>05</span>badges</p>
-        <h2 id="badges-title">Achievements <span class="grad">unlocked</span></h2>
-      </div>
-      <ul class="badges" data-stagger>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-trophy"/></svg></span><div><h3>Hackathon hero</h3><p>Co-built Cognify at Construct Hackathon.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-rocket"/></svg></span><div><h3>Launch day</h3><p>Launched Cognify on Product Hunt.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><div><h3>Ship it ×3</h3><p>Three live deployments: MediTrack, QuickCart and Cognify.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-brain"/></svg></span><div><h3>Agent builder</h3><p>A LangGraph agent driving Llama 3.1 via Groq.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-server"/></svg></span><div><h3>Full stack</h3><p>MERN app with JWT auth and role-based access.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><div><h3>Honest metrics</h3><p>Reports macro F1 and calibration, not just accuracy.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><div><h3>Network engineer</h3><p>Private DNS → nginx HTTPS → load-balanced backends.</p></div></li>
-        <li class="ach hud glow reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-code"/></svg></span><div><h3>Grinder</h3><p>NeetCode / LeetCode solutions in Python.</p></div></li>
-        <li class="ach ach-locked hud reveal"><span class="ach-icon"><svg aria-hidden="true"><use href="#i-lock"/></svg></span><div><h3>First internship</h3><p>Locked. <a href="#contact">Your team could unlock it.</a></p></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 7. Contact -->
-  <section class="section contact-section" id="contact" aria-labelledby="contact-title">
-    <div class="container narrow contact">
-      <div class="section-head reveal">
-        <p class="eyebrow"><span>06</span>contact</p>
-        <h2 id="contact-title" class="contact-title">Player 2, <span class="grad">press start</span></h2>
-      </div>
-      <p class="prose reveal">Let's talk. I'm open to remote AI/ML and full-stack internships. Email is the fastest way to reach me.</p>
-      <div class="contact-email reveal">
-        <a class="email-link" href="mailto:atanuadhikari5@gmail.com">atanuadhikari5@gmail.com</a>
-        <button type="button" class="icon-btn copy-email" data-email="atanuadhikari5@gmail.com" aria-label="Copy email address">
-          <svg aria-hidden="true"><use href="#i-copy"/></svg>
-        </button>
-        <span class="copy-status" role="status" aria-live="polite"></span>
-      </div>
-      <ul class="contact-links reveal">
-        <li><a class="btn btn-primary magnetic" href="mailto:atanuadhikari5@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send an invite</a></li>
-        <li><a class="btn btn-ghost magnetic" href="https://github.com/techatanu" target="_blank" rel="noopener me"><svg aria-hidden="true"><use href="#i-github"/></svg>github.com/techatanu</a></li>
-        <li><a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" target="_blank" rel="noopener me"><svg aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
-      </ul>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p>© 2026 Atanu Adhikari · <a href="https://atanu.online/">atanu.online</a></p>
-    <p class="footer-time">Kolkata · <time class="local-time" data-tz="Asia/Kolkata">IST</time></p>
-  </div>
-</footer>
-
-<!-- Command menu (⌘K / Ctrl+K) -->
-<dialog class="cmdk" id="cmdk" aria-label="Command menu">
-  <div class="cmdk-panel">
-    <div class="cmdk-search">
-      <svg aria-hidden="true"><use href="#i-search"/></svg>
-      <input id="cmdk-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search…" autocomplete="off" spellcheck="false" autofocus>
-      <kbd>esc</kbd>
-    </div>
-    <ul class="cmdk-list" id="cmdk-list" role="listbox" aria-label="Commands">
-      <li class="cmdk-group" role="presentation" data-group="nav">Navigate</li>
-      <li role="option" id="cmd-about" data-group="nav" data-go="about" data-keys="bio intro"><svg aria-hidden="true"><use href="#i-hash"/></svg>About</li>
-      <li role="option" id="cmd-skills" data-group="nav" data-go="skills" data-keys="stack tech"><svg aria-hidden="true"><use href="#i-hash"/></svg>Skills</li>
-      <li role="option" id="cmd-projects" data-group="nav" data-go="projects" data-keys="work portfolio"><svg aria-hidden="true"><use href="#i-hash"/></svg>Projects</li>
-      <li role="option" id="cmd-journey" data-group="nav" data-go="journey" data-keys="experience education timeline levels"><svg aria-hidden="true"><use href="#i-hash"/></svg>Journey</li>
-      <li role="option" id="cmd-badges" data-group="nav" data-go="badges" data-keys="achievements"><svg aria-hidden="true"><use href="#i-hash"/></svg>Badges</li>
-      <li role="option" id="cmd-contact" data-group="nav" data-go="contact" data-keys="hire talk"><svg aria-hidden="true"><use href="#i-hash"/></svg>Contact</li>
-
-      <li class="cmdk-group" role="presentation" data-group="actions">Actions</li>
-      <li role="option" id="cmd-copy" data-group="actions" data-action="copy" data-keys="email clipboard"><svg aria-hidden="true"><use href="#i-copy"/></svg>Copy email address</li>
-      <li role="option" id="cmd-mail" data-group="actions" data-href="mailto:atanuadhikari5@gmail.com" data-keys="email contact hire"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send an email</li>
-      <li role="option" id="cmd-theme" data-group="actions" data-action="theme" data-keys="dark light mode"><svg aria-hidden="true"><use href="#i-contrast"/></svg>Switch theme</li>
-
-      <li class="cmdk-group" role="presentation" data-group="work">Projects</li>
-      <li role="option" id="cmd-p1" data-group="work" data-href="https://github.com/techatanu/student-github-reviewer" data-keys="ai agent langgraph code"><svg aria-hidden="true"><use href="#i-github"/></svg>Student GitHub Reviewer<span class="cmdk-hint">code</span></li>
-      <li role="option" id="cmd-p2" data-group="work" data-href="https://github.com/techatanu/Infant-State-Recognition-System" data-keys="audio ml cry code"><svg aria-hidden="true"><use href="#i-github"/></svg>Infant State Recognition<span class="cmdk-hint">code</span></li>
-      <li role="option" id="cmd-p6" data-group="work" data-href="https://github.com/techatanu/Flight_Delay_Risk" data-keys="ml xgboost flights code"><svg aria-hidden="true"><use href="#i-github"/></svg>Flight Delay Risk<span class="cmdk-hint">code</span></li>
-      <li role="option" id="cmd-p3" data-group="work" data-href="https://cognify-eight.vercel.app" data-keys="hackathon career ai live demo"><svg aria-hidden="true"><use href="#i-external"/></svg>Cognify<span class="cmdk-hint">live</span></li>
-      <li role="option" id="cmd-p4" data-group="work" data-href="https://medi-track-lemon.vercel.app" data-keys="mern health demo live"><svg aria-hidden="true"><use href="#i-external"/></svg>MediTrack<span class="cmdk-hint">live</span></li>
-      <li role="option" id="cmd-p7" data-group="work" data-href="https://ecommerce-three-delta-47.vercel.app/" data-keys="react ecommerce cart demo live"><svg aria-hidden="true"><use href="#i-external"/></svg>QuickCart<span class="cmdk-hint">live</span></li>
-      <li role="option" id="cmd-p5" data-group="work" data-href="https://github.com/techatanu/Spendly" data-keys="expense finance code"><svg aria-hidden="true"><use href="#i-github"/></svg>Spendly<span class="cmdk-hint">code</span></li>
-
-      <li class="cmdk-group" role="presentation" data-group="links">Profiles</li>
-      <li role="option" id="cmd-gh" data-group="links" data-href="https://github.com/techatanu" data-keys="code repos"><svg aria-hidden="true"><use href="#i-github"/></svg>GitHub<span class="cmdk-hint">techatanu</span></li>
-      <li role="option" id="cmd-li" data-group="links" data-href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" data-keys="profile network"><svg aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</li>
-    </ul>
-    <p class="cmdk-empty" hidden>No results.</p>
-    <div class="cmdk-foot" aria-hidden="true">
-      <span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> select</span><span><kbd>esc</kbd> close</span>
-    </div>
-  </div>
-</dialog>
-
-<div class="toast" role="status" aria-live="polite"></div>
-
-<!-- Back to top, ring shows scroll progress -->
-<a class="to-top" href="#top" aria-label="Back to top">
-  <svg class="to-top-ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/></svg>
-  <svg class="to-top-icon" aria-hidden="true"><use href="#i-arrow-up"/></svg>
-</a>
-
-</body>
-</html>
+            </div></div></article></div></div></section>
+<section class="section skills" id="skills" aria-labelledby="skills-title"><div class="container"><div class="section-heading"><div><p class="eyebrow">B SIDE / 01 — THE TOOLKIT</p><h2 id="skills-title">Tools of<br><span class="marker lime-text">the trade.</span></h2></div><div><p>A growing collection. Put together<br>to make things that work.</p><p class="drag-hint">↙ Drag the stickers. Make a little mess.</p><button class="reset-stickers text-link">Reset the wall ↻</button></div></div><div class="sticker-wall" aria-label="Technical skills"><span class="skill-sticker sticker-lime" style="--angle:-5deg">Python</span><span class="skill-sticker sticker-paper" style="--angle:4deg">LangGraph ↗</span><span class="skill-sticker sticker-blue" style="--angle:-3deg">React.js</span><span class="skill-sticker sticker-pink" style="--angle:6deg">Machine Learning</span><span class="skill-sticker sticker-paper" style="--angle:-4deg">FastAPI</span><span class="skill-sticker sticker-orange" style="--angle:2deg">RAG + LLMs</span><span class="skill-sticker sticker-blue" style="--angle:-5deg">scikit-learn</span><span class="skill-sticker sticker-lime" style="--angle:4deg">Node.js / Express</span><span class="skill-sticker sticker-paper" style="--angle:-3deg">MongoDB</span><span class="skill-sticker sticker-pink" style="--angle:6deg">XGBoost</span><span class="skill-sticker sticker-orange" style="--angle:-4deg">Git & GitHub</span><span class="skill-sticker sticker-paper" style="--angle:2deg">NumPy + Pandas</span><span class="skill-sticker sticker-lime" style="--angle:-5deg">Streamlit</span><span class="skill-sticker sticker-blue" style="--angle:4deg">HTML / CSS / JS</span><span class="skill-sticker sticker-pink" style="--angle:-3deg">Vercel + Render</span><span class="skill-sticker sticker-paper" style="--angle:6deg">Tableau</span></div><p class="wall-caption">NO MAGIC WAND. JUST THE RIGHT TOOLS + A LOT OF ITERATION.</p></div></section>
+<section class="section journey-section" id="journey" aria-labelledby="journey-title"><div class="container"><div class="section-heading"><div><p class="eyebrow">B SIDE / 02 — THE JOURNEY</p><h2 id="journey-title">Still making<br><span class="marker">my own tracks.</span></h2></div><p>Every project leaves a lesson.<br>Here’s what’s been on repeat.</p></div><div class="record-layout"><div class="turntable"><div class="turntable-label"><span>ATANU / RECORDS</span><span>VOL. 01</span></div><div class="record"><div class="record-label"><small>THE LEARNING SESSIONS</small><strong>BUILD.<br>LEARN.<br>REPEAT.</strong><small>SIDE A · 33⅓ RPM</small></div></div><div class="tonearm" aria-hidden="true"></div><div class="record-controls"><button class="record-toggle" aria-pressed="true">Ⅱ PAUSE</button><span><i class="status-dot"></i> ALWAYS IN PROGRESS</span><span>33⅓</span></div></div><div class="track-content"><div class="track-list" role="tablist" aria-label="Journey tracks" aria-orientation="vertical"><button role="tab" id="track-0" aria-selected="true" aria-controls="track-detail" tabindex="0" data-track="0"><span>A1</span><span><strong>The foundations</strong><small>Computer Science &amp; AI</small></span><span>2024–28</span></button><button role="tab" id="track-1" aria-selected="false" aria-controls="track-detail" tabindex="-1" data-track="1"><span>A2</span><span><strong>From code to product</strong><small>Full-stack projects</small></span><span>2025–NOW</span></button><button role="tab" id="track-2" aria-selected="false" aria-controls="track-detail" tabindex="-1" data-track="2"><span>B1</span><span><strong>Building with AI</strong><small>Agents &amp; applied ML</small></span><span>EXPLORING</span></button><button role="tab" id="track-3" aria-selected="false" aria-controls="track-detail" tabindex="-1" data-track="3"><span>B2</span><span><strong>The next chapter</strong><small>A team. A problem. A chance to build.</small></span><span>UP NEXT ↗</span></button></div><div class="paper-note track-detail" id="track-detail" role="tabpanel" aria-labelledby="track-0" tabindex="0"><span class="tape" aria-hidden="true"></span><p class="eyebrow" id="track-date">AUG 2024 — AUG 2028</p><h3 id="track-title">The foundations</h3><p id="track-description">B.Tech in Computer Science &amp; AI at Newton School of Technology. Building the foundations in programming, algorithms, and machine learning — and putting them to work in real projects.</p><p class="track-tools" id="track-tools">PYTHON / DSA / GIT / COMPUTER SCIENCE</p></div></div></div></div></section>
+<section class="milestones" id="badges" aria-label="Project milestones"><div class="container"><p class="eyebrow">A FEW THINGS I’M PROUD OF</p><div class="milestone-grid"><div><span>01 / COLLABORATE</span><h3>Construct Hackathon</h3><p>Co-built Cognify, an AI career guidance platform.</p></div><div><span>02 / PUT IT OUT THERE</span><h3>Product Hunt launch</h3><p>Took Cognify from a hackathon idea to a public launch.</p></div><div><span>03 / KEEP IT HONEST</span><h3>Metrics with context</h3><p>Reporting macro F1 and calibration, alongside accuracy.</p></div></div></div></section>
+<section class="section contact" id="contact" aria-labelledby="contact-title"><div class="container"><p class="eyebrow">OUTRO / YOUR IDEA GOES HERE</p><div class="contact-heading"><h2 id="contact-title">Got something<br>worth <span class="marker">building?</span></h2><span class="contact-asterisk" aria-hidden="true">✳</span></div><p class="contact-intro">An interesting problem. A remote internship. A team that loves to experiment.<br>I’m all ears — and ready to get my hands on the code.</p><div class="email-row"><a href="mailto:atanuadhikari5@gmail.com">atanuadhikari5@gmail.com</a><button class="copy-email" aria-label="Copy email address"><svg aria-hidden="true"><use href="#i-copy"/></svg></button></div><div class="contact-bottom"><div class="contact-socials"><a href="https://github.com/techatanu" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.linkedin.com/in/atanu-adhikari-3298492ab" target="_blank" rel="noopener">LinkedIn ↗</a></div><a class="button button-lime" href="Atanu_Resume2.pdf" download="Atanu-Adhikari-AI-ML-Resume.pdf"><svg aria-hidden="true"><use href="#i-download"/></svg>AI/ML Resume</a><p class="marker">Let’s figure it out. ↗</p></div></div></section>
+</main><footer><div class="container footer-inner"><a href="#top" class="brand marker">Atanu<span>®</span></a><p>© 2026 Atanu Adhikari. Made with curiosity.</p><p>KOLKATA <span class="local-time">IST</span></p><a href="#top">BACK TO TOP ↑</a></div></footer>
+<a class="now-playing" href="#about"><span class="mini-record" aria-hidden="true"></span><span><small>NOW EXPLORING</small><strong id="current-section">The intro</strong></span></a><a class="to-top" href="#top" aria-label="Back to top">↑</a><div class="toast" role="status" aria-live="polite"></div>
+</body></html>

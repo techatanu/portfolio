@@ -89,10 +89,7 @@ export function QuickView() {
             const detail = copy(t.detail);
             const org = copy(t.org);
             return (
-              <li
-                key={`${t.date}-${t.title}`}
-                className={`quick-entry grid gap-1 ${date ? "sm:grid-cols-[10rem_1fr] sm:gap-6" : ""}`}
-              >
+              <li key={t.title} className={`quick-entry grid gap-1 ${date ? "sm:grid-cols-[10rem_1fr] sm:gap-6" : ""}`}>
                 {date ? (
                   <p className="eyebrow pt-1" {...todoAttr(t.date)}>
                     {date}

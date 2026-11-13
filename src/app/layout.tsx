@@ -2,15 +2,14 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { nav, profile, seo, skills } from "@content/data";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Cursor } from "@/components/ui/Cursor";
 import "./globals.css";
 
-// Self-hosted: Inter (variable, latin subset, from Google Fonts, OFL) for all text — Atanu's pick,
-// Nov 2026 — and JetBrains Mono (latin subset) for small code-like labels.
-const inter = localFont({
-  src: "./fonts/Inter-latin.woff2",
-  weight: "100 900",
-  variable: "--font-inter",
+// Self-hosted: Space Grotesk (variable, latin subset, Google Fonts, OFL) for all text — Atanu's pick,
+// Nov 2026 — and JetBrains Mono (latin subset) for the odd code-like label.
+const grotesk = localFont({
+  src: "./fonts/SpaceGrotesk-latin.woff2",
+  weight: "300 700",
+  variable: "--font-grotesk",
   display: "swap",
 });
 
@@ -44,13 +43,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a192f",
-  colorScheme: "dark",
+  themeColor: "#f4f0e6",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable} antialiased`}>
+    <html lang="en" className={`${grotesk.variable} ${jetbrains.variable} antialiased`}>
       <body>
         <JsonLd />
         <a href="#main" className="skip-link">
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         {/* Each route group renders its own <main id="main">: (journey) for /, (pages) for the rest. */}
         {children}
-        <Cursor />
       </body>
     </html>
   );

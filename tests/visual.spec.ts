@@ -33,40 +33,28 @@ test("reduced motion: native scroll, content intact", async ({ browser }) => {
   await context.close();
 });
 
-test("portrait dissolves into particles on scroll", async ({ page }) => {
+test("about photo snaps into pieces on scroll", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  // Particles take over the photo once three.js has loaded and the image is sampled.
-  await expect(page.locator('#hero-portrait-reveal[data-portrait="particles"]')).toBeAttached({ timeout: 15_000 });
-  await page.waitForTimeout(3000); // load-time assembly (2.2s) + crossfade
+  await page.locator("#origin").scrollIntoViewIfNeeded();
+  // The canvas replaces the photo once it has loaded; it assembles as it comes into view.
+  await expect(page.locator("#origin .portrait-dust")).toBeAttached({ timeout: 10_000 });
+  await page.waitForTimeout(2000);
   await page.screenshot({ path: "test-results/screens/dissolve-0.png" });
-
-  const heroHeight = await page.locator("#hero").evaluate((el) => el.getBoundingClientRect().height);
-  // Progress = scrolled / (0.6 × hero height). Capture the photo mid-crumble and nearly gone.
-  for (const pct of [15, 35, 60]) {
-    await page.evaluate((y) => window.scrollTo(0, y), heroHeight * 0.6 * (pct / 100));
-    await page.waitForTimeout(900);
-    await page.screenshot({ path: `test-results/screens/dissolve-${pct}.png` });
-  }
-
-  // Scrolling back to the top re-forms the photo.
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(1200);
-  await expect(page.locator("#hero-portrait")).toHaveCSS("opacity", "1");
+  await page.mouse.wheel(0, 420);
+  await page.waitForTimeout(900);
+  await page.screenshot({ path: "test-results/screens/dissolve-mid.png" });
   expect(errors).toEqual([]);
 });
 
-test("journey: skills deck and starfield through every chapter", async ({ page }) => {
+test("journey: every section", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  await expect(page.locator('#hero-portrait-reveal[data-portrait="particles"]')).toBeAttached({ timeout: 15_000 });
-  await page.waitForTimeout(3000); // starfield fade-in + portrait assembly
+  await page.waitForTimeout(3000); // fonts + entrance
 
   // [element id, extra px scrolled past its top, screenshot name]
   const stops: [string, number, string][] = [

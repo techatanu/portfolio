@@ -6,7 +6,6 @@ export function Backdrop() {
   return (
     <div aria-hidden="true" className="backdrop pointer-events-none fixed inset-0 -z-10">
       <div className="backdrop-grid" />
-      <div className="backdrop-vignette" />
     </div>
   );
 }

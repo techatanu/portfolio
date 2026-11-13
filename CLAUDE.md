@@ -10,7 +10,7 @@
 2. **No invented facts or metrics.** Facts come only from `content/linkedin.pdf`, the GitHub API/READMEs for `techatanu`, or Atanu. Unknowns → `TODO(atanu): …` in `content/data.ts`. Project numbers must match the repo's own README.
 3. **References are mood boards only.** Never import, ship, trace, or texture-map anything in `references/`. The vortex reference is Doğan Ural's artwork — the vortex must be an original procedural composition.
 4. **Static export only** (`output: 'export'`). No API routes, server actions, middleware, or SSR-only features.
-5. **Every WebGL effect has a mobile tier and a `prefers-reduced-motion` / no-WebGL fallback.** All text shown in WebGL also exists as real HTML.
+5. **Every animated effect has a `prefers-reduced-motion` / no-JS fallback** (the real content stays visible).
 6. **Ask before** installing anything not in spec §3, and before asking Atanu to open Figma, Stitch, or any other external tool (then say exactly what to click/paste and what to send back).
 7. No AI attribution in files, commit messages, or READMEs. Secrets live in `.env` (gitignored) with a `.env.example`.
 
@@ -22,7 +22,7 @@
 Next.js (App Router, TS, `src/`) · Tailwind v4 · three + @react-three/fiber + drei + postprocessing · GSAP (ScrollTrigger, SplitText) + @gsap/react · Lenis · Zustand · detect-gpu · lucide-react · Playwright · ESLint + Prettier.
 
 ## Architecture
-One fixed `<Canvas>` (`aria-hidden`) behind DOM chapters. Lenis → gsap.ticker → ScrollTrigger → Zustand store (`globalProgress`, `chapter`, `chapterProgress`, `pointer`, `perfTier`, `reducedMotion`). `SceneDirector` reads the store in `useFrame`; DOM never re-renders on scroll. Chapter scroll ranges live in `src/lib/chapters.ts`.
+No canvas layer. Lenis → gsap.ticker → ScrollTrigger → Zustand store (`chapter`, `chapterProgress`, `globalProgress`). Scroll motion lives in `GameReveal.tsx` (`data-reveal`). Section ids/labels/headings come from `chapters` in data.ts via `src/lib/chapters.ts`.
 
 ## Commands (filled in at Phase 2)
 ```bash
@@ -40,13 +40,13 @@ U2NET_HOME=.u2net .venv/bin/python scripts/make-portraits.py   # atanu.jpg → a
 Repo: `techatanu/portfolio`. Its `main` branch serves the current live atanu.online (old static HTML site), so all redesign work lives on the **`redesign`** branch until Phase 7. The Claude sandbox cannot write `.git/`, so Atanu runs `git add`/`commit`/`push` himself.
 Note: inside the Claude sandbox, pip needs `--use-deprecated=legacy-certs`.
 
-## Design decisions that override the spec (Atanu, Oct 2026)
-- **Background:** a quiet starfield (WebGL) plus CSS ambient light (`Ambient.tsx`: cool-to-warm glow by scroll, pointer spotlight, grain). The black hole and code streams were **removed at Atanu's request (Nov 2026)** — too big and distracting by the later chapters. The Grid Hall, walking figure, light path and block tunnel were also built and removed. Don't bring any of them back.
-- **Hero:** the portrait "pixel dissolve" stays.
-- **Projects (Nov 2026):** only the repos pinned on github.com/techatanu, in profile order (`pinnedRepos` in data.ts). Re-check the pins when asked; other write-ups stay in data but aren't shown.
-- **No game layer:** the level HUD, XP bar, "LEVEL UNLOCKED" banner and warp flight were **removed at Atanu's request (Nov 2026)** — don't bring them back. Scroll motion is a few quiet moments in `GameReveal.tsx` (`data-reveal`, `data-read`, `data-timeline`).
-- **Look (Nov 2026):** navy/slate palette with one teal accent (tokens in `globals.css`), Inter for all text, JetBrains Mono for small labels. Plain labels, no sci-fi wording.
-- Skills section (Nov 2026): an interactive grid — hover/focus/tap a skill to light it and see which projects use it (derived from project data). It replaced the sticky stacking deck at Atanu's request. Front end stays in this Next.js codebase (no Lovable/Bolt/Laravel).
+## Design decisions that override the spec (Atanu, Nov 2026 — branch `brutalist`)
+- **Look:** light "paper" style, inspired by (not copied from) aahil-khan.xyz: cream paper + faint grid, Space Grotesk (self-hosted `src/app/fonts/SpaceGrotesk-latin.woff2`), ink outlines, hard offset shadows, one yellow accent (`--accent-amber`), pill buttons that press in. Tokens in `globals.css` (`--accent-teal` is now the ink accent — legacy name). Never copy that site's code, copy, images or signature bits.
+- **No WebGL / 3D / game layer:** the starfield, black hole, code streams, warp, level HUD and banners are all removed. Don't bring them back.
+- **Sections:** huge uppercase name hero → About (photo card) → Skills (ledger rows, hover/tap a skill → "Used in" projects) → Projects (alternating rows) → Experience (tabs) → What I'm looking for → Contact.
+- **Photo "snap" dissolve** is on the About photo (`PortraitDust.tsx`, plain 2D canvas): assembles when it comes into view, breaks into pieces as you scroll past, re-forms on scroll back.
+- **Projects:** only the repos pinned on github.com/techatanu, in profile order (`pinnedRepos` in data.ts). Re-check the pins when asked.
+- Front end stays in this Next.js codebase (no Lovable/Bolt/Laravel).
 - Local preview: `npm run preview` (no-cache server, `scripts/serve-out.py`); add `?v=N` after rebuilding.
 
 ## Budgets (spec §4.5)

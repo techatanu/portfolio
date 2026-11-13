@@ -16,6 +16,7 @@ export type Chapter = {
   index: number;
   hud: string;
   title: string;
+  heading: string;
   minHeight: number;
   world: World;
 };
@@ -35,6 +36,7 @@ export const CHAPTERS: Chapter[] = chapterCopy.map((c, index) => ({
   index,
   hud: c.hud,
   title: c.title,
+  heading: c.heading,
   ...layout[c.id],
 }));
 

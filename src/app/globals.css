@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
-/* ── Design tokens (spec §2.3). Shaders read the same values in Phase 3+. */
+/* ── Design tokens.
+   Light "paper" look (Atanu, Nov 2026): warm cream paper, near-black ink, one yellow accent,
+   ink outlines and hard offset shadows. Token names are kept from earlier designs so every
+   page restyles from here: `--accent-teal` is now the ink accent, `--accent-amber` the yellow. */
 :root {
-  /* Navy + slate + one green-teal accent: the palette family of brittanychiang.com v4,
-     the most-cited developer portfolio (Atanu's pick, Nov 2026). Amber is kept only for small dots. */
-  --bg: #0a192f;
-  --bg-elev: #112240;
-  --fg: #ccd6f6;
-  --fg-muted: #8892b0;
-  --fg-body: #a8b2d1; /* long-form copy: softer than headings, brighter than labels */
-  --line: #233554;
-  --line-strong: #3a4d73;
-  --glow: #e6f1ff;
-  --accent-teal: #64ffda;
-  --accent-amber: #ffc680;
+  --bg: #f4f0e6; /* paper */
+  --bg-alt: #e9e5da; /* every other section band */
+  --bg-elev: #fffdf6; /* cards */
+  --fg: #161616; /* ink */
+  --fg-muted: #6c695f;
+  --fg-body: #3a3934; /* long-form copy */
+  --line: rgba(22, 22, 22, 0.14);
+  --line-strong: #161616;
+  --glow: #161616; /* emphasis text */
+  --accent-teal: #161616; /* ink accent (legacy name) */
+  --accent-amber: #ffd23f; /* yellow */
+  --shadow: 4px 4px 0 #161616;
+  --shadow-sm: 2px 2px 0 #161616;
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
   --color-bg-elev: var(--bg-elev);
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
@@ -27,128 +32,120 @@
   --color-glow: var(--glow);
   --color-accent-teal: var(--accent-teal);
   --color-accent-amber: var(--accent-amber);
+  --color-yellow: var(--accent-amber);
 
-  --font-display: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
-  --font-sans: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-grotesk), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --text-hero: clamp(3.5rem, 12vw, 11rem);
-  --text-display: clamp(2.5rem, 6vw, 5.5rem);
+  --text-hero: clamp(3.75rem, 13vw, 10.5rem);
+  --text-display: clamp(2rem, 4vw, 2.75rem);
 
-  --radius-arch: 6px;
+  --radius-arch: 10px;
   --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-power3-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* ── Base */
 html {
-  color-scheme: dark;
+  color-scheme: light;
   background: var(--bg);
 }
 
-/* No background on body: with html painting the void, an opaque body would be drawn
-   over every negative z-index layer (the Backdrop and the WebGL canvas) and hide them. */
 body {
   color: var(--fg);
   font-family: var(--font-sans);
   overflow-x: clip;
 }
 
-/* Text sits over the moving Grid Hall: a soft dark halo keeps it readable where it
-   crosses a light strip or a glowing seam, without a visible box. */
-main {
-  text-shadow: 0 1px 14px rgba(10, 25, 47, 0.85);
-}
-
 ::selection {
-  background: var(--glow);
-  color: var(--bg);
+  background: var(--accent-amber);
+  color: var(--fg);
 }
 
 :focus-visible {
-  outline: 1px solid var(--glow);
+  outline: 2px solid var(--fg);
   outline-offset: 3px;
 }
 
 /* ── Components */
 @layer components {
-  /* One layout grid for the nav and every chapter, so all left edges line up while scrolling. */
+  /* One layout grid for the header and every section, so all left edges line up. */
   .shell {
-    @apply relative mx-auto w-full max-w-[1320px] px-5 md:px-10 lg:px-16;
+    @apply relative mx-auto w-full max-w-[1120px] px-5 md:px-10;
   }
 
-  /* Chapter label above each heading: the story's HUD text, in the accent blue. */
+  /* Section label: small spaced caps followed by a hairline. */
   .kicker {
-    @apply flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.14em] text-accent-teal uppercase;
-  }
-  .kicker::before {
-    content: "";
-    @apply size-1.5 bg-accent-teal;
+    @apply flex items-center gap-3 text-[0.6875rem] font-medium tracking-[0.16em] text-fg-muted uppercase;
   }
 
-  /* Colour families (data.ts "Accent"): set --accent, children use it. */
-  .accent-teal {
-    --accent: var(--accent-teal);
-  }
-  .accent-glow {
-    --accent: var(--glow);
-  }
-  .accent-amber {
-    --accent: var(--accent-amber);
-  }
+  /* Colour families (data.ts "Accent"): in this look they only tint the small dots. */
+  .accent-teal,
+  .accent-glow,
+  .accent-amber,
   .accent-muted {
-    --accent: var(--fg-muted);
+    --accent: var(--fg);
   }
   .accent-dot {
-    @apply inline-block size-1.5 shrink-0 rounded-full;
-    background: var(--accent);
-    box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+    @apply inline-block size-2 shrink-0 rounded-[2px] border border-fg bg-yellow;
   }
 
   .eyebrow {
-    @apply font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase;
+    @apply text-[0.6875rem] font-medium tracking-[0.14em] text-fg-muted uppercase;
   }
 
+  /* Tag: outlined, quiet. */
   .chip {
-    @apply rounded-arch border border-line bg-bg/40 px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.04em] text-fg;
-  }
-  /* Inside an accent family the chip border picks up the group colour. */
-  [class*="accent-"] .chip {
-    border-color: color-mix(in srgb, var(--accent) 32%, transparent);
+    @apply rounded-[6px] border border-line bg-bg-elev px-2.5 py-1 text-xs text-fg-body;
   }
 
+  /* Yellow marker label (a project's key result, a status). */
   .badge {
-    @apply inline-flex items-center gap-2.5 rounded-arch border border-line bg-bg-elev/60 px-3 py-1.5 font-mono text-xs tracking-[0.06em] text-fg;
+    @apply inline-flex items-center gap-2 rounded-[6px] border border-fg bg-yellow px-2.5 py-1 text-xs font-medium text-fg;
   }
-
   .badge-dot {
-    @apply relative size-2 rounded-full bg-accent-amber;
-    box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent-amber) 55%, transparent);
+    @apply relative size-1.5 rounded-full bg-fg;
   }
 
+  /* Buttons: pills with an ink outline and a hard shadow that presses in on click. */
   .btn-primary,
   .btn-ghost,
   .btn-accent {
-    @apply inline-flex min-h-11 items-center gap-2 rounded-arch px-5 text-sm font-medium transition-colors duration-300 ease-expo-out;
-  }
-
-  .btn-primary,
-  .btn-ghost,
-  .btn-accent {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border-[1.5px] border-fg px-5 text-sm font-medium text-fg;
+    box-shadow: var(--shadow-sm);
     transition:
-      color 0.3s var(--ease-expo-out),
-      background-color 0.3s var(--ease-expo-out),
-      border-color 0.3s var(--ease-expo-out),
-      transform 0.2s var(--ease-expo-out);
+      transform 0.18s var(--ease-expo-out),
+      box-shadow 0.18s var(--ease-expo-out),
+      background-color 0.2s;
+  }
+  .btn-primary {
+    @apply bg-yellow;
+  }
+  .btn-ghost {
+    @apply bg-bg-elev;
+  }
+  .btn-accent {
+    @apply bg-fg text-bg;
+  }
+  @media (hover: hover) {
+    .btn-primary:hover,
+    .btn-ghost:hover,
+    .btn-accent:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--fg);
+    }
   }
   .btn-primary:active,
   .btn-ghost:active,
   .btn-accent:active {
-    transform: translateY(1px) scale(0.985);
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--fg);
   }
-  /* The arrow leans the way it points while you hover. */
+
+  /* Arrows lean the way they point while you hover. */
   :is(.btn-primary, .btn-ghost, .btn-accent, .link-underline) svg {
-    transition: transform 0.35s var(--ease-expo-out);
+    transition: transform 0.3s var(--ease-expo-out);
   }
   :is(.btn-primary, .btn-ghost, .btn-accent, .link-underline):hover svg {
     transform: translate(2px, -2px);
@@ -160,363 +157,197 @@ main {
     transform: translateY(2px);
   }
 
-  .btn-primary {
-    @apply bg-accent-teal text-bg hover:bg-glow;
-  }
-
-  .btn-ghost {
-    @apply border border-line text-fg hover:border-fg-muted hover:bg-fg/5;
-  }
-
-  /* Secondary action that should stand out from plain links (e.g. "Live demo"). */
-  .btn-accent {
-    @apply border border-accent-teal/60 bg-accent-teal/10 text-fg hover:border-accent-teal hover:bg-accent-teal/20;
-  }
-
   .link-underline {
-    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
-    transition:
-      background-size 0.4s var(--ease-expo-out),
-      color 0.3s;
+    background: linear-gradient(var(--accent-amber), var(--accent-amber)) no-repeat 0 100% / 0 0.35em;
+    transition: background-size 0.35s var(--ease-expo-out);
   }
   .link-underline:hover {
-    background-size: 100% 1px;
+    background-size: 100% 0.35em;
   }
 
+  /* Card: paper, ink outline, hard shadow. Linked cards lift on hover. */
   .exhibit {
-    @apply rounded-arch border border-line bg-bg-elev/70 backdrop-blur-[2px];
+    @apply rounded-arch border-[1.5px] border-fg bg-bg-elev;
+    box-shadow: var(--shadow);
     transition:
-      transform 0.5s var(--ease-expo-out),
-      border-color 0.5s var(--ease-expo-out),
-      background-color 0.5s var(--ease-expo-out);
+      transform 0.25s var(--ease-expo-out),
+      box-shadow 0.25s var(--ease-expo-out);
   }
   @media (hover: hover) {
     .exhibit:hover {
-      transform: translateY(-2px);
-      border-color: var(--line-strong);
-      background-color: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--fg);
     }
   }
 
-  /* Clips a line of display type so it can rise into view. The padding keeps tight
-     leading from cutting ascenders and descenders; the margin gives the space back. */
-  .line-mask {
-    display: block;
-    overflow: hidden;
-    padding-block: 0.14em;
-    margin-block: -0.14em;
-  }
-
-  /* Timeline: a bright line drawn over the grey rule, and entries that wake up when it reaches them.
-     The dimming only applies once GameReveal marks the list "live", so no-JS shows everything lit. */
-  .timeline-fill {
-    @apply absolute top-0 -left-px h-full w-px origin-top;
-    background: linear-gradient(to bottom, var(--glow), var(--accent-teal));
-  }
-  [data-timeline=""] .timeline-fill {
-    display: none;
-  }
-  .timeline-item {
-    transition: opacity 0.6s var(--ease-expo-out);
-  }
-  .timeline-item .timeline-node {
-    transition:
-      background-color 0.5s var(--ease-expo-out),
-      box-shadow 0.5s var(--ease-expo-out),
-      transform 0.5s var(--ease-expo-out);
-  }
-  [data-timeline="live"] .timeline-item:not([data-lit]) {
-    opacity: 0.38;
-  }
-  [data-timeline="live"] .timeline-item:not([data-lit]) .timeline-node {
-    box-shadow: none;
-    transform: scale(0.7);
-  }
-  [data-timeline="live"] .timeline-item[data-lit] .timeline-node {
-    background: var(--accent, var(--fg-muted));
-  }
-
   .contact-panel {
-    @apply bg-bg-elev/70 backdrop-blur-[2px];
-    box-shadow: inset 0 0 0 1px var(--line);
+    @apply rounded-arch border-[1.5px] border-dashed border-fg/40;
   }
 
   .timeline-node {
-    @apply absolute top-1 -left-[5px] size-[9px] rounded-full border bg-bg;
-    border-color: var(--accent, var(--fg-muted));
-    box-shadow: 0 0 12px color-mix(in srgb, var(--accent, transparent) 55%, transparent);
+    @apply absolute top-1 -left-[5px] size-[9px] rounded-[2px] border border-fg bg-yellow;
   }
 
   .skip-link {
-    @apply fixed top-3 left-3 z-[100] -translate-y-20 rounded-arch bg-fg px-4 py-2 font-mono text-xs text-bg uppercase focus:translate-y-0;
+    @apply fixed top-3 left-3 z-[100] -translate-y-20 rounded-full border border-fg bg-yellow px-4 py-2 text-xs font-medium text-fg focus:translate-y-0;
+  }
+
+  /* Clips a line of display type so it can rise into view. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.08em;
+    margin-block: -0.08em;
   }
 }
 
-/* ── Skills grid (Skills.tsx). Panels carry a pointer spotlight (--sx/--sy); a chip lights up
-   when it's the active skill and every other chip steps back, so the eye goes to one thing. */
+/* ── Section bands. Every other section sits on a slightly darker paper; a double rule
+   under the header frames the page like a printed sheet. */
+.band-alt {
+  background: var(--bg-alt);
+}
+.site-rule {
+  border-bottom: 1.5px solid var(--fg);
+  box-shadow:
+    0 3px 0 -1.5px var(--bg),
+    0 4.5px 0 -1.5px var(--fg);
+}
+
+/* Hero paper: a faint grid that fades out toward the edges. */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgba(22, 22, 22, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 22, 22, 0.07) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse 90% 80% at 40% 35%, #000 45%, transparent 100%);
+}
+
+/* ── Skills (Skills.tsx): rows of tags; the active one turns yellow and the rest step back. */
 .skill-inspector {
-  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
-  backdrop-filter: blur(10px);
-  transition:
-    border-color 0.4s var(--ease-expo-out),
-    box-shadow 0.4s var(--ease-expo-out);
+  background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.25s var(--ease-expo-out);
 }
 .skill-inspector[data-active] {
-  border-color: color-mix(in srgb, var(--accent-teal) 45%, var(--line));
-  box-shadow: 0 10px 40px -12px color-mix(in srgb, var(--accent-teal) 30%, transparent);
-}
-.skill-panel {
-  position: relative;
-  isolation: isolate;
-  background: color-mix(in srgb, var(--bg-elev) 70%, transparent);
-  transition: border-color 0.4s var(--ease-expo-out);
-}
-.skill-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(
-    320px circle at var(--sx, 50%) var(--sy, 0%),
-    color-mix(in srgb, var(--accent, var(--accent-teal)) 10%, transparent),
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-expo-out);
-}
-@media (hover: hover) {
-  .skill-panel:hover {
-    border-color: var(--line-strong);
-  }
-  .skill-panel:hover::before {
-    opacity: 1;
-  }
+  box-shadow: var(--shadow);
 }
 .skill-chip {
   display: inline-flex;
   min-height: 2.25rem;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-arch);
-  background: color-mix(in srgb, var(--bg) 45%, transparent);
-  padding: 0.375rem 0.75rem;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  padding: 0.3rem 0.7rem;
   font-size: 0.875rem;
   color: var(--fg);
   cursor: pointer;
   transition:
-    transform 0.3s var(--ease-expo-out),
-    opacity 0.3s var(--ease-expo-out),
-    color 0.3s var(--ease-expo-out),
-    border-color 0.3s var(--ease-expo-out),
-    background-color 0.3s var(--ease-expo-out),
-    box-shadow 0.3s var(--ease-expo-out);
+    transform 0.2s var(--ease-expo-out),
+    box-shadow 0.2s var(--ease-expo-out),
+    opacity 0.25s,
+    border-color 0.2s,
+    background-color 0.2s;
 }
-.skill-chip:active {
-  transform: translateY(0) scale(0.97);
+@media (hover: hover) {
+  .skill-chip:hover {
+    border-color: var(--fg);
+  }
 }
 .skill-count {
   display: inline-grid;
-  min-width: 1.25rem;
-  height: 1.25rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
   place-items: center;
   border-radius: 9999px;
-  background: color-mix(in srgb, var(--accent-teal) 14%, transparent);
+  background: var(--bg-alt);
   padding-inline: 0.3rem;
-  font-family: var(--font-mono);
   font-size: 0.625rem;
-  color: var(--accent-teal);
+  font-weight: 600;
+  color: var(--fg);
 }
 .skill-grid[data-active] .skill-chip:not([data-on]) {
-  opacity: 0.4;
+  opacity: 0.38;
 }
 .skill-chip[data-on],
 .skill-chip[aria-pressed="true"] {
-  transform: translateY(-2px);
-  border-color: var(--accent-teal);
-  background: color-mix(in srgb, var(--accent-teal) 12%, transparent);
-  color: var(--glow);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent-teal) 35%, transparent),
-    0 10px 28px -8px color-mix(in srgb, var(--accent-teal) 45%, transparent);
+  transform: translate(-2px, -2px);
+  border-color: var(--fg);
+  background: var(--accent-amber);
+  box-shadow: var(--shadow-sm);
 }
 .skill-chip[data-on] .skill-count,
 .skill-chip[aria-pressed="true"] .skill-count {
-  background: var(--accent-teal);
-  color: var(--bg);
+  background: var(--fg);
+  color: var(--accent-amber);
 }
 
-/* ── Custom cursor (spec §2.4). Fixed above everything; difference blending keeps it
-   visible over the bright light strips and the dark void alike. */
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 200;
-  width: 22px;
-  height: 22px;
-  margin: -11px 0 0 -11px;
-  border: 1px solid var(--fg);
-  border-radius: 9999px;
-  pointer-events: none;
-  mix-blend-mode: difference;
-  opacity: 0;
-  display: grid;
-  place-items: center;
-  transition:
-    opacity 0.3s,
-    width 0.35s var(--ease-expo-out),
-    height 0.35s var(--ease-expo-out),
-    margin 0.35s var(--ease-expo-out),
-    background-color 0.35s var(--ease-expo-out);
+/* ── Experience tabs (Timeline.tsx). */
+.exp-tab {
+  transition: background-color 0.2s;
 }
-.cursor-ring[data-visible] {
-  opacity: 1;
+.exp-tab[aria-selected="true"] {
+  background: var(--bg-alt);
 }
-.cursor-ring[data-state="link"] {
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
+.exp-tab[aria-selected="true"] .exp-dot {
+  background: var(--accent-amber);
+  border-color: var(--fg);
 }
-.cursor-ring[data-state="view"] {
-  width: 52px;
-  height: 52px;
-  margin: -26px 0 0 -26px;
-  background: var(--fg);
-}
-.cursor-ring[data-pressed] {
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
-}
-.cursor-label {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--bg);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.cursor-ring[data-state="view"] .cursor-label {
-  opacity: 1;
-}
-@media (hover: none), (pointer: coarse) {
-  .cursor-ring {
-    display: none;
+@media (hover: hover) {
+  .exp-tab:hover {
+    background: color-mix(in srgb, var(--bg-alt) 60%, transparent);
   }
+}
+
+/* ── Photo snap dissolve (PortraitDust.tsx): the canvas is larger than the frame so pieces can fly out. */
+.portrait-dust {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  filter: grayscale(1); /* the photo is shown in black and white (Atanu, Nov 2026) */
 }
 
 /* Dev-only: unresolved TODO(atanu) copy (stripped from production builds). */
 [data-todo] {
-  outline: 1px dashed var(--accent-amber);
+  outline: 1px dashed #c2410c;
   outline-offset: 4px;
 }
 
-/* ── Static backdrop: pre-Canvas view and reduced-motion / no-WebGL fallback. */
+/* ── Static backdrop for the plain pages (quick view, case studies). */
 .backdrop {
   background: var(--bg);
-}
-/* ── Ambient light above the starfield (Ambient.tsx). --p is page progress 0→1,
-   --mx / --my the pointer position. Sits below all content. */
-.ambient > div {
-  position: absolute;
-  inset: 0;
-}
-.ambient-cool {
-  background: radial-gradient(70% 50% at 50% -8%, color-mix(in srgb, var(--glow) 13%, transparent), transparent 70%);
-  opacity: calc(1 - var(--p, 0) * 0.75);
-}
-.ambient-warm {
-  background: radial-gradient(
-    70% 45% at 70% 108%,
-    color-mix(in srgb, var(--accent-teal) 8%, transparent),
-    transparent 70%
-  );
-  opacity: var(--p, 0);
-}
-.ambient-spot {
-  background: radial-gradient(
-    560px circle at var(--mx, 50%) var(--my, 30%),
-    color-mix(in srgb, #1d4ed8 16%, transparent),
-    transparent 70%
-  );
-}
-@media (hover: none), (pointer: coarse) {
-  .ambient-spot {
-    display: none;
-  }
-}
-.ambient-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  mix-blend-mode: overlay;
 }
 .backdrop-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(204, 214, 246, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(204, 214, 246, 0.035) 1px, transparent 1px);
-  background-size: 96px 96px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 85%);
+    linear-gradient(to right, rgba(22, 22, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 22, 22, 0.05) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 85%);
 }
 .backdrop-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.7));
+  display: none;
 }
 
 /* ── Motion */
-@keyframes scroll-cue {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(4px);
-    opacity: 0.5;
-  }
-}
-.scroll-cue {
-  animation: scroll-cue 2.4s var(--ease-power3-in-out) infinite;
-}
-
-/* Hero entrance, once on load: the name rises line by line, then the rest settles in. */
 @keyframes line-rise {
   from {
-    transform: translateY(115%);
+    transform: translateY(105%);
   }
 }
 @keyframes settle-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
   }
 }
 .hero-line {
-  animation: line-rise 1.1s var(--ease-expo-out) var(--d, 0.1s) both;
+  animation: line-rise 1s var(--ease-expo-out) var(--d, 0.05s) both;
 }
 .hero-in {
-  animation: settle-in 0.9s var(--ease-expo-out) var(--d, 0.35s) both;
-}
-
-/* Hero photo reveal: CSS-only so it always appears (no JS / no WebGL / slow load).
-   PortraitParticles cancels it and assembles the photo from dust instead. */
-@keyframes portrait-reveal {
-  to {
-    opacity: 1;
-  }
-}
-.portrait-reveal {
-  opacity: 0;
-  animation: portrait-reveal 0.9s var(--ease-expo-out) 1.4s forwards;
-}
-.portrait-reveal[data-portrait="particles"] {
-  animation: none;
-  opacity: 1;
+  animation: settle-in 0.8s var(--ease-expo-out) var(--d, 0.3s) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

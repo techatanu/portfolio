@@ -91,14 +91,14 @@ export const site = {
 
 // ─────────────────────────────────────────────────────────────── chapters (HUD labels + headings)
 export const chapters = [
-  // `hud` is the small section number above each heading; `title` is the heading recruiters scan for.
-  { id: "hero", hud: "00", title: "Intro" },
-  { id: "origin", hud: "01", title: "About" },
-  { id: "skills", hud: "02", title: "Skills & Tools" },
-  { id: "artifacts", hud: "03", title: "Selected Projects" },
-  { id: "timeline", hud: "04", title: "Experience & Milestones" },
-  { id: "singularity", hud: "05", title: "What I'm Looking For" },
-  { id: "contact", hud: "06", title: "Contact" },
+  // `title` is the small section label recruiters scan for; `heading` is the line under it.  [DRAFT]
+  { id: "hero", hud: "00", title: "Intro", heading: "Intro" },
+  { id: "origin", hud: "01", title: "About", heading: "A bit about me" },
+  { id: "skills", hud: "02", title: "Skills & Tools", heading: "Tools I work with" },
+  { id: "artifacts", hud: "03", title: "Selected Projects", heading: "Projects I've built" },
+  { id: "timeline", hud: "04", title: "Experience & Milestones", heading: "My journey so far" },
+  { id: "singularity", hud: "05", title: "What I'm Looking For", heading: "What I'm looking for" },
+  { id: "contact", hud: "06", title: "Contact", heading: "Let's work together." },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────── nav + shared UI labels  [DRAFT]
@@ -141,6 +141,16 @@ export const hero = {
   summary:
     "I build end-to-end AI/ML projects — from data and models to deployed apps — with Python, scikit-learn, PyTorch, LangGraph and React.",
   badge: "Open to remote AI/ML internships",
+  /** Big statement under the name; `strong` parts are set in bold. [LI] headline + [CV] summary. [DRAFT] */
+  statement: [
+    { text: "AI/ML engineer and full-stack developer building " },
+    { text: "ML models, LLM agents", strong: true },
+    { text: " and the web apps around them." },
+  ],
+  /** Short place label above the name. [SPEC] */
+  place: "Sonipat, Haryana · India",
+  projectsCta: "See my projects",
+  quickTag: "60-second view",
   primaryCta: "Email me",
   scrollCue: "Scroll down",
   portraitAlt: "Portrait of Atanu Adhikari",

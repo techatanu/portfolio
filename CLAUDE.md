@@ -1,4 +1,4 @@
-# CLAUDE.md — atanu.online ("Signal to Singularity")
+# CLAUDE.md — atanu.online
 
 `PORTFOLIO_SPEC.md` is the source of truth. Read it before any change. This file is the short version.
 `docs/ARCHITECTURE.md` adds the recruiter-first structure (`/quick/`, `/projects/<slug>/`, route groups); agent briefs live in `docs/agents/`.
@@ -37,7 +37,9 @@ U2NET_HOME=.u2net .venv/bin/python scripts/make-portraits.py   # atanu.jpg → a
 ```
 
 ## Git / deploy
-Repo: `techatanu/portfolio`. Its `main` branch serves the current live atanu.online (old static HTML site), so all redesign work lives on the **`redesign`** branch until Phase 7. The Claude sandbox cannot write `.git/`, so Atanu runs `git add`/`commit`/`push` himself.
+Repo: `techatanu/portfolio` (public). **Live since 13 Nov 2026:** atanu.online is this Next.js site, deployed by `.github/workflows/deploy.yml` (GitHub Actions → Pages) on every push to `main`; Pages source is "GitHub Actions", custom domain `atanu.online` (`public/CNAME`).
+The old static HTML site is kept on branch `old-site` — rollback = Settings → Pages → Source "Deploy from a branch" → `old-site`. `brutalist` matched `main` at launch; `redesign` holds the earlier navy design.
+Atanu runs every `git commit`/`push`/`merge` himself.
 Note: inside the Claude sandbox, pip needs `--use-deprecated=legacy-certs`.
 
 ## Design decisions that override the spec (Atanu, Nov 2026 — branch `brutalist`)

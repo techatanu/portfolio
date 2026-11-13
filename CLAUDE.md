@@ -1,6 +1,7 @@
 # CLAUDE.md — atanu.online ("Signal to Singularity")
 
 `PORTFOLIO_SPEC.md` is the source of truth. Read it before any change. This file is the short version.
+`docs/ARCHITECTURE.md` adds the recruiter-first structure (`/quick/`, `/projects/<slug>/`, route groups); agent briefs live in `docs/agents/`.
 
 ## Hard rules
 1. **No git writes.** Never run `git commit`, `git push`, `git merge`, `git rebase`, `git tag`, `gh pr create`, or anything that writes to GitHub. Atanu commits and pushes himself. Allowed: `git status`, `git diff`, `git log`, `git add`.
@@ -40,10 +41,12 @@ Repo: `techatanu/portfolio`. Its `main` branch serves the current live atanu.onl
 Note: inside the Claude sandbox, pip needs `--use-deprecated=legacy-certs`.
 
 ## Design decisions that override the spec (Atanu, Oct 2026)
-- **One 3D world only:** the code singularity (code streams spiralling into a black hole) is the background for the whole page. The Grid Hall, walking figure, light path and block tunnel were built and then **removed at Atanu's request** — don't bring them back.
+- **Background:** a quiet starfield (WebGL) plus CSS ambient light (`Ambient.tsx`: cool-to-warm glow by scroll, pointer spotlight, grain). The black hole and code streams were **removed at Atanu's request (Nov 2026)** — too big and distracting by the later chapters. The Grid Hall, walking figure, light path and block tunnel were also built and removed. Don't bring any of them back.
 - **Hero:** the portrait "pixel dissolve" stays.
-- **Game feel:** level HUD (`LV 02 · SKILLS` + XP bar), "LEVEL 0N — X UNLOCKED" banner per chapter, warp flight (scroll speed → speed lines, stream speed, FOV punch), game-UI fly-ins via `data-reveal="title" | "card"`.
-- Skills section is a sticky stacking deck. Front end stays in this Next.js codebase (no Lovable/Bolt/Laravel).
+- **Projects (Nov 2026):** only the repos pinned on github.com/techatanu, in profile order (`pinnedRepos` in data.ts). Re-check the pins when asked; other write-ups stay in data but aren't shown.
+- **No game layer:** the level HUD, XP bar, "LEVEL UNLOCKED" banner and warp flight were **removed at Atanu's request (Nov 2026)** — don't bring them back. Scroll motion is a few quiet moments in `GameReveal.tsx` (`data-reveal`, `data-read`, `data-timeline`).
+- **Look (Nov 2026):** navy/slate palette with one teal accent (tokens in `globals.css`), Inter for all text, JetBrains Mono for small labels. Plain labels, no sci-fi wording.
+- Skills section (Nov 2026): an interactive grid — hover/focus/tap a skill to light it and see which projects use it (derived from project data). It replaced the sticky stacking deck at Atanu's request. Front end stays in this Next.js codebase (no Lovable/Bolt/Laravel).
 - Local preview: `npm run preview` (no-cache server, `scripts/serve-out.py`); add `?v=N` after rebuilding.
 
 ## Budgets (spec §4.5)

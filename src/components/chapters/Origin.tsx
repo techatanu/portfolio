@@ -20,11 +20,18 @@ export function Origin() {
             copy(p) ? (
               <p
                 key={p}
-                data-reveal="card"
+                // The two opening paragraphs brighten word by word as you scroll (GameReveal `data-read`).
+                data-read={i < 2 ? "" : undefined}
                 className={`leading-relaxed ${i === 0 ? "text-xl text-fg md:text-2xl" : "text-lg text-fg-body md:text-xl"}`}
                 {...todoAttr(p)}
               >
-                {p}
+                {i < 2
+                  ? p.split(" ").map((word, w) => (
+                      <span key={w} data-word>
+                        {word}{" "}
+                      </span>
+                    ))
+                  : p}
               </p>
             ) : null,
           )}

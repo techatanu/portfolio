@@ -7,10 +7,13 @@ import { REDUCED_MOTION_QUERY } from "@/lib/perf";
 import { registerGsap } from "@/lib/scroll";
 
 /**
- * Game-UI entrances, played once as things scroll into view:
- *  - `data-reveal="title"`: chapter headings wipe in from the left with a bright flash.
- *  - `data-reveal="card"`:  cards slide up out of a scan-wipe, slightly skewed, in a quick stagger.
- * Uses gsap.from, so with JS off (or under reduced motion) everything is simply visible.
+ * Scroll motion for the story, kept to a few deliberate moments instead of animating every box:
+ *  - `data-reveal="title"`: the chapter label fades in, a hairline draws across, the heading
+ *    rises out of a mask. Played once.
+ *  - `data-read`: a paragraph "reads itself" — its words brighten in order as you scroll past.
+ *  - `data-timeline`: the line draws down with the scroll and each entry lights up as it's reached.
+ *  - `data-reveal="card"`: a short, plain rise for the few standalone panels.
+ * Everything starts from the finished state, so with JS off or reduced motion the page is simply there.
  */
 export function GameReveal() {
   useEffect(() => {
@@ -18,14 +21,47 @@ export function GameReveal() {
     registerGsap();
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('[data-reveal="title"]').forEach((el) => {
-        gsap.from(el, {
-          clipPath: "inset(0 100% 0 0)",
-          x: -28,
-          filter: "brightness(2.6)",
-          duration: 0.75,
-          ease: "expo.out",
-          clearProps: "clipPath,filter,transform",
-          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        const tl = gsap.timeline({
+          defaults: { ease: "expo.out" },
+          scrollTrigger: { trigger: el, start: "top 82%", once: true },
+        });
+        tl.from(el.querySelectorAll("[data-kicker]"), { opacity: 0, x: -12, duration: 0.6 })
+          .from(el.querySelectorAll("[data-rule]"), { scaleX: 0, duration: 1.2 }, 0.05)
+          .from(el.querySelectorAll("[data-rise]"), { yPercent: 115, duration: 1 }, 0.12);
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-read]").forEach((el) => {
+        gsap.fromTo(
+          el.querySelectorAll("[data-word]"),
+          { opacity: 0.22 },
+          {
+            opacity: 1,
+            ease: "none",
+            stagger: 0.1,
+            scrollTrigger: { trigger: el, start: "top 82%", end: "bottom 58%", scrub: 0.5 },
+          },
+        );
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-timeline]").forEach((list) => {
+        // The attribute switches on the "not reached yet" dimming in CSS, so it only applies with JS.
+        list.setAttribute("data-timeline", "live");
+        gsap.fromTo(
+          list.querySelectorAll("[data-timeline-fill]"),
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: { trigger: list, start: "top 62%", end: "bottom 62%", scrub: 0.4 },
+          },
+        );
+        list.querySelectorAll<HTMLElement>("[data-timeline-item]").forEach((item) => {
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 62%",
+            onEnter: () => item.setAttribute("data-lit", ""),
+            onLeaveBack: () => item.removeAttribute("data-lit"),
+          });
         });
       });
 
@@ -34,20 +70,21 @@ export function GameReveal() {
         once: true,
         onEnter: (batch) =>
           gsap.from(batch, {
-            y: 46,
-            skewY: 2,
+            y: 22,
             opacity: 0,
-            clipPath: "inset(0 0 100% 0)",
-            filter: "brightness(2)",
-            duration: 0.65,
-            ease: "power3.out",
-            stagger: 0.08,
-            clearProps: "clipPath,filter,transform,opacity",
+            duration: 0.9,
+            ease: "expo.out",
+            stagger: 0.09,
+            clearProps: "transform,opacity",
           }),
       });
     });
     ScrollTrigger.refresh();
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      document.querySelectorAll("[data-timeline]").forEach((el) => el.setAttribute("data-timeline", ""));
+      document.querySelectorAll("[data-lit]").forEach((el) => el.removeAttribute("data-lit"));
+    };
   }, []);
 
   return null;

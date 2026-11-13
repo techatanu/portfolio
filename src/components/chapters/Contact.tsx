@@ -4,7 +4,7 @@ import { chapterById } from "@/lib/chapters";
 import { CopyEmail } from "@/components/ui/CopyEmail";
 import { ChapterShell } from "./ChapterShell";
 
-/** Figma "Transmission (Minimal Centred)": one centred panel with corner brackets. */
+/** One centred contact panel: heading, email with copy button, links and three facts. */
 export function Contact() {
   const domain = new URL(profile.domain).host;
   return (
@@ -14,19 +14,8 @@ export function Contact() {
           data-reveal="card"
           className="contact-panel relative w-full max-w-3xl px-5 py-12 text-center md:px-14 md:py-16"
         >
-          {(
-            [
-              "top-0 left-0 border-t border-l",
-              "top-0 right-0 border-t border-r",
-              "bottom-0 left-0 border-b border-l",
-              "bottom-0 right-0 border-b border-r",
-            ] as const
-          ).map((pos) => (
-            <span key={pos} aria-hidden="true" className={`absolute size-4 border-fg-muted ${pos}`} />
-          ))}
-
-          <p className="inline-flex items-center gap-3 rounded-arch border border-line px-3 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] text-accent-blue uppercase">
-            <span aria-hidden="true" className="size-1.5 bg-accent-blue" />
+          <p className="inline-flex items-center gap-3 rounded-arch border border-line px-3 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] text-accent-teal uppercase">
+            <span aria-hidden="true" className="size-1.5 bg-accent-teal" />
             {chapterById("contact").hud}
             <span className="hidden text-fg-muted sm:inline">{chapterById("contact").title}</span>
           </p>
@@ -68,7 +57,7 @@ export function Contact() {
                   key={link.label}
                   href={link.href}
                   className="btn-ghost"
-                  {...(isFile ? { download: "" } : { target: "_blank", rel: "noreferrer" })}
+                  {...(isFile ? { download: profile.resumeFileName } : { target: "_blank", rel: "noreferrer" })}
                 >
                   {link.label}
                   <Icon aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
@@ -83,7 +72,7 @@ export function Contact() {
                 key={s.label}
                 className={`p-4 md:p-5 ${i > 0 ? "border-t border-line md:border-t-0 md:border-l" : ""}`}
               >
-                <dt className="font-mono text-[0.625rem] tracking-[0.12em] text-fg-muted uppercase">[{s.label}]</dt>
+                <dt className="font-mono text-[0.625rem] tracking-[0.12em] text-fg-muted uppercase">{s.label}</dt>
                 <dd className="mt-2 font-display text-lg leading-tight tracking-[-0.01em] text-fg">{s.value}</dd>
                 <dd className="mt-1.5 text-sm text-fg-muted">{s.detail}</dd>
               </div>

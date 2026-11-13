@@ -32,7 +32,7 @@ const DOWNGRADE: Record<PerfTier, PerfTier> = { high: "medium", medium: "low", l
 
 /**
  * The one fixed, full-viewport WebGL layer behind all DOM content (spec §4.1).
- * Lazy-loaded by <Experience>. The code singularity (whole-page background) and the
+ * Lazy-loaded by <Experience>. The starfield (whole-page background) and the
  * hero portrait. Re-renders only when the perf tier changes.
  */
 export default function ExperienceCanvas() {

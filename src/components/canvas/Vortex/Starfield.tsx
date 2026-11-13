@@ -6,11 +6,13 @@ import { mulberry32 } from "@/lib/random";
 import { vortexUniforms } from "./uniforms";
 
 const vertex = /* glsl */ `
+  uniform float uTime;
+  uniform float uMix;
   uniform vec3 uCenter;
   attribute float aSeed;
   varying float vAlpha;
   void main() {
-    // A shell of stars around the singularity, drifting slowly so the void feels alive.
+    // A shell of stars around a far-off centre, drifting slowly so the void feels alive.
     vec3 p = position;
     float a = 0.004 * uTime * (0.5 + aSeed);
     p.xz = mat2(cos(a), -sin(a), sin(a), cos(a)) * p.xz;
@@ -22,8 +24,6 @@ const vertex = /* glsl */ `
 `;
 
 const fragment = /* glsl */ `
-  uniform float uMix;
-  uniform vec3 uAmber;
   varying float vAlpha;
   void main() {
     float d = length(gl_PointCoord - 0.5);
@@ -34,7 +34,7 @@ const fragment = /* glsl */ `
   }
 `;
 
-/** Static-ish starfield behind the code singularity (spec: "separate static point layer"). */
+/** Slow-drifting starfield: the whole 3D background. */
 export function Starfield({ count }: { count: number }) {
   const geometry = useMemo(() => {
     const rand = mulberry32(0x57a2);

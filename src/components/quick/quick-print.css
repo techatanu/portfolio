@@ -1,0 +1,51 @@
+/* Print styles for /quick/ — paper-friendly, screen styles untouched. */
+@page {
+  size: A4;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  main {
+    text-shadow: none !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  main * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  .backdrop,
+  .cursor-ring,
+  .cursor-label,
+  .quick-no-print {
+    display: none !important;
+  }
+  .badge-dot {
+    background: #000 !important;
+  }
+  .quick-card,
+  .quick-entry {
+    break-inside: avoid;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.7em;
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0;
+    text-transform: none;
+    word-break: break-all;
+  }
+}

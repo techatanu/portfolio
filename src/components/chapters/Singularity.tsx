@@ -2,7 +2,7 @@ import { manifesto } from "@content/data";
 import { ChapterShell } from "./ChapterShell";
 
 /** What I'm looking for: the first card is the ask (highlighted), the rest back it up.
- *  Cards are translucent so the singularity glows through behind them. */
+ *  Cards are translucent so the stars and the ambient glow show through behind them. */
 export function Singularity() {
   return (
     <ChapterShell id="singularity" className="flex flex-col justify-center">
@@ -11,7 +11,7 @@ export function Singularity() {
           <div
             key={item.label}
             data-reveal="card"
-            className={`bg-bg/70 p-6 backdrop-blur-[3px] md:p-10 ${i === 0 ? "accent-blue" : "accent-muted"}`}
+            className={`bg-bg/70 p-6 backdrop-blur-[3px] md:p-10 ${i === 0 ? "accent-teal" : "accent-muted"}`}
           >
             <p className="flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
               <span aria-hidden="true" className="accent-dot" />

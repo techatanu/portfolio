@@ -31,12 +31,22 @@ export function ChapterShell({ id, children, className = "", innerClassName = ""
       <div className={`shell ${innerClassName}`}>
         {heading && (
           <header data-reveal="title" className="mb-12 md:mb-16">
-            <p className="kicker">{chapter.hud}</p>
+            {/* Section number, then a hairline that runs to the right edge: reads like a chapter rule in print. */}
+            <div className="flex items-center gap-5">
+              <p data-kicker className="kicker shrink-0">
+                {chapter.hud}
+              </p>
+              <span data-rule aria-hidden="true" className="h-px flex-1 origin-left bg-line" />
+            </div>
             <h2
               id={headingId}
-              className="mt-4 font-display text-display leading-[0.95] font-semibold tracking-[-0.03em]"
+              className="mt-5 font-display text-display leading-[0.95] font-semibold tracking-[-0.03em]"
             >
-              {chapter.title}
+              <span className="line-mask">
+                <span data-rise className="block">
+                  {chapter.title}
+                </span>
+              </span>
             </h2>
           </header>
         )}

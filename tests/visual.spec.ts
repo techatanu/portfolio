@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { contact, profile } from "../content/data";
+import { contact, profile, projects, quickView } from "../content/data";
 
 const widths = [375, 768, 1440];
 
@@ -60,13 +60,13 @@ test("portrait dissolves into particles on scroll", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("journey: level HUD, skills deck, warp and code singularity", async ({ page }) => {
+test("journey: skills deck and starfield through every chapter", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await expect(page.locator('#hero-portrait-reveal[data-portrait="particles"]')).toBeAttached({ timeout: 15_000 });
-  await page.waitForTimeout(3000); // singularity fade-in + portrait assembly
+  await page.waitForTimeout(3000); // starfield fade-in + portrait assembly
 
   // [element id, extra px scrolled past its top, screenshot name]
   const stops: [string, number, string][] = [
@@ -84,10 +84,38 @@ test("journey: level HUD, skills deck, warp and code singularity", async ({ page
         window.scrollTo(0, (document.getElementById(target as string)?.offsetTop ?? 0) + (dy as number)),
       [id, offset],
     );
-    await page.waitForTimeout(600); // catch the "LEVEL UNLOCKED" banner and the warp streaks
-    await page.screenshot({ path: `test-results/screens/${name}-warp.png` });
+    await page.waitForTimeout(600); // mid-scroll
+    await page.screenshot({ path: `test-results/screens/${name}-moving.png` });
     await page.waitForTimeout(2200); // settled
     await page.screenshot({ path: `test-results/screens/${name}.png` });
   }
   expect(errors).toEqual([]);
+});
+
+// Architecture v2 (docs/ARCHITECTURE.md): plain recruiter pages, no WebGL.
+for (const width of widths) {
+  test(`quick view: identity, projects and contact @ ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: width < 768 ? 812 : 900 });
+    await page.goto("/quick/");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(profile.name);
+    await expect(page.locator(`a[href="mailto:${profile.email}"]`).first()).toBeInViewport();
+    for (const slug of quickView.topProjects) {
+      await expect(page.locator(`a[href="/projects/${slug}/"]`).first()).toBeAttached();
+    }
+    await expect(page.locator("canvas")).toHaveCount(0);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
+    await page.screenshot({ path: `test-results/screens/quick-${width}.png`, fullPage: true });
+  });
+}
+
+test("every project has a case study page", async ({ page }) => {
+  for (const project of projects) {
+    await page.goto(`/projects/${project.slug}/`);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(project.title);
+    await expect(page.locator(`a[href="${project.repo}"]`).first()).toBeAttached();
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(`/projects/${projects[0].slug}/`);
+  await page.screenshot({ path: "test-results/screens/case-study-1440.png", fullPage: true });
 });

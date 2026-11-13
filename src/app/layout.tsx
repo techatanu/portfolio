@@ -1,35 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { hero, nav, profile } from "@content/data";
-import { Experience } from "@/components/canvas/Experience";
-import { PerfProvider } from "@/components/providers/PerfProvider";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { Backdrop } from "@/components/ui/Backdrop";
+import { nav, profile, seo, skills } from "@content/data";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Cursor } from "@/components/ui/Cursor";
-import { GameReveal } from "@/components/ui/GameReveal";
-import { LevelBanner } from "@/components/ui/LevelBanner";
-import { Nav } from "@/components/ui/Nav";
-import { ProgressRail } from "@/components/ui/ProgressRail";
-import "lenis/dist/lenis.css";
 import "./globals.css";
 
-// Self-hosted (spec §2.3): Fontshare (Clash Display, Satoshi) + JetBrains Mono latin subset.
-const clash = localFont({
-  src: [
-    { path: "./fonts/ClashDisplay-500.woff2", weight: "500" },
-    { path: "./fonts/ClashDisplay-600.woff2", weight: "600" },
-  ],
-  variable: "--font-clash",
-  display: "swap",
-});
-
-const satoshi = localFont({
-  src: [
-    { path: "./fonts/Satoshi-400.woff2", weight: "400" },
-    { path: "./fonts/Satoshi-500.woff2", weight: "500" },
-    { path: "./fonts/Satoshi-700.woff2", weight: "700" },
-  ],
-  variable: "--font-satoshi",
+// Self-hosted: Inter (variable, latin subset, from Google Fonts, OFL) for all text — Atanu's pick,
+// Nov 2026 — and JetBrains Mono (latin subset) for small code-like labels.
+const inter = localFont({
+  src: "./fonts/Inter-latin.woff2",
+  weight: "100 900",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -40,35 +21,43 @@ const jetbrains = localFont({
   display: "swap",
 });
 
-// Full SEO (OG image, JSON-LD, sitemap) lands in Phase 6.
+const mlGroup = skills.find((g) => g.group === "Machine Learning & AI")?.items ?? [];
+
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
-  title: `${profile.name} — AI/ML Engineer & Full-Stack Developer`,
-  description: `${profile.name} — ${profile.role}. ${hero.summary} Open to ${profile.openTo.toLowerCase()}.`,
+  title: { default: seo.title, template: "%s" },
+  description: seo.description,
   alternates: { canonical: "/" },
+  authors: [{ name: profile.name, url: profile.domain }],
+  creator: profile.name,
+  keywords: [profile.name, "AI/ML Engineer", "Full-Stack Developer", "AI internship", ...mlGroup],
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: profile.name,
+    title: seo.title,
+    description: seo.description,
+    locale: "en_IN",
+    images: [seo.ogImage],
+  },
+  twitter: { card: "summary_large_image", title: seo.title, description: seo.description, images: [seo.ogImage] },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050506",
+  themeColor: "#0a192f",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${clash.variable} ${satoshi.variable} ${jetbrains.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable} antialiased`}>
       <body>
+        <JsonLd />
         <a href="#main" className="skip-link">
           {nav.skipLink}
         </a>
-        <Backdrop />
-        <SmoothScroll />
-        <PerfProvider />
-        <Experience />
-        <Nav />
-        <ProgressRail />
-        <main id="main">{children}</main>
-        <LevelBanner />
-        <GameReveal />
+        {/* Each route group renders its own <main id="main">: (journey) for /, (pages) for the rest. */}
+        {children}
         <Cursor />
       </body>
     </html>

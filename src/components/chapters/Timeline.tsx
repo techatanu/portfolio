@@ -4,7 +4,7 @@ import { ChapterShell } from "./ChapterShell";
 
 const KIND_ACCENT: Record<TimelineItem["kind"], Accent> = {
   education: "glow",
-  experience: "blue",
+  experience: "teal",
   event: "amber",
   certification: "muted",
 };
@@ -27,7 +27,9 @@ export function Timeline() {
           ))}
         </ul>
 
-        <ol className="relative border-l border-line md:col-span-8 md:col-start-5">
+        <ol data-timeline="" className="relative border-l border-line md:col-span-8 md:col-start-5">
+          {/* Bright line drawn over the grey one as you scroll (GameReveal `data-timeline`). */}
+          <li aria-hidden="true" data-timeline-fill className="timeline-fill" />
           {timeline.map((item) => {
             const date = copy(item.date);
             const org = copy(item.org);
@@ -35,8 +37,8 @@ export function Timeline() {
             return (
               <li
                 key={`${item.title}-${item.date}`}
-                data-reveal="card"
-                className={`accent-${KIND_ACCENT[item.kind]} relative pb-12 pl-8 last:pb-0 md:pl-12`}
+                data-timeline-item
+                className={`accent-${KIND_ACCENT[item.kind]} timeline-item relative pb-12 pl-8 last:pb-0 md:pl-12`}
               >
                 <span aria-hidden="true" className="timeline-node" />
                 <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">

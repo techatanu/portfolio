@@ -1,70 +1,21 @@
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { labels, projects, type Project } from "@content/data";
 import { copy, copyList, todoAttr } from "@/lib/content";
+import { ProjectCover } from "@/components/project/ProjectCover";
+import { Bullets, ProjectLinks, Stack } from "@/components/project/parts";
 import { ChapterShell } from "./ChapterShell";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function Bullets({
-  items,
-  className = "",
-  highlight = false,
-}: {
-  items: string[];
-  className?: string;
-  /** Results: brighter text and an accent marker so outcomes stand out from method. */
-  highlight?: boolean;
-}) {
-  const shown = copyList(items);
-  if (!shown.length) return null;
+/** Link to the project's case-study page (trailingSlash export). */
+function CaseStudyLink({ project }: { project: Project }) {
   return (
-    <ul className={`space-y-2 ${className}`}>
-      {shown.map((item) => (
-        <li key={item} className={`flex gap-3 ${highlight ? "text-fg" : "text-fg-body"}`} {...todoAttr(item)}>
-          <span
-            aria-hidden="true"
-            className={`mt-[0.7em] h-px w-3 shrink-0 ${highlight ? "bg-accent-blue" : "bg-fg-muted"}`}
-          />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Links({ project }: { project: Project }) {
-  const note = copy(project.demoNote);
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <a href={project.repo} className="btn-ghost" target="_blank" rel="noreferrer">
-        {labels.repo}
-        <ArrowUpRight aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
-        <span className="sr-only">— {project.title}</span>
-      </a>
-      {project.live ? (
-        <a href={project.live} className="btn-accent" target="_blank" rel="noreferrer">
-          {labels.live}
-          <ArrowUpRight aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
-          <span className="sr-only">— {project.title}</span>
-        </a>
-      ) : note ? (
-        <span className="font-mono text-[0.6875rem] tracking-[0.06em] text-fg-muted" {...todoAttr(note)}>
-          {note}
-        </span>
-      ) : null}
-    </div>
-  );
-}
-
-function Stack({ items }: { items: string[] }) {
-  return (
-    <ul aria-label={labels.stack} className="flex flex-wrap gap-2">
-      {items.map((s) => (
-        <li key={s} className="chip">
-          {s}
-        </li>
-      ))}
-    </ul>
+    <Link href={`/projects/${project.slug}/`} className="link-underline inline-flex items-center gap-2 text-fg">
+      {labels.caseStudy}
+      <ArrowRight aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
+      <span className="sr-only">— {project.title}</span>
+    </Link>
   );
 }
 
@@ -77,19 +28,15 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
   const problem = copy(project.problem);
   const role = copy(project.role);
   return (
-    <article
-      aria-labelledby={`${project.slug}-title`}
-      data-cursor="view"
-      data-reveal="card"
-      className="exhibit p-6 md:p-10 lg:p-12"
-    >
+    <article aria-labelledby={`${project.slug}-title`} data-cursor="view" className="exhibit p-6 md:p-10 lg:p-12">
+      <ProjectCover project={project} banner className="mb-8" />
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
         <span className="text-accent-amber">{labels.featured}</span>
         <span>
           {pad(index + 1)} / {pad(total)}
         </span>
       </div>
-      <p className="mt-8 font-mono text-xs tracking-[0.08em] text-accent-blue uppercase">{project.tags}</p>
+      <p className="mt-8 font-mono text-xs tracking-[0.08em] text-accent-teal uppercase">{project.tags}</p>
       <h3
         id={`${project.slug}-title`}
         className="mt-3 font-display text-4xl font-semibold tracking-[-0.03em] md:text-6xl"
@@ -135,56 +82,84 @@ function FeaturedExhibit({ project, index, total }: { project: Project; index: n
         </div>
       </div>
 
-      <div className="mt-10 border-t border-line pt-6">
-        <Links project={project} />
+      <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
+        <ProjectLinks project={project} />
+        <CaseStudyLink project={project} />
       </div>
     </article>
   );
 }
 
-function Exhibit({ project, index, total }: { project: Project; index: number; total: number }) {
+function Exhibit({
+  project,
+  index,
+  total,
+  className = "",
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  className?: string;
+}) {
+  const headline = copy(project.headline);
   return (
     <article
       aria-labelledby={`${project.slug}-title`}
       data-cursor="view"
-      data-reveal="card"
-      className="exhibit flex flex-col p-6 md:p-8"
+      className={`exhibit flex flex-col p-6 md:p-8 ${className}`}
     >
+      <ProjectCover project={project} className="mb-6" />
       <div className="flex items-center justify-between font-mono text-[0.6875rem] tracking-[0.12em] text-fg-muted uppercase">
-        <span className="text-accent-blue">{project.tags}</span>
+        <span className="text-accent-teal">{project.tags}</span>
         <span aria-hidden="true">
           {pad(index + 1)} / {pad(total)}
         </span>
       </div>
-      <h3
-        id={`${project.slug}-title`}
-        className="mt-6 font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl"
-      >
+      <h3 id={`${project.slug}-title`} className="mt-5 font-display text-2xl font-semibold tracking-[-0.02em]">
         {project.title}
       </h3>
-      <p className="mt-3 text-fg">{project.oneLiner}</p>
-      <Bullets items={project.approach.slice(0, 3)} className="mt-5 text-sm" />
+      <p className="mt-3 text-fg-body">{project.oneLiner}</p>
+      {/* The one number worth remembering; method and details live on the case-study page. */}
+      {headline && (
+        <p className="mt-5 border-l-2 border-accent-teal pl-3 text-fg" {...todoAttr(headline)}>
+          {headline}
+        </p>
+      )}
       <div className="mt-6">
         <Stack items={project.stack} />
       </div>
-      <div className="mt-auto pt-8">
-        <Links project={project} />
+      <div className="mt-auto space-y-4 pt-8">
+        <ProjectLinks project={project} />
+        <CaseStudyLink project={project} />
       </div>
     </article>
   );
 }
 
+/**
+ * Grid spans for the cards under the featured one, so no row is left with a hole:
+ * rows of three, and a leftover pair or single is widened to fill its row.
+ * (md is two columns, xl is six tracks: a third = 2 tracks, a half = 3, full = 6.)
+ */
+function span(i: number, count: number) {
+  const tail = count % 3;
+  const inTail = i >= count - tail;
+  const xl = inTail ? (tail === 2 ? "xl:col-span-3" : "xl:col-span-6") : "xl:col-span-2";
+  const md = count % 2 === 1 && i === count - 1 ? "md:col-span-2" : "";
+  return `${md} ${xl}`;
+}
+
+/** Only the repos pinned on GitHub (see `pinnedRepos` in data.ts): the featured one, then the rest. */
 export function Artifacts() {
   const ordered = [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)];
   const [featured, ...rest] = ordered;
   return (
     <ChapterShell id="artifacts">
-      {/* Phase 5 turns this into the pinned horizontal gallery; the list stays as the no-JS layout. */}
       <div className="space-y-6">
         {featured && <FeaturedExhibit project={featured} index={0} total={ordered.length} />}
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
           {rest.map((p, i) => (
-            <Exhibit key={p.slug} project={p} index={i + 1} total={ordered.length} />
+            <Exhibit key={p.slug} project={p} index={i + 1} total={ordered.length} className={span(i, rest.length)} />
           ))}
         </div>
       </div>
